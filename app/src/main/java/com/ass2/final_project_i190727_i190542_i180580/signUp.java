@@ -15,11 +15,15 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class signUp extends AppCompatActivity {
     ImageView existingAccount, signup;
     EditText email, number, password;
     FirebaseAuth mAuth;
+    DatabaseReference mDatabase;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +34,7 @@ public class signUp extends AppCompatActivity {
         number=findViewById(R.id.signup_number);
         password=findViewById(R.id.signup_password);
         mAuth= FirebaseAuth.getInstance();
+        mDatabase= FirebaseDatabase.getInstance().getReference();
 
         existingAccount.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,7 +94,7 @@ public class signUp extends AppCompatActivity {
 
                 if(valid)
                 {
-                    ContactInformation contact=new ContactInformation(email.getText().toString(), number.getText().toString());
+
 
                     mAuth.createUserWithEmailAndPassword(
                                 email.getText().toString(),
@@ -99,7 +104,12 @@ public class signUp extends AppCompatActivity {
                                 @Override
                                 public void onSuccess(AuthResult authResult) {
                                     FirebaseUser user = mAuth.getCurrentUser();
-                                    Toast.makeText(signUp.this, "Successful Sign Up "+user.toString(), Toast.LENGTH_SHORT).show();
+                                    String userID = user.getUid().toString();
+                                    ContactInformation contact=new ContactInformation(email.getText().toString(), number.getText().toString());
+                                    mDatabase.child("users").child(userID).child("contact_information").setValue(contact);
+
+                                    Toast.makeText(signUp.this, "Successful Sign Up "+userID, Toast.LENGTH_SHORT).show();
+
                                     Intent i = new Intent(signUp.this, profileSetUp.class); //For Testing only
                                     startActivity(i);
                                     finish();
