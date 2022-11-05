@@ -25,8 +25,8 @@ public class MainActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-//                    Intent i = new Intent(MainActivity.this, Screen4.class);
-                Intent i = new Intent(MainActivity.this, loginScreen.class); //For Testing only
+                Intent i = new Intent(MainActivity.this, loginScreen.class);
+//                Intent i = new Intent(MainActivity.this, profileSetUp.class);
                 startActivity(i);
                 finish();
             }

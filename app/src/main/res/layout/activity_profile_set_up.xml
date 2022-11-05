@@ -103,32 +103,32 @@
         android:layout_height="0dp"
         android:layout_weight="0.025"/>
 
-    <RadioGroup
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.05"
-        android:orientation="horizontal"
-        android:weightSum="1"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp">
-        <RadioButton
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.65"
-            android:text="CNIC (For Individual)"
-            android:fontFamily="serif"
-            android:textColor="@color/themeText"
-            android:id="@+id/radio_NIC"/>
+<!--    <RadioGroup-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="0dp"-->
+<!--        android:layout_weight="0.05"-->
+<!--        android:orientation="horizontal"-->
+<!--        android:weightSum="1"-->
+<!--        android:layout_marginLeft="20dp"-->
+<!--        android:layout_marginRight="20dp">-->
+<!--        <RadioButton-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:layout_weight="0.65"-->
+<!--            android:text="CNIC (For Individual)"-->
+<!--            android:fontFamily="serif"-->
+<!--            android:textColor="@color/themeText"-->
+<!--            android:id="@+id/radio_NIC"/>-->
 
-        <RadioButton
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.35"
-            android:text="NTN"
-            android:fontFamily="serif"
-            android:textColor="@color/themeText"
-            android:id="@+id/radio_NTN"/>
-    </RadioGroup>
+<!--        <RadioButton-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:layout_weight="0.35"-->
+<!--            android:text="NTN"-->
+<!--            android:fontFamily="serif"-->
+<!--            android:textColor="@color/themeText"-->
+<!--            android:id="@+id/radio_NTN"/>-->
+<!--    </RadioGroup>-->
 
     <EditText
         android:layout_width="match_parent"
@@ -136,10 +136,10 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:background="@drawable/curved_rectangle_1_text"
-        android:hint="NTN/CNIC Number"
+        android:hint="Identity Number (NTN/CNIC)"
         android:fontFamily="serif"
         android:textColor="@color/themeText"
-        android:id="@+id/profileSetUpNTN"
+        android:id="@+id/profileSetUpIdentityNumber"
         android:textColorHint="@color/themeText"
         android:paddingLeft="15dp"
         android:inputType="number"
