@@ -79,6 +79,9 @@ public class addProfilePicture extends AppCompatActivity {
                                     mDatabase.child("users").child(userID).child("profile_picture").setValue(uri.toString());
 
                                     Toast.makeText(addProfilePicture.this, "Profile Picture Uploaded", Toast.LENGTH_SHORT).show();
+                                    Intent i = new Intent(addProfilePicture.this, Hall_Individual_Home.class); //For Testing only
+                                    startActivity(i);
+                                    finish();
                                 }
                             });
                         }

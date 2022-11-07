@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.widget.ImageView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
 //    private FirebaseAuth mAuth;
@@ -20,17 +21,16 @@ public class MainActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 //        mAuth.signOut();  //For Testing only
 
-//        FirebaseUser user = mAuth.getCurrentUser();
-//        if(user != null) {
-//            Intent i = new Intent(MainActivity.this, T_Screen1.class);
-//            startActivity(i);
-//            finish();
-//        } else {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent i = new Intent(MainActivity.this, loginScreen.class);
-//                Intent i = new Intent(MainActivity.this, profileSetUp.class);
+                FirebaseUser user = mAuth.getCurrentUser();
+                Intent i;
+                if (user != null) {
+                    i = new Intent(MainActivity.this, Hall_Individual_Home.class);
+                } else {
+                    i = new Intent(MainActivity.this, loginScreen.class);
+                }
                 startActivity(i);
                 finish();
             }

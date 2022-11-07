@@ -44,6 +44,9 @@ public class loginScreen extends AppCompatActivity {
 //                        startActivity(i);
 //                        finish();
                         Toast.makeText(loginScreen.this, "Sign In", Toast.LENGTH_SHORT).show();
+                        Intent i = new Intent(loginScreen.this, Hall_Individual_Home.class); //For Testing only
+                        startActivity(i);
+                        finish();
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override

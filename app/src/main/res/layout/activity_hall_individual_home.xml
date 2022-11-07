@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/themeBackground"
+    tools:context=".Hall_Individual_Home">
+
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:weightSum="1">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.05">
+            </View>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.075">
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/menu"
+                    android:layout_gravity="left"
+                    android:layout_marginLeft="10dp"
+                    android:id="@+id/Hall_Menu"/>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:src="@drawable/logo" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.05"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.6"
+                android:orientation="vertical"
+                android:weightSum="1.2">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.5"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:id="@+id/Hall_DonateFood"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/curved_square" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="Donate\nFood"
+                        android:gravity="center"
+                        android:fontFamily="serif"
+                        android:textStyle="bold"
+                        android:textSize="35dp"
+                        android:textColor="@color/themeText"/>
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.2"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.5"
+                    android:gravity="center">
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/curved_square"
+                        android:id="@+id/Hall_DonateMoney"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="Donate\nMoney"
+                        android:gravity="center"
+                        android:fontFamily="serif"
+                        android:textStyle="bold"
+                        android:textSize="35dp"
+                        android:textColor="@color/themeText"/>
+                </RelativeLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/themeButton1"
+            android:layout_gravity="start"
+            android:orientation="vertical"
+            android:weightSum="1">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.025"/>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.2"
+                android:src="@drawable/emptyprofile"
+                android:layout_gravity="center"
+                android:id="@+id/Hall_ProfilePic"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.05"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.085"
+                android:text="Profile"
+                android:textSize="25dp"
+                android:textColor="@color/themeText"
+                android:gravity="center"
+                android:fontFamily="serif"
+                android:textStyle="bold"
+                android:id="@+id/Hall_Profile"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.085"
+                android:text="Settings"
+                android:textSize="25dp"
+                android:textColor="@color/themeText"
+                android:gravity="center"
+                android:fontFamily="serif"
+                android:textStyle="bold"
+                android:id="@+id/Hall_Settings"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.085"
+                android:text="About\n'Project Zero Hunger'"
+                android:textSize="20dp"
+                android:textColor="@color/themeText"
+                android:gravity="center"
+                android:fontFamily="serif"
+                android:textStyle="bold"
+                android:id="@+id/Hall_About_Zero"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.085"
+                android:text="Our Team"
+                android:textSize="25dp"
+                android:textColor="@color/themeText"
+                android:gravity="center"
+                android:fontFamily="serif"
+                android:textStyle="bold"
+                android:id="@+id/Hall_OurTeam"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.085"
+                android:text="Tutorial"
+                android:textSize="25dp"
+                android:textColor="@color/themeText"
+                android:gravity="center"
+                android:fontFamily="serif"
+                android:textStyle="bold"
+                android:id="@+id/Hall_Tutorial"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.05"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.085"
+                android:text="Sign Out"
+                android:textSize="25dp"
+                android:textColor="@color/themeText"
+                android:gravity="center"
+                android:fontFamily="serif"
+                android:textStyle="bold"
+                android:id="@+id/Hall_SignOut"/>
+<!--            Drawer-->
+
+        </LinearLayout>
+
+    </androidx.drawerlayout.widget.DrawerLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
