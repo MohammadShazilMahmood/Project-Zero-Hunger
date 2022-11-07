@@ -33,7 +33,7 @@
                     android:src="@drawable/menu"
                     android:layout_gravity="left"
                     android:layout_marginLeft="10dp"
-                    android:id="@+id/Hall_Menu"/>
+                    android:id="@+id/Menu"/>
 
                 <ImageView
                     android:layout_width="match_parent"
@@ -50,6 +50,37 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
+                android:layout_weight="0.15"
+                android:weightSum="2"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1.0"
+                    android:text="Welcome"
+                    android:fontFamily="serif"
+                    android:textStyle="bold"
+                    android:textColor="@color/themeText"
+                    android:gravity="center"
+                    android:textSize="20dp"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1.0"
+                    android:fontFamily="serif"
+                    android:textStyle="bold"
+                    android:textColor="@color/themeText"
+                    android:gravity="center"
+                    android:textSize="18dp"
+                    android:id="@+id/username"/>
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.025"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
                 android:layout_weight="0.6"
                 android:orientation="vertical"
                 android:weightSum="1.2">
@@ -61,25 +92,26 @@
                     android:gravity="center">
 
                     <ImageView
-                        android:id="@+id/Hall_DonateFood"
+                        android:id="@+id/DonateFood"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:src="@drawable/curved_square" />
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="Donate\nFood"
-                        android:gravity="center"
                         android:fontFamily="serif"
-                        android:textStyle="bold"
+                        android:gravity="center"
+                        android:text="Donate\nFood"
+                        android:textColor="@color/themeText"
                         android:textSize="35dp"
-                        android:textColor="@color/themeText"/>
+                        android:textStyle="bold" />
                 </RelativeLayout>
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="0.2"/>
+                    android:layout_weight="0.1"/>
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -90,7 +122,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:src="@drawable/curved_square"
-                        android:id="@+id/Hall_DonateMoney"/>
+                        android:id="@+id/DonateMoney"/>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -124,7 +156,7 @@
                 android:layout_weight="0.2"
                 android:src="@drawable/emptyprofile"
                 android:layout_gravity="center"
-                android:id="@+id/Hall_ProfilePic"/>
+                android:id="@+id/ProfilePic"/>
 
             <View
                 android:layout_width="match_parent"
@@ -141,7 +173,7 @@
                 android:gravity="center"
                 android:fontFamily="serif"
                 android:textStyle="bold"
-                android:id="@+id/Hall_Profile"/>
+                android:id="@+id/Profile"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -153,7 +185,18 @@
                 android:gravity="center"
                 android:fontFamily="serif"
                 android:textStyle="bold"
-                android:id="@+id/Hall_Settings"/>
+                android:id="@+id/Settings"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.085"
+                android:text="Donation History"
+                android:textSize="25dp"
+                android:textColor="@color/themeText"
+                android:gravity="center"
+                android:fontFamily="serif"
+                android:textStyle="bold"
+                android:id="@+id/DonationHistory"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -165,7 +208,7 @@
                 android:gravity="center"
                 android:fontFamily="serif"
                 android:textStyle="bold"
-                android:id="@+id/Hall_About_Zero"/>
+                android:id="@+id/About_PZH"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -177,7 +220,7 @@
                 android:gravity="center"
                 android:fontFamily="serif"
                 android:textStyle="bold"
-                android:id="@+id/Hall_OurTeam"/>
+                android:id="@+id/OurTeam"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -189,7 +232,7 @@
                 android:gravity="center"
                 android:fontFamily="serif"
                 android:textStyle="bold"
-                android:id="@+id/Hall_Tutorial"/>
+                android:id="@+id/Tutorial"/>
 
             <View
                 android:layout_width="match_parent"
@@ -206,7 +249,7 @@
                 android:gravity="center"
                 android:fontFamily="serif"
                 android:textStyle="bold"
-                android:id="@+id/Hall_SignOut"/>
+                android:id="@+id/SignOut"/>
 <!--            Drawer-->
 
         </LinearLayout>
