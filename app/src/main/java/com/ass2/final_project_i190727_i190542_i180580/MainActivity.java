@@ -7,15 +7,18 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.widget.ImageView;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 public class MainActivity extends AppCompatActivity {
 //    private FirebaseAuth mAuth;
-
+    FirebaseAuth mAuth;
     ImageView logo;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//        mAuth = FirebaseAuth.getInstance();
+        mAuth = FirebaseAuth.getInstance();
+        mAuth.signOut();
 //        FirebaseUser user = mAuth.getCurrentUser();
 //        if(user != null) {
 //            Intent i = new Intent(MainActivity.this, T_Screen1.class);
