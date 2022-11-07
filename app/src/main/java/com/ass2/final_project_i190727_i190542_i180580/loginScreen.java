@@ -34,26 +34,56 @@ public class loginScreen extends AppCompatActivity {
         signin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mAuth.signInWithEmailAndPassword(
-                        email.getText().toString(),
-                        password.getText().toString()
-                ).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-                    @Override
-                    public void onSuccess(AuthResult authResult) {
+
+                boolean valid=true;
+                String error_msg="";
+                if(email.getText().toString().matches(""))
+                {
+                    error_msg=error_msg+"Empty Email";
+                    valid=false;
+                }
+
+                if(password.getText().toString().matches(""))
+                {
+                    if(error_msg.matches(""))
+                    {
+                        error_msg=error_msg+"Empty Password";
+                    }
+                    else
+                    {
+                        error_msg=error_msg+"\nEmpty Password";
+                    }
+
+                    valid=false;
+                }
+
+                if(valid==false){
+                    Toast.makeText(loginScreen.this, error_msg, Toast.LENGTH_SHORT).show();
+                }
+
+                if (valid)
+                {
+                    mAuth.signInWithEmailAndPassword(
+                            email.getText().toString(),
+                            password.getText().toString()
+                    ).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                        @Override
+                        public void onSuccess(AuthResult authResult) {
 //                        Intent i = new Intent(loginScreen.this, signUp.class); //For Testing only
 //                        startActivity(i);
 //                        finish();
-                        Toast.makeText(loginScreen.this, "Sign In", Toast.LENGTH_SHORT).show();
-                        Intent i = new Intent(loginScreen.this, Hall_Individual_Home.class); //For Testing only
-                        startActivity(i);
-                        finish();
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(loginScreen.this, "Sign In Failed", Toast.LENGTH_SHORT).show();
-                    }
-                });
+                            Toast.makeText(loginScreen.this, "Sign In", Toast.LENGTH_SHORT).show();
+                            Intent i = new Intent(loginScreen.this, Hall_Individual_Home.class); //For Testing only
+                            startActivity(i);
+                            finish();
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(loginScreen.this, "Sign In Failed", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
             }
         });
 
