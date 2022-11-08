@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".profileSetUp"
+    android:weightSum="1.0"
+    android:orientation="vertical"
+    android:background="@color/themeBackground">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.05">
+    </View>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.075">
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/back"
+            android:layout_gravity="left"
+            android:layout_marginLeft="10dp"
+            android:id="@+id/back"/>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:src="@drawable/logo" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.025"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.06"
+        android:text="Profile"
+        android:textColor="@color/themeText"
+        android:textSize="25dp"
+        android:fontFamily="serif"
+        android:layout_marginLeft="30dp"
+        android:textStyle="bold" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.025"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxLines="3"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:fontFamily="serif"
+        android:textColor="@color/themeText"
+        android:id="@+id/name"
+        android:text="Name: "
+        android:textSize="18dp"
+        android:layout_marginBottom="15dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="10dp"
+        android:fontFamily="serif"
+        android:textColor="@color/themeText"
+        android:id="@+id/profileType"
+        android:text="Profile Type: "
+        android:layout_weight="0.06"
+        android:textSize="18dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="10dp"
+        android:fontFamily="serif"
+        android:textColor="@color/themeText"
+        android:id="@+id/identity"
+        android:text="Identity No: "
+        android:layout_weight="0.06"
+        android:textSize="18dp"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.025"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.06"
+        android:text="Contact Information"
+        android:textColor="@color/themeText"
+        android:textSize="25dp"
+        android:fontFamily="serif"
+        android:layout_marginLeft="30dp"
+        android:textStyle="bold"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.025"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxLines="3"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:fontFamily="serif"
+        android:textColor="@color/themeText"
+        android:id="@+id/email"
+        android:text="Email: "
+        android:textSize="18dp"
+        android:layout_marginBottom="15dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="10dp"
+        android:fontFamily="serif"
+        android:textColor="@color/themeText"
+        android:id="@+id/contactNo"
+        android:text="Contact No: "
+        android:layout_weight="0.06"
+        android:textSize="18dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxLines="3"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:fontFamily="serif"
+        android:textColor="@color/themeText"
+        android:id="@+id/address"
+        android:text="Address: "
+        android:textSize="18dp"
+        android:layout_marginBottom="15dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="10dp"
+        android:fontFamily="serif"
+        android:textColor="@color/themeText"
+        android:id="@+id/city"
+        android:text="City: "
+        android:layout_weight="0.06"
+        android:textSize="18dp"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.05"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.1">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/circle_w"
+            android:layout_centerHorizontal="true"
+            android:layout_marginRight="25dp"
+            android:id="@+id/updateContactInfo"
+            android:layout_marginLeft="25dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fontFamily="serif"
+            android:gravity="center"
+            android:text="Update Contact Information"
+            android:textColor="@color/themeText"
+            android:textSize="18dp"
+            android:textStyle="bold"/>
+    </RelativeLayout>
+
+
+
+</LinearLayout>

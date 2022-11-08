@@ -22,8 +22,8 @@ import com.squareup.picasso.Picasso;
 
 public class Hall_Individual_Home extends AppCompatActivity {
     FirebaseAuth mAuth;
-    ImageView profilePicture;
     DatabaseReference mDatabase;
+    ImageView profilePicture;
     String profilePictureURL="";
     TextView name, profile, settings, donationHistory, aboutUs, ourTeam, tutorial, signOut;
     @Override
@@ -33,6 +33,11 @@ public class Hall_Individual_Home extends AppCompatActivity {
         profilePicture=findViewById(R.id.ProfilePic);
         name=findViewById(R.id.username);
         signOut=findViewById(R.id.SignOut);
+        profile=findViewById(R.id.Profile);
+        settings=findViewById(R.id.Settings);
+        donationHistory=findViewById(R.id.DonationHistory);
+        aboutUs=findViewById(R.id.OurTeam);
+        tutorial=findViewById(R.id.Tutorial);
 
         mAuth= FirebaseAuth.getInstance();
         mDatabase= FirebaseDatabase.getInstance().getReference();
@@ -77,6 +82,15 @@ public class Hall_Individual_Home extends AppCompatActivity {
             public void onClick(View view) {
                 mAuth.signOut();
                 Intent i = new Intent(Hall_Individual_Home.this, loginScreen.class); //For Testing only
+                startActivity(i);
+                finish();
+            }
+        });
+
+        profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(Hall_Individual_Home.this, viewProfile.class); //For Testing only
                 startActivity(i);
                 finish();
             }
