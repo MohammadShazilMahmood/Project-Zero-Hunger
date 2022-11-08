@@ -188,7 +188,7 @@
             android:text="Update Contact Information"
             android:textColor="@color/themeText"
             android:textSize="18dp"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
     </RelativeLayout>
 
 

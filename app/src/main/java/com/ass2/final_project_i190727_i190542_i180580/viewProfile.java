@@ -25,7 +25,7 @@ public class viewProfile extends AppCompatActivity {
     DatabaseReference mDatabase;
     String nameVal="", profileTypeVal="", identityNumberVal="", contactVal="", addressVal="", cityVal="", emailVal="";
     TextView name, profileType, indentityNumber, contact, address, city, email;
-    ImageView back;
+    ImageView back, updateContactInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +40,7 @@ public class viewProfile extends AppCompatActivity {
         city=findViewById(R.id.city);
         email=findViewById(R.id.email);
         back=findViewById(R.id.back);
+        updateContactInfo=findViewById(R.id.updateContactInfo);
 
         mAuth= FirebaseAuth.getInstance();
         mDatabase= FirebaseDatabase.getInstance().getReference();
@@ -51,6 +52,15 @@ public class viewProfile extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(viewProfile.this, Hall_Individual_Home.class); //For Testing only
+                startActivity(i);
+                finish();
+            }
+        });
+
+        updateContactInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(viewProfile.this, updateContactInformation.class); //For Testing only
                 startActivity(i);
                 finish();
             }
