@@ -18,7 +18,7 @@ public class updateContactInformation extends AppCompatActivity {
     EditText number, address, city;
     FirebaseAuth mAuth;
     DatabaseReference mDatabase;
-    ImageView update;
+    ImageView update, back;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,12 +28,22 @@ public class updateContactInformation extends AppCompatActivity {
         address=findViewById(R.id.address);
         city=findViewById(R.id.city);
         update=findViewById(R.id.update);
+        back=findViewById(R.id.back);
 
         mAuth= FirebaseAuth.getInstance();
         mDatabase= FirebaseDatabase.getInstance().getReference();
 
         FirebaseUser user = mAuth.getCurrentUser();
         String userID = user.getUid().toString();
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(updateContactInformation.this, viewProfile.class); //For Testing only
+                startActivity(i);
+                finish();
+            }
+        });
 
         update.setOnClickListener(new View.OnClickListener() {
             @Override

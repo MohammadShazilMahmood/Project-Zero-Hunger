@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".signUp"
+    tools:context=".updateContactInformation"
     android:weightSum="1.0"
     android:orientation="vertical"
     android:background="@color/themeBackground">
@@ -15,12 +15,24 @@
         android:layout_weight="0.05">
     </View>
 
-    <ImageView
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.1"
-        android:src="@drawable/logo"
-        android:layout_gravity="center"/>
+        android:layout_weight="0.075">
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/back"
+            android:layout_gravity="left"
+            android:layout_marginLeft="10dp"
+            android:id="@+id/back"/>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:src="@drawable/logo" />
+    </RelativeLayout>
 
     <View
         android:layout_width="match_parent"
@@ -33,7 +45,7 @@
         android:layout_weight="0.05"
         android:text="Update Contact Information"
         android:textColor="@color/themeText"
-        android:textSize="23dp"
+        android:textSize="20dp"
         android:fontFamily="serif"
         android:layout_marginLeft="30dp"
         android:textStyle="bold" />
