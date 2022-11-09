@@ -45,6 +45,14 @@ public class Hall_Individual_Home extends AppCompatActivity {
         FirebaseUser user = mAuth.getCurrentUser();
         String userID = user.getUid().toString();
 
+        profilePicture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(Hall_Individual_Home.this, viewProfilePicture.class); //For Testing only
+                startActivity(i);
+                finish();
+            }
+        });
 
         //Load Name
         mDatabase.child("users").child(userID).child("profile_information").child("name").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
