@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".addProfilePicture"
+    android:weightSum="1.0"
+    android:orientation="vertical"
+    android:background="@color/themeBackground">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.05">
+    </View>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.075">
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/back"
+            android:layout_gravity="left"
+            android:layout_marginLeft="10dp"
+            android:id="@+id/back"/>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:src="@drawable/logo" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.025"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.05"
+        android:text="About 'Project Zero Hunger'"
+        android:textColor="@color/themeText"
+        android:textSize="20dp"
+        android:fontFamily="serif"
+        android:layout_marginLeft="30dp"
+        android:textStyle="bold"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.025"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.67">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="serif"
+                android:textColor="@color/themeText"
+                android:textSize="18dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:text="About 155 million people around the world live at crisis levels of food insecurity.\n\nAccording to the United Nations, every day, almost 25000 casualities occur, including more than 10,000 children, due to hunger and related causes.\n\nAs per foodprint.org, in USA along, each year almost 10 to 15 MILLION TONS of food is wasted by restaurants and other food related industries.\n\nThe estimated cost of that food is around 162 BILLION USD.\n\nOur Team have initiated the 'Project Zero Hunger' in an attempt to reduce food wastage and help to overcome the food and hunger crises.\n\nThe stakeholders involved are restaurants, event hall, individual volunteers and NGOs.\n\nThe restaurants, event hall, individual volunteers can donate food and money to NGOs.\n\nLets unite together to defeat hunger crises.\n\nThank You\n\nTeam 'Project Zero Hunger'"/>
+        </LinearLayout>
+
+    </ScrollView>
+
+
+
+
+
+</LinearLayout>

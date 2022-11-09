@@ -36,7 +36,8 @@ public class Hall_Individual_Home extends AppCompatActivity {
         profile=findViewById(R.id.Profile);
         settings=findViewById(R.id.Settings);
         donationHistory=findViewById(R.id.DonationHistory);
-        aboutUs=findViewById(R.id.OurTeam);
+        aboutUs=findViewById(R.id.About_PZH);
+        ourTeam=findViewById(R.id.OurTeam);
         tutorial=findViewById(R.id.Tutorial);
 
         mAuth= FirebaseAuth.getInstance();
@@ -44,6 +45,16 @@ public class Hall_Individual_Home extends AppCompatActivity {
 
         FirebaseUser user = mAuth.getCurrentUser();
         String userID = user.getUid().toString();
+
+
+        aboutUs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(Hall_Individual_Home.this, aboutPZH.class); //For Testing only
+                startActivity(i);
+                finish();
+            }
+        });
 
         profilePicture.setOnClickListener(new View.OnClickListener() {
             @Override
