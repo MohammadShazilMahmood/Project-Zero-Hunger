@@ -20,10 +20,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class Hall_Individual_Home extends AppCompatActivity {
     FirebaseAuth mAuth;
     DatabaseReference mDatabase;
-    ImageView profilePicture;
+//    ImageView profilePicture;
+    CircleImageView profilePicture;
     String profilePictureURL="";
     TextView name, profile, settings, donationHistory, aboutUs, ourTeam, tutorial, signOut;
     @Override
@@ -60,6 +63,15 @@ public class Hall_Individual_Home extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(Hall_Individual_Home.this, viewProfilePicture.class); //For Testing only
+                startActivity(i);
+                finish();
+            }
+        });
+
+        ourTeam.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(Hall_Individual_Home.this, ourTeam.class); //For Testing only
                 startActivity(i);
                 finish();
             }

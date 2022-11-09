@@ -150,10 +150,19 @@
                 android:layout_height="0dp"
                 android:layout_weight="0.025"/>
 
-            <ImageView
+<!--            <ImageView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="0dp"-->
+<!--                android:layout_weight="0.2"-->
+<!--                android:src="@drawable/emptyprofile"-->
+<!--                android:layout_gravity="center"-->
+<!--                android:id="@+id/ProfilePic"/>-->
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="0.2"
+                android:layout_weight="0.25"
                 android:src="@drawable/emptyprofile"
                 android:layout_gravity="center"
                 android:id="@+id/ProfilePic"/>
@@ -161,7 +170,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="0.05"/>
+                android:layout_weight="0.025"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -237,7 +246,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="0.05"/>
+                android:layout_weight="0.025"/>
 
             <TextView
                 android:layout_width="match_parent"
