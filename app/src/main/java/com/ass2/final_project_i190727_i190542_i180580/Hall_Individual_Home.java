@@ -49,6 +49,14 @@ public class Hall_Individual_Home extends AppCompatActivity {
         FirebaseUser user = mAuth.getCurrentUser();
         String userID = user.getUid().toString();
 
+        settings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(Hall_Individual_Home.this, appSettings.class); //For Testing only
+                startActivity(i);
+                finish();
+            }
+        });
 
         aboutUs.setOnClickListener(new View.OnClickListener() {
             @Override
