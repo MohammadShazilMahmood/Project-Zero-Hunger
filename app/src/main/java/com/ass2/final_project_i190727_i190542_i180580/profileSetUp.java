@@ -220,6 +220,7 @@ public class profileSetUp extends AppCompatActivity {
                     FirebaseUser user = mAuth.getCurrentUser();
                     String userID = user.getUid().toString();
                     mDatabase.child("users").child(userID).child("profile_information").setValue(profile);
+                    mDatabase.child("users").child(userID).child("app_settings").child("notifications").setValue("True");
 
                     Toast.makeText(profileSetUp.this, "Profile Info Added", Toast.LENGTH_SHORT).show();
 
