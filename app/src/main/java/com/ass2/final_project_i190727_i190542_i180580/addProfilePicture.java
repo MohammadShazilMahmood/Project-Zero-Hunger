@@ -12,11 +12,13 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -29,6 +31,7 @@ public class addProfilePicture extends AppCompatActivity {
     FirebaseAuth mAuth;
     DatabaseReference mDatabase;
     boolean imageSelected=false;
+    String profileType;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,8 +39,26 @@ public class addProfilePicture extends AppCompatActivity {
         selectPicture=findViewById(R.id.select_profile_pic);
         profilePicture=findViewById(R.id.profilePicture);
         next=findViewById(R.id.continue_profile_pic);
+
         mAuth= FirebaseAuth.getInstance();
         mDatabase= FirebaseDatabase.getInstance().getReference();
+
+        FirebaseUser user = mAuth.getCurrentUser();
+        String userID = user.getUid().toString();
+
+        //Load Profile Type
+        mDatabase.child("users").child(userID).child("profile_information").child("profileType").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (!task.isSuccessful()) {
+                    Log.e("firebase", "Error getting data", task.getException());
+                }
+                else
+                {
+                    profileType=""+String.valueOf(task.getResult().getValue());
+                }
+            }
+        });
 
         selectPicture.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -62,9 +83,6 @@ public class addProfilePicture extends AppCompatActivity {
 
                 if (valid)
                 {
-                    FirebaseUser user = mAuth.getCurrentUser();
-                    String userID = user.getUid().toString();
-
                     FirebaseStorage storage= FirebaseStorage.getInstance();
                     StorageReference ref=storage.getReference().child("profile_pictures/"+userID+"/dp.jpg");
                     ref.putFile(image).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -79,9 +97,18 @@ public class addProfilePicture extends AppCompatActivity {
                                     mDatabase.child("users").child(userID).child("profile_picture").setValue(uri.toString());
 
                                     Toast.makeText(addProfilePicture.this, "Profile Picture Uploaded", Toast.LENGTH_SHORT).show();
-                                    Intent i = new Intent(addProfilePicture.this, Hall_Individual_Home.class); //For Testing only
-                                    startActivity(i);
-                                    finish();
+                                    if (profileType.matches("NGO"))
+                                    {
+                                        Intent i = new Intent(addProfilePicture.this, NGO_Home.class); //For Testing only
+                                        startActivity(i);
+                                        finish();
+                                    }
+                                    else
+                                    {
+                                        Intent i = new Intent(addProfilePicture.this, Hall_Individual_Home.class); //For Testing only
+                                        startActivity(i);
+                                        finish();
+                                    }
                                 }
                             });
                         }

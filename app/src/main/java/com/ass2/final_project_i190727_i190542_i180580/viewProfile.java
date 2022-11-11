@@ -26,6 +26,7 @@ public class viewProfile extends AppCompatActivity {
     String nameVal="", profileTypeVal="", identityNumberVal="", contactVal="", addressVal="", cityVal="", emailVal="";
     TextView name, profileType, indentityNumber, contact, address, city, email;
     ImageView back, updateContactInfo;
+    String profileTypeBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,12 +49,34 @@ public class viewProfile extends AppCompatActivity {
         FirebaseUser user = mAuth.getCurrentUser();
         String userID = user.getUid().toString();
 
+        mDatabase.child("users").child(userID).child("profile_information").child("profileType").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (!task.isSuccessful()) {
+                    Log.e("firebase", "Error getting data", task.getException());
+                }
+                else
+                {
+                    profileTypeBack=""+String.valueOf(task.getResult().getValue());
+                }
+            }
+        });
+
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(viewProfile.this, Hall_Individual_Home.class); //For Testing only
-                startActivity(i);
-                finish();
+                if (profileTypeBack.matches("NGO"))
+                {
+                    Intent i = new Intent(viewProfile.this, NGO_Home.class); //For Testing only
+                    startActivity(i);
+                    finish();
+                }
+                else
+                {
+                    Intent i = new Intent(viewProfile.this, Hall_Individual_Home.class); //For Testing only
+                    startActivity(i);
+                    finish();
+                }
             }
         });
 
@@ -91,7 +114,6 @@ public class viewProfile extends AppCompatActivity {
                 else
                 {
                     profileType.setText("Profile Type: "+String.valueOf(task.getResult().getValue()));
-                    profileTypeVal=profileType.getText().toString();
                 }
             }
         });

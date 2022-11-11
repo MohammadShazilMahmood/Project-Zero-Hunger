@@ -5,21 +5,30 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class loginScreen extends AppCompatActivity {
 
     ImageView newAccount, signin;
     EditText email, password;
     FirebaseAuth mAuth;
+    DatabaseReference mDatabase;
+    String profileType="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +39,7 @@ public class loginScreen extends AppCompatActivity {
         email=findViewById(R.id.login_email);
         password=findViewById(R.id.login_password);
         mAuth= FirebaseAuth.getInstance();
+        mDatabase= FirebaseDatabase.getInstance().getReference();
 
         signin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,10 +82,38 @@ public class loginScreen extends AppCompatActivity {
 //                        Intent i = new Intent(loginScreen.this, signUp.class); //For Testing only
 //                        startActivity(i);
 //                        finish();
+
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            String userID = user.getUid().toString();
+
+                            //Load Profile Type
+                            mDatabase.child("users").child(userID).child("profile_information").child("profileType").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<DataSnapshot> task) {
+                                    if (!task.isSuccessful()) {
+                                        Log.e("firebase", "Error getting data", task.getException());
+                                    }
+                                    else
+                                    {
+                                        profileType=""+String.valueOf(task.getResult().getValue());
+                                    }
+                                }
+                            });
+
                             Toast.makeText(loginScreen.this, "Sign In", Toast.LENGTH_SHORT).show();
-                            Intent i = new Intent(loginScreen.this, Hall_Individual_Home.class); //For Testing only
-                            startActivity(i);
-                            finish();
+                            if (profileType.matches("NGO"))
+                            {
+                                Toast.makeText(loginScreen.this, "NGO NGO NGO", Toast.LENGTH_SHORT).show();
+                                Intent i = new Intent(loginScreen.this, NGO_Home.class); //For Testing only
+                                startActivity(i);
+                                finish();
+                            }
+                            else
+                            {
+                                Intent i = new Intent(loginScreen.this, Hall_Individual_Home.class); //For Testing only
+                                startActivity(i);
+                                finish();
+                            }
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override

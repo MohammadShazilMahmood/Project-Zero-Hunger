@@ -101,10 +101,10 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:fontFamily="serif"
             android:gravity="center"
             android:text="Continue"
             android:textColor="@color/themeText"
-            android:fontFamily="serif"
             android:textSize="20dp" />
     </RelativeLayout>
 

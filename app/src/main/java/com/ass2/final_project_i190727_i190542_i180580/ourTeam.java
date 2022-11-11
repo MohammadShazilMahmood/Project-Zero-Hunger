@@ -8,10 +8,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -26,7 +28,7 @@ public class ourTeam extends AppCompatActivity {
     FirebaseAuth mAuth;
     DatabaseReference mDatabase;
     String profilePictureURL="";
-
+    String profileType="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,12 +42,40 @@ public class ourTeam extends AppCompatActivity {
         mAuth= FirebaseAuth.getInstance();
         mDatabase= FirebaseDatabase.getInstance().getReference();
 
+        FirebaseUser user = mAuth.getCurrentUser();
+        String userID = user.getUid().toString();
+
+        mDatabase.child("users").child(userID).child("profile_information").child("profileType").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (!task.isSuccessful()) {
+                    Log.e("firebase", "Error getting data", task.getException());
+                }
+                else
+                {
+                    profileType=""+String.valueOf(task.getResult().getValue());
+                }
+            }
+        });
+
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(ourTeam.this, Hall_Individual_Home.class); //For Testing only
-                startActivity(i);
-                finish();
+                Toast.makeText(ourTeam.this, profileType, Toast.LENGTH_SHORT).show();
+                if (profileType.matches("NGO"))
+                {
+                    Toast.makeText(ourTeam.this, "NGO", Toast.LENGTH_SHORT).show();
+                    Intent i = new Intent(ourTeam.this, NGO_Home.class); //For Testing only
+                    startActivity(i);
+                    finish();
+                }
+                else
+                {
+                    Toast.makeText(ourTeam.this, "H_I", Toast.LENGTH_SHORT).show();
+                    Intent i = new Intent(ourTeam.this, Hall_Individual_Home.class); //For Testing only
+                    startActivity(i);
+                    finish();
+                }
             }
         });
 

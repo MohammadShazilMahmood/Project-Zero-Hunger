@@ -25,6 +25,7 @@ public class appSettings extends AppCompatActivity {
     FirebaseAuth mAuth;
     DatabaseReference mDatabase;
     String current_state="";
+    String profileType="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,9 +44,31 @@ public class appSettings extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(appSettings.this, Hall_Individual_Home.class); //For Testing only
-                startActivity(i);
-                finish();
+                if (profileType.matches("NGO"))
+                {
+                    Intent i = new Intent(appSettings.this, NGO_Home.class); //For Testing only
+                    startActivity(i);
+                    finish();
+                }
+                else
+                {
+                    Intent i = new Intent(appSettings.this, Hall_Individual_Home.class); //For Testing only
+                    startActivity(i);
+                    finish();
+                }
+            }
+        });
+
+        mDatabase.child("users").child(userID).child("profile_information").child("profileType").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (!task.isSuccessful()) {
+                    Log.e("firebase", "Error getting data", task.getException());
+                }
+                else
+                {
+                    profileType=""+String.valueOf(task.getResult().getValue());
+                }
             }
         });
 
