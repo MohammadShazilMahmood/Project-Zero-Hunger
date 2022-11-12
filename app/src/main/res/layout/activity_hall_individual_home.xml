@@ -197,15 +197,16 @@
                             android:layout_height="match_parent"
                             android:src="@drawable/curved_square"
                             android:id="@+id/AcceptedRequest"/>
+
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:text="Accepted\nRequest"
-                            android:gravity="center"
                             android:fontFamily="serif"
-                            android:textStyle="bold"
+                            android:gravity="center"
+                            android:text="Accepted\nRequest"
+                            android:textColor="@color/themeText"
                             android:textSize="25dp"
-                            android:textColor="@color/themeText"/>
+                            android:textStyle="bold" />
                     </RelativeLayout>
                 </LinearLayout>
 

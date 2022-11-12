@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".donateFood"
+    android:weightSum="1.0"
+    android:orientation="vertical"
+    android:background="@color/themeBackground">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.05">
+    </View>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.075">
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/back"
+            android:layout_gravity="left"
+            android:layout_marginLeft="10dp"
+            android:id="@+id/back"/>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:src="@drawable/logo" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.025"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.05"
+        android:text="Donate Food"
+        android:textColor="@color/themeText"
+        android:textSize="25dp"
+        android:fontFamily="serif"
+        android:layout_marginLeft="30dp"
+        android:textStyle="bold"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.025"/>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.3"
+        android:src="@drawable/empty_image"
+        android:layout_margin="20dp"
+        android:id="@+id/foodPicture"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.025"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.1">
+
+        <ImageView
+            android:id="@+id/select_food_pic"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            android:src="@drawable/circle_w" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fontFamily="serif"
+            android:gravity="center"
+            android:text="Add Food Picture"
+            android:textColor="@color/themeText"
+            android:textSize="20dp" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.025"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:background="@drawable/curved_rectangle_1_text"
+        android:hint="Enter Details of the Food"
+        android:fontFamily="serif"
+        android:textColor="@color/themeText"
+        android:id="@+id/foodDetails"
+        android:textColorHint="@color/themeText"
+        android:paddingLeft="15dp"
+        android:inputType="textLongMessage"
+        android:layout_weight="0.15"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.025"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.1">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/circle_w"
+            android:layout_centerHorizontal="true"
+            android:layout_marginRight="25dp"
+            android:id="@+id/addDonation"
+            android:layout_marginLeft="25dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fontFamily="serif"
+            android:gravity="center"
+            android:text="Add Donation Request"
+            android:textColor="@color/themeText"
+            android:textSize="20dp" />
+    </RelativeLayout>
+
+
+
+</LinearLayout>

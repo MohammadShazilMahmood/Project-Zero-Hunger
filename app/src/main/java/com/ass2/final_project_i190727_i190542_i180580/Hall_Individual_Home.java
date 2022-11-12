@@ -26,6 +26,7 @@ public class Hall_Individual_Home extends AppCompatActivity {
     FirebaseAuth mAuth;
     DatabaseReference mDatabase;
 //    ImageView profilePicture;
+    ImageView donateMoney, donateFood, pendingRequest, acceptedRequest;
     CircleImageView profilePicture;
     String profilePictureURL="";
     TextView name, profile, settings, donationHistory, aboutUs, ourTeam, tutorial, signOut;
@@ -42,6 +43,10 @@ public class Hall_Individual_Home extends AppCompatActivity {
         aboutUs=findViewById(R.id.About_PZH);
         ourTeam=findViewById(R.id.OurTeam);
         tutorial=findViewById(R.id.Tutorial);
+        donateMoney=findViewById(R.id.DonateMoney);
+        donateFood=findViewById(R.id.DonateFood);
+        pendingRequest=findViewById(R.id.PendingRequest);
+        acceptedRequest=findViewById(R.id.AcceptedRequest);
 
         mAuth= FirebaseAuth.getInstance();
         mDatabase= FirebaseDatabase.getInstance().getReference();
@@ -53,6 +58,42 @@ public class Hall_Individual_Home extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(Hall_Individual_Home.this, appSettings.class); //For Testing only
+                startActivity(i);
+                finish();
+            }
+        });
+
+        donateMoney.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(Hall_Individual_Home.this, donateMoney.class); //For Testing only
+                startActivity(i);
+                finish();
+            }
+        });
+
+        donateFood.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(Hall_Individual_Home.this, donateFood.class); //For Testing only
+                startActivity(i);
+                finish();
+            }
+        });
+
+        acceptedRequest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(Hall_Individual_Home.this, acceptedRequestHall.class); //For Testing only
+                startActivity(i);
+                finish();
+            }
+        });
+
+        pendingRequest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(Hall_Individual_Home.this, pendingRequestHall.class); //For Testing only
                 startActivity(i);
                 finish();
             }

@@ -10,15 +10,20 @@
         <entry key="..\:/Users/LENOVO/AndroidStudioProjects/Final_Project_i190727_i190542_i180580/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1" />
         <entry key="..\:/Users/LENOVO/AndroidStudioProjects/Final_Project_i190727_i190542_i180580/app/src/main/res/drawable-v24/selected_curved_square.xml" value="0.1" />
         <entry key="..\:/Users/LENOVO/AndroidStudioProjects/Final_Project_i190727_i190542_i180580/app/src/main/res/drawable/back.xml" value="0.1" />
+        <entry key="..\:/Users/LENOVO/AndroidStudioProjects/Final_Project_i190727_i190542_i180580/app/src/main/res/drawable/empty_image.xml" value="0.1" />
         <entry key="..\:/Users/LENOVO/AndroidStudioProjects/Final_Project_i190727_i190542_i180580/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
         <entry key="..\:/Users/LENOVO/AndroidStudioProjects/Final_Project_i190727_i190542_i180580/app/src/main/res/layout/activity_about_pzh.xml" value="0.13333333333333333" />
+        <entry key="..\:/Users/LENOVO/AndroidStudioProjects/Final_Project_i190727_i190542_i180580/app/src/main/res/layout/activity_accepted_request_hall.xml" value="0.1796875" />
         <entry key="..\:/Users/LENOVO/AndroidStudioProjects/Final_Project_i190727_i190542_i180580/app/src/main/res/layout/activity_add_profile_picture.xml" value="0.1796875" />
         <entry key="..\:/Users/LENOVO/AndroidStudioProjects/Final_Project_i190727_i190542_i180580/app/src/main/res/layout/activity_app_settings.xml" value="0.14666666666666667" />
+        <entry key="..\:/Users/LENOVO/AndroidStudioProjects/Final_Project_i190727_i190542_i180580/app/src/main/res/layout/activity_donate_food.xml" value="0.21296296296296297" />
+        <entry key="..\:/Users/LENOVO/AndroidStudioProjects/Final_Project_i190727_i190542_i180580/app/src/main/res/layout/activity_donate_money.xml" value="0.1796875" />
         <entry key="..\:/Users/LENOVO/AndroidStudioProjects/Final_Project_i190727_i190542_i180580/app/src/main/res/layout/activity_hall_individual_home.xml" value="0.1" />
         <entry key="..\:/Users/LENOVO/AndroidStudioProjects/Final_Project_i190727_i190542_i180580/app/src/main/res/layout/activity_login_screen.xml" value="0.1796875" />
         <entry key="..\:/Users/LENOVO/AndroidStudioProjects/Final_Project_i190727_i190542_i180580/app/src/main/res/layout/activity_main.xml" value="0.165625" />
         <entry key="..\:/Users/LENOVO/AndroidStudioProjects/Final_Project_i190727_i190542_i180580/app/src/main/res/layout/activity_ngo_home.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/LENOVO/AndroidStudioProjects/Final_Project_i190727_i190542_i180580/app/src/main/res/layout/activity_our_team.xml" value="0.16666666666666666" />
+        <entry key="..\:/Users/LENOVO/AndroidStudioProjects/Final_Project_i190727_i190542_i180580/app/src/main/res/layout/activity_pending_request_hall.xml" value="0.1796875" />
         <entry key="..\:/Users/LENOVO/AndroidStudioProjects/Final_Project_i190727_i190542_i180580/app/src/main/res/layout/activity_profile_set_up.xml" value="0.1796875" />
         <entry key="..\:/Users/LENOVO/AndroidStudioProjects/Final_Project_i190727_i190542_i180580/app/src/main/res/layout/activity_sign_up.xml" value="0.22" />
         <entry key="..\:/Users/LENOVO/AndroidStudioProjects/Final_Project_i190727_i190542_i180580/app/src/main/res/layout/activity_update_contact_information.xml" value="0.1796875" />
