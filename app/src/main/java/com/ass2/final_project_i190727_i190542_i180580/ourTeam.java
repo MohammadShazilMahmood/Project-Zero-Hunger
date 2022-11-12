@@ -61,17 +61,17 @@ public class ourTeam extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(ourTeam.this, profileType, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(ourTeam.this, profileType, Toast.LENGTH_SHORT).show();
                 if (profileType.matches("NGO"))
                 {
-                    Toast.makeText(ourTeam.this, "NGO", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(ourTeam.this, "NGO", Toast.LENGTH_SHORT).show();
                     Intent i = new Intent(ourTeam.this, NGO_Home.class); //For Testing only
                     startActivity(i);
                     finish();
                 }
                 else
                 {
-                    Toast.makeText(ourTeam.this, "H_I", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(ourTeam.this, "H_I", Toast.LENGTH_SHORT).show();
                     Intent i = new Intent(ourTeam.this, Hall_Individual_Home.class); //For Testing only
                     startActivity(i);
                     finish();

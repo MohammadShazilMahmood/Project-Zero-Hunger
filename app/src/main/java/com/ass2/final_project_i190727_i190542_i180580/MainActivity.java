@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
                                 profileType=""+String.valueOf(task.getResult().getValue());
                                 if (profileType.matches("NGO"))
                                 {
-                                    Toast.makeText(MainActivity.this, "NGO NGO NGO", Toast.LENGTH_SHORT).show();
+//                                    Toast.makeText(MainActivity.this, "NGO NGO NGO", Toast.LENGTH_SHORT).show();
                                     i = new Intent(MainActivity.this, NGO_Home.class); //For Testing only
                                 }
                                 else
