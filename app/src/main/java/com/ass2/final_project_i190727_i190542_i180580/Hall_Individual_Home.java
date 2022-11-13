@@ -72,6 +72,24 @@ public class Hall_Individual_Home extends AppCompatActivity {
             }
         });
 
+        donationHistory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(Hall_Individual_Home.this, donationHistoryHall.class); //For Testing only
+                startActivity(i);
+                finish();
+            }
+        });
+
+        tutorial.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(Hall_Individual_Home.this, tutorial.class); //For Testing only
+                startActivity(i);
+                finish();
+            }
+        });
+
         donateFood.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
