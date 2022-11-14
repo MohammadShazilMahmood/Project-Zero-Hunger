@@ -4,7 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -28,8 +30,8 @@ public class loginScreen extends AppCompatActivity {
     EditText email, password;
     FirebaseAuth mAuth;
     DatabaseReference mDatabase;
-    String profileType="";
-
+    String profileType="", name="", identityNumber="", emailFetched, contactNum="", addressFetched="", cityFetched="" ;
+    boolean profileWait=false, nameWait=false, idWait=false, emailWait=false, contactWait=false, addressWait=false, cityWait=false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +42,11 @@ public class loginScreen extends AppCompatActivity {
         password=findViewById(R.id.login_password);
         mAuth= FirebaseAuth.getInstance();
         mDatabase= FirebaseDatabase.getInstance().getReference();
+
+        SharedPreferences sharedPreferences = getSharedPreferences("MySharedPref",MODE_PRIVATE);
+        SharedPreferences.Editor myEdit = sharedPreferences.edit();
+        myEdit.putBoolean("localData", false);
+        myEdit.commit();
 
         signin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,26 +86,8 @@ public class loginScreen extends AppCompatActivity {
                     ).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                         @Override
                         public void onSuccess(AuthResult authResult) {
-//                        Intent i = new Intent(loginScreen.this, signUp.class); //For Testing only
-//                        startActivity(i);
-//                        finish();
-
                             FirebaseUser user = mAuth.getCurrentUser();
                             String userID = user.getUid().toString();
-
-                            //Load Profile Type
-                            mDatabase.child("users").child(userID).child("profile_information").child("profileType").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-                                @Override
-                                public void onComplete(@NonNull Task<DataSnapshot> task) {
-                                    if (!task.isSuccessful()) {
-                                        Log.e("firebase", "Error getting data", task.getException());
-                                    }
-                                    else
-                                    {
-                                        profileType=""+String.valueOf(task.getResult().getValue());
-                                    }
-                                }
-                            });
 
                             Toast.makeText(loginScreen.this, "Sign In", Toast.LENGTH_SHORT).show();
                             if (profileType.matches("NGO"))
@@ -124,8 +113,6 @@ public class loginScreen extends AppCompatActivity {
                 }
             }
         });
-
-
 
         newAccount.setOnClickListener(new View.OnClickListener() {
             @Override

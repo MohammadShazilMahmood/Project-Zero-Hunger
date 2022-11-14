@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
             editor.putBoolean("FIRST_RUN", true);
             editor.commit();
         }
-
+                
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {

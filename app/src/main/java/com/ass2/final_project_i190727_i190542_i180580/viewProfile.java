@@ -1,9 +1,15 @@
 package com.ass2.final_project_i190727_i190542_i180580;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.util.Log;
@@ -28,6 +34,14 @@ public class viewProfile extends AppCompatActivity {
     ImageView back, updateContactInfo;
     String profileTypeBack;
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager != null ? connectivityManager.getActiveNetworkInfo() : null;
+        return activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,21 +60,43 @@ public class viewProfile extends AppCompatActivity {
         mAuth= FirebaseAuth.getInstance();
         mDatabase= FirebaseDatabase.getInstance().getReference();
 
-        FirebaseUser user = mAuth.getCurrentUser();
-        String userID = user.getUid().toString();
+        SharedPreferences sharedPreferences = getSharedPreferences("MySharedPref", MODE_PRIVATE);
+        SharedPreferences.Editor myEdit = sharedPreferences.edit();
 
-        mDatabase.child("users").child(userID).child("profile_information").child("profileType").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if (!task.isSuccessful()) {
-                    Log.e("firebase", "Error getting data", task.getException());
-                }
-                else
-                {
-                    profileTypeBack=""+String.valueOf(task.getResult().getValue());
-                }
+        if (isNetworkAvailable()==false)
+        {
+            boolean localData= sharedPreferences.getBoolean("localData",false);
+            if (localData)
+            {
+                Toast.makeText(viewProfile.this, "Local Data", Toast.LENGTH_SHORT).show();
+                profileTypeBack = sharedPreferences.getString("profileType", "");
+
+                nameVal = sharedPreferences.getString("name", "");
+                name.setText("Name: "+nameVal);
+
+                String temp = nameVal = sharedPreferences.getString("profileType", "");
+                profileType.setText("Profile Type: "+temp);
+
+                identityNumberVal = sharedPreferences.getString("identityNumber", "");
+                indentityNumber.setText("Identity No: "+identityNumberVal);
+
+                emailVal = sharedPreferences.getString("email", "");
+                email.setText("Email: "+emailVal);
+
+                contactVal = sharedPreferences.getString("contact", "");
+                contact.setText("Contact No: "+contactVal);
+
+                addressVal = sharedPreferences.getString("address", "");
+                address.setText("Address: "+addressVal);
+
+                cityVal = sharedPreferences.getString("city", "");
+                city.setText("City: "+cityVal);
             }
-        });
+        }
+        else
+        {
+            Toast.makeText(viewProfile.this, "Online", Toast.LENGTH_SHORT).show();
+        }
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,110 +125,130 @@ public class viewProfile extends AppCompatActivity {
             }
         });
 
-        //Load Name
-        mDatabase.child("users").child(userID).child("profile_information").child("name").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if (!task.isSuccessful()) {
-                    Log.e("firebase", "Error getting data", task.getException());
-                }
-                else
-                {
-                    name.setText("Name: "+String.valueOf(task.getResult().getValue()));
-                    nameVal=name.getText().toString();
-                }
-            }
-        });
+        if (isNetworkAvailable()) {
 
-         //Load Profile Type
-        mDatabase.child("users").child(userID).child("profile_information").child("profileType").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if (!task.isSuccessful()) {
-                    Log.e("firebase", "Error getting data", task.getException());
-                }
-                else
-                {
-                    profileType.setText("Profile Type: "+String.valueOf(task.getResult().getValue()));
-                }
-            }
-        });
+            FirebaseUser user = mAuth.getCurrentUser();
+            String userID = user.getUid().toString();
 
-        //Load Profile Type
-        mDatabase.child("users").child(userID).child("profile_information").child("identityNumber").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if (!task.isSuccessful()) {
-                    Log.e("firebase", "Error getting data", task.getException());
+            mDatabase.child("users").child(userID).child("profile_information").child("profileType").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DataSnapshot> task) {
+                    if (!task.isSuccessful()) {
+                        Log.e("firebase", "Error getting data", task.getException());
+                    } else {
+                        profileTypeBack = "" + String.valueOf(task.getResult().getValue());
+                        myEdit.putString("profileType", profileTypeBack);
+                        myEdit.commit();
+                    }
                 }
-                else
-                {
-                    indentityNumber.setText("Identity No: "+ String.valueOf(task.getResult().getValue()));
-                    identityNumberVal=indentityNumber.getText().toString();
-                }
-            }
-        });
+            });
 
-        //Load Profile Type
-        mDatabase.child("users").child(userID).child("contact_information").child("email").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if (!task.isSuccessful()) {
-                    Log.e("firebase", "Error getting data", task.getException());
+            //Load Name
+            mDatabase.child("users").child(userID).child("profile_information").child("name").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DataSnapshot> task) {
+                    if (!task.isSuccessful()) {
+                        Log.e("firebase", "Error getting data", task.getException());
+                    } else {
+                        nameVal = "" + String.valueOf(task.getResult().getValue());
+                        name.setText("Name: " + nameVal);
+                        myEdit.putString("name", nameVal);
+                        myEdit.commit();
+                    }
                 }
-                else
-                {
-                    email.setText("Email: "+ String.valueOf(task.getResult().getValue()));
-                    emailVal=email.getText().toString();
-                }
-            }
-        });
+            });
 
-        //Load Profile Type
-        mDatabase.child("users").child(userID).child("contact_information").child("number").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if (!task.isSuccessful()) {
-                    Log.e("firebase", "Error getting data", task.getException());
+            //Load Profile Type
+            mDatabase.child("users").child(userID).child("profile_information").child("profileType").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DataSnapshot> task) {
+                    if (!task.isSuccessful()) {
+                        Log.e("firebase", "Error getting data", task.getException());
+                    } else {
+                        profileType.setText("Profile Type: " + String.valueOf(task.getResult().getValue()));
+                    }
                 }
-                else
-                {
-                    contact.setText("Contact No: " +  String.valueOf(task.getResult().getValue()));
-                    contactVal=contact.getText().toString();
-                }
-            }
-        });
+            });
 
-        //Load Profile Type
-        mDatabase.child("users").child(userID).child("profile_information").child("address").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if (!task.isSuccessful()) {
-                    Log.e("firebase", "Error getting data", task.getException());
-                    Toast.makeText(viewProfile.this, "e", Toast.LENGTH_SHORT).show();
+            //Load Profile Type
+            mDatabase.child("users").child(userID).child("profile_information").child("identityNumber").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DataSnapshot> task) {
+                    if (!task.isSuccessful()) {
+                        Log.e("firebase", "Error getting data", task.getException());
+                    } else {
+                        identityNumberVal = "" + String.valueOf(task.getResult().getValue());
+                        indentityNumber.setText("Identity No: " + identityNumberVal);
+                        myEdit.putString("identityNumber", identityNumberVal);
+                        myEdit.commit();
+                    }
                 }
-                else
-                {
-                    address.setText("Address: "+String.valueOf(task.getResult().getValue()));
-                    addressVal=address.getText().toString();
-                }
-            }
-        });
+            });
 
-        //Load Profile Type
-        mDatabase.child("users").child(userID).child("profile_information").child("city").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if (!task.isSuccessful()) {
-                    Log.e("firebase", "Error getting data", task.getException());
-                    Toast.makeText(viewProfile.this, "e", Toast.LENGTH_SHORT).show();
+            //Load Profile Type
+            mDatabase.child("users").child(userID).child("contact_information").child("email").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DataSnapshot> task) {
+                    if (!task.isSuccessful()) {
+                        Log.e("firebase", "Error getting data", task.getException());
+                    } else {
+                        emailVal = "" + String.valueOf(task.getResult().getValue());
+                        email.setText("Email: " + emailVal);
+                        myEdit.putString("email", emailVal);
+                        myEdit.commit();
+                    }
                 }
-                else
-                {
-                    city.setText("City: "+ String.valueOf(task.getResult().getValue()));
-                    cityVal=city.getText().toString();
+            });
+
+            //Load Profile Type
+            mDatabase.child("users").child(userID).child("contact_information").child("number").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DataSnapshot> task) {
+                    if (!task.isSuccessful()) {
+                        Log.e("firebase", "Error getting data", task.getException());
+                    } else {
+                        contactVal = "" + String.valueOf(task.getResult().getValue());
+                        contact.setText("Contact No: " + contactVal);
+                        myEdit.putString("contact", contactVal);
+                        myEdit.commit();
+                    }
                 }
-            }
-        });
+            });
+
+            //Load Profile Type
+            mDatabase.child("users").child(userID).child("profile_information").child("address").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DataSnapshot> task) {
+                    if (!task.isSuccessful()) {
+                        Log.e("firebase", "Error getting data", task.getException());
+                    } else {
+                        addressVal = "" + String.valueOf(task.getResult().getValue());
+                        address.setText("Address: " + addressVal);
+                        myEdit.putString("address", addressVal);
+                        myEdit.commit();
+                    }
+                }
+            });
+
+            //Load Profile Type
+            mDatabase.child("users").child(userID).child("profile_information").child("city").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DataSnapshot> task) {
+                    if (!task.isSuccessful()) {
+                        Log.e("firebase", "Error getting data", task.getException());
+                    } else {
+                        cityVal = "" + String.valueOf(task.getResult().getValue());
+                        city.setText("City: " + cityVal);
+                        myEdit.putString("city", cityVal);
+                        myEdit.commit();
+                    }
+                }
+            });
+
+            myEdit.putString("userID", userID);
+            myEdit.putBoolean("localData", true);
+            myEdit.commit();
+        }
+
     }
 }

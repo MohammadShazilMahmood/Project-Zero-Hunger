@@ -8,7 +8,8 @@ android {
 
     defaultConfig {
         applicationId "com.ass2.final_project_i190727_i190542_i180580"
-        minSdk 21
+//        minSdk 21
+        minSdk 23
         targetSdk 32
         versionCode 1
         versionName "1.0"
