@@ -89,6 +89,20 @@ public class loginScreen extends AppCompatActivity {
                             FirebaseUser user = mAuth.getCurrentUser();
                             String userID = user.getUid().toString();
 
+                            //Load Profile Type
+                            mDatabase.child("users").child(userID).child("profile_information").child("profileType").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<DataSnapshot> task) {
+                                    if (!task.isSuccessful()) {
+                                        Log.e("firebase", "Error getting data", task.getException());
+                                    }
+                                    else
+                                    {
+                                        profileType=""+String.valueOf(task.getResult().getValue());
+                                    }
+                                }
+                            });
+
                             Toast.makeText(loginScreen.this, "Sign In", Toast.LENGTH_SHORT).show();
                             if (profileType.matches("NGO"))
                             {
