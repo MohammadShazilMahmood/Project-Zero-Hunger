@@ -137,6 +137,7 @@ public class viewProfile extends AppCompatActivity {
                         Log.e("firebase", "Error getting data", task.getException());
                     } else {
                         profileTypeBack = "" + String.valueOf(task.getResult().getValue());
+                        profileType.setText("Profile Type: " + profileTypeBack);
                         myEdit.putString("profileType", profileTypeBack);
                         myEdit.commit();
                     }
@@ -154,18 +155,6 @@ public class viewProfile extends AppCompatActivity {
                         name.setText("Name: " + nameVal);
                         myEdit.putString("name", nameVal);
                         myEdit.commit();
-                    }
-                }
-            });
-
-            //Load Profile Type
-            mDatabase.child("users").child(userID).child("profile_information").child("profileType").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<DataSnapshot> task) {
-                    if (!task.isSuccessful()) {
-                        Log.e("firebase", "Error getting data", task.getException());
-                    } else {
-                        profileType.setText("Profile Type: " + String.valueOf(task.getResult().getValue()));
                     }
                 }
             });
