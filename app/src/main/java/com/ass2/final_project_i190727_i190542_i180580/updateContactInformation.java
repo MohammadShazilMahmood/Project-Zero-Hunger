@@ -1,8 +1,14 @@
 package com.ass2.final_project_i190727_i190542_i180580;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -19,6 +25,15 @@ public class updateContactInformation extends AppCompatActivity {
     FirebaseAuth mAuth;
     DatabaseReference mDatabase;
     ImageView update, back;
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager != null ? connectivityManager.getActiveNetworkInfo() : null;
+        return activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,6 +44,9 @@ public class updateContactInformation extends AppCompatActivity {
         city=findViewById(R.id.city);
         update=findViewById(R.id.update);
         back=findViewById(R.id.back);
+
+        SharedPreferences sharedPreferences = getSharedPreferences("MySharedPref", MODE_PRIVATE);
+        SharedPreferences.Editor myEdit = sharedPreferences.edit();
 
         mAuth= FirebaseAuth.getInstance();
         mDatabase= FirebaseDatabase.getInstance().getReference();
@@ -85,6 +103,20 @@ public class updateContactInformation extends AppCompatActivity {
                     valid=false;
                 }
 
+                if (isNetworkAvailable()==false)
+                {
+                    if(error_msg.matches(""))
+                    {
+                        error_msg=error_msg+"No Internet Available";
+                    }
+                    else
+                    {
+                        error_msg=error_msg+"\nNo Internet Available";
+                    }
+
+                    valid=false;
+                }
+
                 if(valid==false){
                     Toast.makeText(updateContactInformation.this, error_msg, Toast.LENGTH_SHORT).show();
                 }
@@ -94,6 +126,11 @@ public class updateContactInformation extends AppCompatActivity {
                     mDatabase.child("users").child(userID).child("contact_information").child("number").setValue(number.getText().toString());
                     mDatabase.child("users").child(userID).child("profile_information").child("address").setValue(address.getText().toString());
                     mDatabase.child("users").child(userID).child("profile_information").child("city").setValue(city.getText().toString());
+
+                    myEdit.putString("address", address.getText().toString());
+                    myEdit.putString("contact", number.getText().toString());
+                    myEdit.putString("city", city.getText().toString());
+                    myEdit.commit();
 
                     Intent i = new Intent(updateContactInformation.this, viewProfile.class); //For Testing only
                     startActivity(i);

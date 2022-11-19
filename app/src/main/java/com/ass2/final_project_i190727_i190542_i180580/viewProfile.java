@@ -63,40 +63,35 @@ public class viewProfile extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("MySharedPref", MODE_PRIVATE);
         SharedPreferences.Editor myEdit = sharedPreferences.edit();
 
-        if (isNetworkAvailable()==false)
+        boolean localData= sharedPreferences.getBoolean("localData",false);
+
+        if (localData)
         {
-            boolean localData= sharedPreferences.getBoolean("localData",false);
-            if (localData)
-            {
-                Toast.makeText(viewProfile.this, "Local Data", Toast.LENGTH_SHORT).show();
-                profileTypeBack = sharedPreferences.getString("profileType", "");
+//            Toast.makeText(viewProfile.this, "Local Data", Toast.LENGTH_SHORT).show();
+            profileTypeBack = sharedPreferences.getString("profileType", "");
 
-                nameVal = sharedPreferences.getString("name", "");
-                name.setText("Name: "+nameVal);
+            nameVal = sharedPreferences.getString("name", "");
+            name.setText("Name: "+nameVal);
 
-                String temp = nameVal = sharedPreferences.getString("profileType", "");
-                profileType.setText("Profile Type: "+temp);
+            String temp = sharedPreferences.getString("profileType", "");
+            profileType.setText("Profile Type: "+temp);
 
-                identityNumberVal = sharedPreferences.getString("identityNumber", "");
-                indentityNumber.setText("Identity No: "+identityNumberVal);
+            identityNumberVal = sharedPreferences.getString("identityNumber", "");
+            indentityNumber.setText("Identity No: "+identityNumberVal);
 
-                emailVal = sharedPreferences.getString("email", "");
-                email.setText("Email: "+emailVal);
+            emailVal = sharedPreferences.getString("email", "");
+            email.setText("Email: "+emailVal);
 
-                contactVal = sharedPreferences.getString("contact", "");
-                contact.setText("Contact No: "+contactVal);
+            contactVal = sharedPreferences.getString("contact", "");
+            contact.setText("Contact No: "+contactVal);
 
-                addressVal = sharedPreferences.getString("address", "");
-                address.setText("Address: "+addressVal);
+            addressVal = sharedPreferences.getString("address", "");
+            address.setText("Address: "+addressVal);
 
-                cityVal = sharedPreferences.getString("city", "");
-                city.setText("City: "+cityVal);
-            }
+            cityVal = sharedPreferences.getString("city", "");
+            city.setText("City: "+cityVal);
         }
-        else
-        {
-            Toast.makeText(viewProfile.this, "Online", Toast.LENGTH_SHORT).show();
-        }
+
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -125,7 +120,7 @@ public class viewProfile extends AppCompatActivity {
             }
         });
 
-        if (isNetworkAvailable()) {
+        if (isNetworkAvailable() && (localData==false)) {
 
             FirebaseUser user = mAuth.getCurrentUser();
             String userID = user.getUid().toString();
