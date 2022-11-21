@@ -42,9 +42,9 @@ public class donateMoney extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_donate_money);
         back=findViewById(R.id.back);
-        foodDetails=findViewById(R.id.foodDetails);
-        address=findViewById(R.id.address);
-        foodPicture=findViewById(R.id.foodPicture);
+//        foodDetails=findViewById(R.id.foodDetails);
+//        address=findViewById(R.id.address);
+//        foodPicture=findViewById(R.id.foodPicture);
 
         mAuth= FirebaseAuth.getInstance();
         mDatabase= FirebaseDatabase.getInstance().getReference();
@@ -53,19 +53,19 @@ public class donateMoney extends AppCompatActivity {
         SharedPreferences.Editor myEdit = sharedPreferences.edit();
 
 
-        address.setText("TESTING");
-        if (isNetworkAvailable()==false)
-        {
-            boolean localData= sharedPreferences.getBoolean("localData",false);
-            if (localData)
-            {
-                Toast.makeText(donateMoney.this, "Local Data", Toast.LENGTH_SHORT).show();
-                profileTypeBack = sharedPreferences.getString("profileType", "");
-
-                String addressVal = sharedPreferences.getString("address", "");
-                address.setText("TESTING");
-            }
-        }
+//        address.setText("TESTING");
+//        if (isNetworkAvailable()==false)
+//        {
+//            boolean localData= sharedPreferences.getBoolean("localData",false);
+//            if (localData)
+//            {
+//                Toast.makeText(donateMoney.this, "Local Data", Toast.LENGTH_SHORT).show();
+//                profileTypeBack = sharedPreferences.getString("profileType", "");
+//
+//                String addressVal = sharedPreferences.getString("address", "");
+//                address.setText("TESTING");
+//            }
+//        }
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override

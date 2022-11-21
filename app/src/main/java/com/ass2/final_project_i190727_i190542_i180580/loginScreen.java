@@ -119,19 +119,6 @@ public class loginScreen extends AppCompatActivity {
                             String userID = user.getUid().toString();
 
                             if (isNetworkAvailable()) {
-                                mDatabase.child("users").child(userID).child("profile_information").child("profileType").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<DataSnapshot> task) {
-                                        if (!task.isSuccessful()) {
-                                            Log.e("firebase", "Error getting data", task.getException());
-                                        } else {
-                                            profileType=""+String.valueOf(task.getResult().getValue());
-                                            myEdit.putString("profileType", profileType);
-                                            myEdit.commit();
-                                        }
-                                    }
-                                });
-
                                 //Load Name
                                 mDatabase.child("users").child(userID).child("profile_information").child("name").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
                                     @Override
@@ -219,6 +206,49 @@ public class loginScreen extends AppCompatActivity {
                                 myEdit.putString("userID", userID);
                                 myEdit.putBoolean("localData", true);
                                 myEdit.commit();
+
+                                mDatabase.child("users").child(userID).child("profile_information").child("profileType").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<DataSnapshot> task) {
+                                        if (!task.isSuccessful()) {
+                                            Log.e("firebase", "Error getting data", task.getException());
+                                        } else {
+                                            profileType=""+String.valueOf(task.getResult().getValue());
+                                            myEdit.putString("profileType", profileType);
+                                            myEdit.commit();
+
+                                            Toast.makeText(loginScreen.this, "Sign In", Toast.LENGTH_SHORT).show();
+                                            if (profileType.matches("NGO"))
+                                            {
+                                                Toast.makeText(loginScreen.this, "NGO NGO NGO", Toast.LENGTH_SHORT).show();
+                                                Intent i = new Intent(loginScreen.this, NGO_Home.class); //For Testing only
+                                                startActivity(i);
+                                                finish();
+                                            }
+                                            else
+                                            {
+                                                Intent i = new Intent(loginScreen.this, Hall_Individual_Home.class); //For Testing only
+                                                startActivity(i);
+                                                finish();
+                                            }
+                                        }
+                                    }
+                                });
+
+//                                Toast.makeText(loginScreen.this, "Sign In", Toast.LENGTH_SHORT).show();
+//                                if (profileType.matches("NGO"))
+//                                {
+//                                    Toast.makeText(loginScreen.this, "NGO NGO NGO", Toast.LENGTH_SHORT).show();
+//                                    Intent i = new Intent(loginScreen.this, NGO_Home.class); //For Testing only
+//                                    startActivity(i);
+//                                    finish();
+//                                }
+//                                else
+//                                {
+//                                    Intent i = new Intent(loginScreen.this, Hall_Individual_Home.class); //For Testing only
+//                                    startActivity(i);
+//                                    finish();
+//                                }
                             }
 
 
@@ -237,20 +267,20 @@ public class loginScreen extends AppCompatActivity {
 //                                }
 //                            });
 
-                            Toast.makeText(loginScreen.this, "Sign In", Toast.LENGTH_SHORT).show();
-                            if (profileType.matches("NGO"))
-                            {
-                                Toast.makeText(loginScreen.this, "NGO NGO NGO", Toast.LENGTH_SHORT).show();
-                                Intent i = new Intent(loginScreen.this, NGO_Home.class); //For Testing only
-                                startActivity(i);
-                                finish();
-                            }
-                            else
-                            {
-                                Intent i = new Intent(loginScreen.this, Hall_Individual_Home.class); //For Testing only
-                                startActivity(i);
-                                finish();
-                            }
+//                            Toast.makeText(loginScreen.this, "Sign In", Toast.LENGTH_SHORT).show();
+//                            if (profileType.matches("NGO"))
+//                            {
+//                                Toast.makeText(loginScreen.this, "NGO NGO NGO", Toast.LENGTH_SHORT).show();
+//                                Intent i = new Intent(loginScreen.this, NGO_Home.class); //For Testing only
+//                                startActivity(i);
+//                                finish();
+//                            }
+//                            else
+//                            {
+//                                Intent i = new Intent(loginScreen.this, Hall_Individual_Home.class); //For Testing only
+//                                startActivity(i);
+//                                finish();
+//                            }
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override

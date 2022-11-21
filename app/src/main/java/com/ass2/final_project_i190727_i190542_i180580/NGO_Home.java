@@ -31,7 +31,7 @@ public class NGO_Home extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_hall_individual_home);
+        setContentView(R.layout.activity_ngo_home);
         profilePicture=findViewById(R.id.ProfilePic);
         name=findViewById(R.id.username);
         signOut=findViewById(R.id.SignOut);

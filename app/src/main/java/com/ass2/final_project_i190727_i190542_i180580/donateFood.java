@@ -1,10 +1,16 @@
 package com.ass2.final_project_i190727_i190542_i180580;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -13,14 +19,25 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class donateFood extends AppCompatActivity {
     ImageView selectPicture, foodPicture, addRequest, back;
-    EditText foodDetails;
+    EditText foodDetails, address;
     Uri image;
     FirebaseAuth mAuth;
     DatabaseReference mDatabase;
+    String profileTypeBack, addressVal;
     boolean imageSelected=false;
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager != null ? connectivityManager.getActiveNetworkInfo() : null;
+        return activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +48,23 @@ public class donateFood extends AppCompatActivity {
         addRequest=findViewById(R.id.addDonation);
         back=findViewById(R.id.back);
         foodDetails=findViewById(R.id.foodDetails);
+        address=findViewById(R.id.address);
+
+        mAuth= FirebaseAuth.getInstance();
+        mDatabase= FirebaseDatabase.getInstance().getReference();
+
+        SharedPreferences sharedPreferences = getSharedPreferences("MySharedPref", MODE_PRIVATE);
+        SharedPreferences.Editor myEdit = sharedPreferences.edit();
+
+        boolean localData= sharedPreferences.getBoolean("localData",false);
+
+        if (localData)
+        {
+            profileTypeBack = sharedPreferences.getString("profileType", "");
+
+            addressVal = sharedPreferences.getString("address", "");
+            address.setHint("Address: "+addressVal);
+        }
 
         selectPicture.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -88,10 +122,8 @@ public class donateFood extends AppCompatActivity {
                     startActivity(i);
                     finish();
                 }
-
             }
         });
-
     }
 
     @Override
