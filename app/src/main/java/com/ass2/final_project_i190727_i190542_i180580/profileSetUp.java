@@ -221,7 +221,7 @@ public class profileSetUp extends AppCompatActivity {
                     String userID = user.getUid().toString();
                     mDatabase.child("users").child(userID).child("profile_information").setValue(profile);
                     mDatabase.child("users").child(userID).child("app_settings").child("notifications").setValue("True");
-
+                    mDatabase.child("donations").child("donor").child(userID).child("Donation_Count").setValue("0");
                     Toast.makeText(profileSetUp.this, "Profile Info Added", Toast.LENGTH_SHORT).show();
 
                     Intent i = new Intent(profileSetUp.this, addProfilePicture.class); //For Testing only

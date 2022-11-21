@@ -203,6 +203,19 @@ public class loginScreen extends AppCompatActivity {
                                     }
                                 });
 
+                                mDatabase.child("donations").child("donor").child(userID).child("Donation_Count").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<DataSnapshot> task) {
+                                        if (!task.isSuccessful()) {
+                                            Log.e("firebase", "Error getting data", task.getException());
+                                        } else {
+                                            String donationCount = "" + String.valueOf(task.getResult().getValue());
+                                            myEdit.putInt("donationCount", Integer.valueOf(donationCount));
+                                            myEdit.commit();
+                                        }
+                                    }
+                                });
+
                                 myEdit.putString("userID", userID);
                                 myEdit.putBoolean("localData", true);
                                 myEdit.commit();
