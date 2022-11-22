@@ -1,13 +1,20 @@
 package com.ass2.final_project_i190727_i190542_i180580;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -28,6 +35,15 @@ public class NGO_Home extends AppCompatActivity {
     CircleImageView profilePicture;
     String profilePictureURL="";
     TextView name, profile, settings, donationHistory, aboutUs, ourTeam, tutorial, signOut;
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager != null ? connectivityManager.getActiveNetworkInfo() : null;
+        return activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +63,17 @@ public class NGO_Home extends AppCompatActivity {
 
         FirebaseUser user = mAuth.getCurrentUser();
         String userID = user.getUid().toString();
+
+        SharedPreferences sharedPreferences = getSharedPreferences("MySharedPref", MODE_PRIVATE);
+        SharedPreferences.Editor myEdit = sharedPreferences.edit();
+
+        boolean localData= sharedPreferences.getBoolean("localData",false);
+        if (localData)
+        {
+//            Toast.makeText(NGO_Home.this, "Local Data", Toast.LENGTH_SHORT).show();
+            String nameVal = sharedPreferences.getString("name", "");
+            name.setText(nameVal);
+        }
 
         settings.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,19 +111,22 @@ public class NGO_Home extends AppCompatActivity {
             }
         });
 
-        //Load Name
-        mDatabase.child("users").child(userID).child("profile_information").child("name").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if (!task.isSuccessful()) {
-                    Log.e("firebase", "Error getting data", task.getException());
+        if (isNetworkAvailable() && localData==false)
+        {
+            //Load Name
+            mDatabase.child("users").child(userID).child("profile_information").child("name").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DataSnapshot> task) {
+                    if (!task.isSuccessful()) {
+                        Log.e("firebase", "Error getting data", task.getException());
+                    }
+                    else
+                    {
+                        name.setText(String.valueOf(task.getResult().getValue()));
+                    }
                 }
-                else
-                {
-                    name.setText(String.valueOf(task.getResult().getValue()));
-                }
-            }
-        });
+            });
+        }
 
         //Load Profile Picture
         mDatabase.child("users").child(userID).child("profile_picture").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {

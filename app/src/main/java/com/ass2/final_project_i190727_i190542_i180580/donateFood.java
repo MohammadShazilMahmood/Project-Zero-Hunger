@@ -32,14 +32,18 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class donateFood extends AppCompatActivity {
     ImageView selectPicture, foodPicture, addRequest, back;
     EditText foodDetails, address;
     Uri image;
     FirebaseAuth mAuth;
     DatabaseReference mDatabase;
-    String profileTypeBack, addressVal, name, city;
-    Integer donationCount;
+    String profileTypeBack="", addressVal="", name="", city="";
+    String finalAddress="";
+    Integer donationCount=0;
     boolean imageSelected=false;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -218,49 +222,59 @@ public class donateFood extends AppCompatActivity {
 
                 if (valid)
                 {
-                    String ImageURL="";
-                    Toast.makeText(donateFood.this, String.valueOf(donationCount), Toast.LENGTH_SHORT).show();
-//                    donationRequest(String donationID, String donorName, String donorID, String donorAddress, String donorCity, String foodPicURL, String foodDetails, String time)
-//                    FirebaseStorage storage= FirebaseStorage.getInstance();
-//                    StorageReference ref=storage.getReference().child("profile_pictures/"+userID+"/dp.jpg");
-//                    ref.putFile(image).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-//                        @Override
-//                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-//                            Task<Uri> task=taskSnapshot.getStorage().getDownloadUrl();
-//                            task.addOnSuccessListener(new OnSuccessListener<Uri>() {
-//                                @Override
-//                                public void onSuccess(Uri uri) {
-////                                    FirebaseUser user = mAuth.getCurrentUser();
-////                                    String userID = user.getUid().toString();
-//                                    mDatabase.child("users").child(userID).child("profile_picture").setValue(uri.toString());
-//
-//                                    Toast.makeText(addProfilePicture.this, "Profile Picture Uploaded", Toast.LENGTH_SHORT).show();
-//                                    if (profileType.matches("NGO"))
-//                                    {
-//                                        Intent i = new Intent(addProfilePicture.this, NGO_Home.class); //For Testing only
-//                                        startActivity(i);
-//                                        finish();
-//                                    }
-//                                    else
-//                                    {
-//                                        Intent i = new Intent(addProfilePicture.this, Hall_Individual_Home.class); //For Testing only
-//                                        startActivity(i);
-//                                        finish();
-//                                    }
-//                                }
-//                            });
-//                        }
-//                    }).addOnFailureListener(new OnFailureListener() {
-//                        @Override
-//                        public void onFailure(@NonNull Exception e) {
-//                            Toast.makeText(addProfilePicture.this, "Failed to upload", Toast.LENGTH_SHORT).show();
-//                        }
-//                    });
+                    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy, HH:mm:ss");
+                    Date date = new Date();
+                    String currentDate=formatter.format(date);
+                    String donationID= String.valueOf(donationCount)+"_"+userID;
 
-//                    Toast.makeText(donateFood.this, "Donation Request Added", Toast.LENGTH_SHORT).show();
-//                    Intent i = new Intent(donateFood.this, Hall_Individual_Home.class); //For Testing only
-//                    startActivity(i);
-//                    finish();
+                    if (address.getText().toString().matches(""))
+                    {
+                        finalAddress=addressVal;
+                    }
+                    else
+                    {
+                        finalAddress=address.getText().toString();
+                    }
+
+                    FirebaseStorage storage= FirebaseStorage.getInstance();
+                    StorageReference ref=storage.getReference().child("foodDonations/"+userID+"/"+donationID+"/foodPic.jpg");
+                    ref.putFile(image).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            Task<Uri> task=taskSnapshot.getStorage().getDownloadUrl();
+                            task.addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                    String ImageURL="";
+                                    ImageURL=uri.toString();
+                                    donationRequest donation= new donationRequest(donationID,
+                                            name,
+                                            userID,
+                                            finalAddress,
+                                            city,
+                                            ImageURL,
+                                            foodDetails.getText().toString(),
+                                            currentDate);
+
+                                    mDatabase.child("donations").child("donor").child(userID).child("pending_request").child(donationID).setValue(donation);
+                                    donationCount=donationCount+1;
+                                    mDatabase.child("donations").child("donor").child(userID).child("Donation_Count").setValue(String.valueOf(donationCount));
+                                    myEdit.putInt("donationCount", donationCount);
+                                    myEdit.commit();
+
+                                    Toast.makeText(donateFood.this, "Donation Request Added", Toast.LENGTH_SHORT).show();
+                                    Intent i = new Intent(donateFood.this, Hall_Individual_Home.class); //For Testing only
+                                    startActivity(i);
+                                    finish();
+                                }
+                            });
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(donateFood.this, "Failed to upload", Toast.LENGTH_SHORT).show();
+                        }
+                    });
                 }
             }
         });
