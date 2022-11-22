@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -22,6 +23,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
@@ -85,6 +87,10 @@ public class addProfilePicture extends AppCompatActivity {
                 {
                     FirebaseStorage storage= FirebaseStorage.getInstance();
                     StorageReference ref=storage.getReference().child("profile_pictures/"+userID+"/dp.jpg");
+
+                    ProgressDialog progressDialog = new ProgressDialog(addProfilePicture.this);
+                    progressDialog.show();
+
                     ref.putFile(image).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -94,6 +100,7 @@ public class addProfilePicture extends AppCompatActivity {
                                 public void onSuccess(Uri uri) {
 //                                    FirebaseUser user = mAuth.getCurrentUser();
 //                                    String userID = user.getUid().toString();
+                                    progressDialog.dismiss();
                                     mDatabase.child("users").child(userID).child("profile_picture").setValue(uri.toString());
 
                                     Toast.makeText(addProfilePicture.this, "Profile Picture Uploaded", Toast.LENGTH_SHORT).show();
@@ -115,7 +122,15 @@ public class addProfilePicture extends AppCompatActivity {
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
+                            progressDialog.dismiss();
                             Toast.makeText(addProfilePicture.this, "Failed to upload", Toast.LENGTH_SHORT).show();
+                        }
+                    }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
+                            double progress = (100.0*snapshot.getBytesTransferred())/snapshot.getTotalByteCount();
+                            int currentProgress = (int)progress;
+                            progressDialog.setMessage("Uploaded "+currentProgress+"%");
                         }
                     });
 //                    mDatabase.child("users").child(userID).child("profile_information").setValue(profile);
