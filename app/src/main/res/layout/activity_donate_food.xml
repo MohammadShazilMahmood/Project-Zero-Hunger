@@ -159,7 +159,4 @@
             android:textColor="@color/themeText"
             android:textSize="20dp" />
     </RelativeLayout>
-
-
-
 </LinearLayout>

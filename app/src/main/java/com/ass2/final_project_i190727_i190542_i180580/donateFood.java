@@ -5,6 +5,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -17,6 +18,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -29,6 +31,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
@@ -238,6 +241,10 @@ public class donateFood extends AppCompatActivity {
 
                     FirebaseStorage storage= FirebaseStorage.getInstance();
                     StorageReference ref=storage.getReference().child("foodDonations/"+userID+"/"+donationID+"/foodPic.jpg");
+
+                    ProgressDialog progressDialog = new ProgressDialog(donateFood.this);
+                    progressDialog.show();
+
                     ref.putFile(image).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -245,6 +252,7 @@ public class donateFood extends AppCompatActivity {
                             task.addOnSuccessListener(new OnSuccessListener<Uri>() {
                                 @Override
                                 public void onSuccess(Uri uri) {
+                                    progressDialog.dismiss();
                                     String ImageURL="";
                                     ImageURL=uri.toString();
                                     donationRequest donation= new donationRequest(donationID,
@@ -272,7 +280,15 @@ public class donateFood extends AppCompatActivity {
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
+                            progressDialog.dismiss();
                             Toast.makeText(donateFood.this, "Failed to upload", Toast.LENGTH_SHORT).show();
+                        }
+                    }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
+                            double progress = (100.0*snapshot.getBytesTransferred())/snapshot.getTotalByteCount();
+                            int currentProgress = (int)progress;
+                            progressDialog.setMessage("Uploaded "+currentProgress+"%");
                         }
                     });
                 }
