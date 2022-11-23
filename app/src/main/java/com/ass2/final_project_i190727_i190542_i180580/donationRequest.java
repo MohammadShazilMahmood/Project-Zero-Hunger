@@ -1,10 +1,38 @@
 package com.ass2.final_project_i190727_i190542_i180580;
 
-public class donationRequest {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class donationRequest implements Parcelable {
     String donationID, donorName, donorID, donorAddress, donorCity, foodPicURL, foodDetails, time, number, email;
 
     public donationRequest() {
     }
+
+    protected donationRequest(Parcel in) {
+        donationID = in.readString();
+        donorName = in.readString();
+        donorID = in.readString();
+        donorAddress = in.readString();
+        donorCity = in.readString();
+        foodPicURL = in.readString();
+        foodDetails = in.readString();
+        time = in.readString();
+        number = in.readString();
+        email = in.readString();
+    }
+
+    public static final Creator<donationRequest> CREATOR = new Creator<donationRequest>() {
+        @Override
+        public donationRequest createFromParcel(Parcel in) {
+            return new donationRequest(in);
+        }
+
+        @Override
+        public donationRequest[] newArray(int size) {
+            return new donationRequest[size];
+        }
+    };
 
     public String getNumber() {
         return number;
@@ -100,4 +128,22 @@ public class donationRequest {
     }
 
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(donationID);
+        parcel.writeString(donorName);
+        parcel.writeString(donorID);
+        parcel.writeString(donorAddress);
+        parcel.writeString(donorCity);
+        parcel.writeString(foodPicURL);
+        parcel.writeString(foodDetails);
+        parcel.writeString(time);
+        parcel.writeString(number);
+        parcel.writeString(email);
+    }
 }

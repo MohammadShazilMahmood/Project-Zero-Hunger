@@ -41,6 +41,9 @@ public class PendingRequestHallAdapter extends RecyclerView.Adapter<PendingReque
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(c, detailedPendingRequestHall.class);
+                Integer pos=holder.getAdapterPosition();
+//                donationRequest req = ls.get(pos);
+                i.putExtra("pendingDonationRequestHall",ls.get(pos));
                 c.startActivity(i);
                 ((Activity)c).finish();
             }
