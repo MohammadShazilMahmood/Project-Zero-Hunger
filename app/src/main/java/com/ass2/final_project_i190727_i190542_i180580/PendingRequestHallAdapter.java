@@ -1,9 +1,12 @@
 package com.ass2.final_project_i190727_i190542_i180580;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -34,6 +37,15 @@ public class PendingRequestHallAdapter extends RecyclerView.Adapter<PendingReque
         holder.donorCity.setText(ls.get(position).getDonorCity());
         holder.donationTime.setText(ls.get(position).getTime());
         holder.donationID.setText("Donation ID: " + ls.get(position).getDonationID());
+        holder.roww.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(c, detailedPendingRequestHall.class);
+                c.startActivity(i);
+                ((Activity)c).finish();
+            }
+        });
+
     }
 
     @Override
@@ -43,8 +55,10 @@ public class PendingRequestHallAdapter extends RecyclerView.Adapter<PendingReque
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView donorName, donorAddress, donorCity, donationTime, donationID;
+        LinearLayout roww;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
+            roww=itemView.findViewById(R.id.roww);
             donorName=itemView.findViewById(R.id.donorName);
             donorAddress=itemView.findViewById(R.id.donorAddress);
             donorCity=itemView.findViewById(R.id.donorCity);
