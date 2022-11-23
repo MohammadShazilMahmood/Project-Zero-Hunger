@@ -44,7 +44,7 @@ public class donateFood extends AppCompatActivity {
     Uri image;
     FirebaseAuth mAuth;
     DatabaseReference mDatabase;
-    String profileTypeBack="", addressVal="", name="", city="";
+    String profileTypeBack="", addressVal="", name="", city="", number="", email="";
     String finalAddress="";
     Integer donationCount=0;
     boolean imageSelected=false;
@@ -85,6 +85,8 @@ public class donateFood extends AppCompatActivity {
             profileTypeBack = sharedPreferences.getString("profileType", "");
             name = sharedPreferences.getString("name", "");
             city = sharedPreferences.getString("city", "");
+            number = sharedPreferences.getString("contact","");
+            email = sharedPreferences.getString("email","");
 
             addressVal = sharedPreferences.getString("address", "");
             address.setHint("Address: "+addressVal);
@@ -159,6 +161,34 @@ public class donateFood extends AppCompatActivity {
                     }
                 }
             });
+
+            mDatabase.child("users").child(userID).child("contact_information").child("email").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DataSnapshot> task) {
+                    if (!task.isSuccessful()) {
+                        Log.e("firebase", "Error getting data", task.getException());
+                    } else {
+                        email = "" + String.valueOf(task.getResult().getValue());
+                        myEdit.putString("email", email);
+                        myEdit.commit();
+                    }
+                }
+            });
+
+            //Load Profile Type
+            mDatabase.child("users").child(userID).child("contact_information").child("number").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DataSnapshot> task) {
+                    if (!task.isSuccessful()) {
+                        Log.e("firebase", "Error getting data", task.getException());
+                    } else {
+                        number = "" + String.valueOf(task.getResult().getValue());
+                        myEdit.putString("contact", number);
+                        myEdit.commit();
+                    }
+                }
+            });
+
         }
 
         selectPicture.setOnClickListener(new View.OnClickListener(){
@@ -262,7 +292,9 @@ public class donateFood extends AppCompatActivity {
                                             city,
                                             ImageURL,
                                             foodDetails.getText().toString(),
-                                            currentDate);
+                                            currentDate,
+                                            number,
+                                            email);
 
                                     mDatabase.child("donations").child("donor").child(userID).child("pending_request").child(donationID).setValue(donation);
                                     donationCount=donationCount+1;

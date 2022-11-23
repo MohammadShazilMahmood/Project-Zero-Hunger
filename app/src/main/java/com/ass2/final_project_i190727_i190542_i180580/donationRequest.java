@@ -1,12 +1,28 @@
 package com.ass2.final_project_i190727_i190542_i180580;
 
 public class donationRequest {
-    String donationID, donorName, donorID, donorAddress, donorCity, foodPicURL, foodDetails, time;
+    String donationID, donorName, donorID, donorAddress, donorCity, foodPicURL, foodDetails, time, number, email;
 
     public donationRequest() {
     }
 
-    public donationRequest(String donationID, String donorName, String donorID, String donorAddress, String donorCity, String foodPicURL, String foodDetails, String time) {
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public donationRequest(String donationID, String donorName, String donorID, String donorAddress, String donorCity, String foodPicURL, String foodDetails, String time, String number, String email) {
         this.donationID = donationID;
         this.donorName = donorName;
         this.donorID = donorID;
@@ -15,6 +31,8 @@ public class donationRequest {
         this.foodPicURL = foodPicURL;
         this.foodDetails = foodDetails;
         this.time = time;
+        this.number=number;
+        this.email=email;
     }
 
     public String getDonationID() {
@@ -80,4 +98,6 @@ public class donationRequest {
     public void setTime(String time) {
         this.time = time;
     }
+
+
 }
