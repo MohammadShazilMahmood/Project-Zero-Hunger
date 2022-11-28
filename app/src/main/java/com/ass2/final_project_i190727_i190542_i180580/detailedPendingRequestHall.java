@@ -27,7 +27,7 @@ import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 public class detailedPendingRequestHall extends AppCompatActivity {
-    ImageView back, foodPic;
+    ImageView back, foodPic, cancleDonation;
     TextView name, address, city, number, email, foodDetails, time, donationID;
     String foodPicURL;
     ProgressBar loadingImage;
@@ -58,6 +58,7 @@ public class detailedPendingRequestHall extends AppCompatActivity {
         donationID=findViewById(R.id.donationID);
         foodPic=findViewById(R.id.foodPicture);
         loadingImage=findViewById(R.id.loadingImage);
+        cancleDonation=findViewById(R.id.cancelDonation);
 
         mAuth= FirebaseAuth.getInstance();
         mDatabase= FirebaseDatabase.getInstance().getReference();
@@ -65,16 +66,30 @@ public class detailedPendingRequestHall extends AppCompatActivity {
         FirebaseUser user = mAuth.getCurrentUser();
         String userID = user.getUid().toString();
 
+        donationRequest req = getIntent().getParcelableExtra("pendingDonationRequestHall");
+
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(detailedPendingRequestHall.this, pendingRequestHall.class);
+//                i.putExtra("canceledID", "");
                 startActivity(i);
                 finish();
             }
         });
 
-        donationRequest req = getIntent().getParcelableExtra("pendingDonationRequestHall");
+        cancleDonation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mDatabase.child("donations").child("donor").child(userID).child("pending_request").child(req.getDonationID()).removeValue();
+                Intent i = new Intent(detailedPendingRequestHall.this, pendingRequestHall.class);
+//                i.putExtra("canceledID", req.getDonationID());
+                startActivity(i);
+                finish();
+            }
+        });
+
+
 
         foodPicURL=req.getFoodPicURL();
         if (isNetworkAvailable())
