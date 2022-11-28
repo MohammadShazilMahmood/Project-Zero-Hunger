@@ -241,10 +241,12 @@ public class profileSetUp extends AppCompatActivity {
                     myEdit.putString("email", email);
                     myEdit.putString("identityNumber", identity_number.getText().toString());
                     myEdit.putString("name", name.getText().toString());
+                    myEdit.putString("profileType", profile_type);
                     myEdit.putInt("donationCount", Integer.valueOf(0));
                     myEdit.putString("userID", userID);
                     myEdit.putBoolean("localData", true);
                     myEdit.putBoolean("loggedIn", true);
+                    myEdit.putString("notifications", "True");
                     myEdit.commit();
 
                     Intent i = new Intent(profileSetUp.this, addProfilePicture.class); //For Testing only

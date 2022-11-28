@@ -2,11 +2,17 @@ package com.ass2.final_project_i190727_i190542_i180580;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -37,6 +43,15 @@ public class viewProfilePicture extends AppCompatActivity {
     boolean imageSelected=false;
     Uri image;
     String profileType="";
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager != null ? connectivityManager.getActiveNetworkInfo() : null;
+        return activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,18 +68,28 @@ public class viewProfilePicture extends AppCompatActivity {
         FirebaseUser user = mAuth.getCurrentUser();
         String userID = user.getUid().toString();
 
-        mDatabase.child("users").child(userID).child("profile_information").child("profileType").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if (!task.isSuccessful()) {
-                    Log.e("firebase", "Error getting data", task.getException());
+        SharedPreferences sharedPreferences = getSharedPreferences("MySharedPref", MODE_PRIVATE);
+        SharedPreferences.Editor myEdit = sharedPreferences.edit();
+
+        boolean localData= sharedPreferences.getBoolean("localData",false);
+
+        if (localData)
+        {
+            profileType = sharedPreferences.getString("profileType", "");
+        }
+
+        if (isNetworkAvailable() && (localData==false)) {
+            mDatabase.child("users").child(userID).child("profile_information").child("profileType").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DataSnapshot> task) {
+                    if (!task.isSuccessful()) {
+                        Log.e("firebase", "Error getting data", task.getException());
+                    } else {
+                        profileType = "" + String.valueOf(task.getResult().getValue());
+                    }
                 }
-                else
-                {
-                    profileType=""+String.valueOf(task.getResult().getValue());
-                }
-            }
-        });
+            });
+        }
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
