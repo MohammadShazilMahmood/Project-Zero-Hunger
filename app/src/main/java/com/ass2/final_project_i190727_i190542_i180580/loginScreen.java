@@ -218,6 +218,7 @@ public class loginScreen extends AppCompatActivity {
 
                                 myEdit.putString("userID", userID);
                                 myEdit.putBoolean("localData", true);
+                                myEdit.putBoolean("loggedIn", true);
                                 myEdit.commit();
 
                                 mDatabase.child("users").child(userID).child("profile_information").child("profileType").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {

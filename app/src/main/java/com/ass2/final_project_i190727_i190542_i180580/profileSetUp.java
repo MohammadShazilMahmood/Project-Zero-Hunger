@@ -3,6 +3,7 @@ package com.ass2.final_project_i190727_i190542_i180580;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -22,6 +23,7 @@ public class profileSetUp extends AppCompatActivity {
     String profile_type;
     FirebaseAuth mAuth;
     DatabaseReference mDatabase;
+    String email, number;
 //    String indentity_number_type;
 //    RadioButton cnic, ntn;
 
@@ -42,6 +44,12 @@ public class profileSetUp extends AppCompatActivity {
 
 //        cnic=findViewById(R.id.radio_NIC);
 //        ntn=findViewById(R.id.radio_NIC);
+
+//        i.putExtra("email", email.getText().toString());
+//        i.putExtra("number",number.getText().toString());
+        Intent temp = getIntent();
+        email = temp.getStringExtra("email");
+        number = temp.getStringExtra("number");
 
         NGO.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -224,8 +232,24 @@ public class profileSetUp extends AppCompatActivity {
                     mDatabase.child("donations").child("donor").child(userID).child("Donation_Count").setValue("0");
                     Toast.makeText(profileSetUp.this, "Profile Info Added", Toast.LENGTH_SHORT).show();
 
+                    SharedPreferences sharedPreferences = getSharedPreferences("MySharedPref",MODE_PRIVATE);
+                    SharedPreferences.Editor myEdit = sharedPreferences.edit();
+
+                    myEdit.putString("city", city.getText().toString());
+                    myEdit.putString("address", address.getText().toString());
+                    myEdit.putString("contact", number);
+                    myEdit.putString("email", email);
+                    myEdit.putString("identityNumber", identity_number.getText().toString());
+                    myEdit.putString("name", name.getText().toString());
+                    myEdit.putInt("donationCount", Integer.valueOf(0));
+                    myEdit.putString("userID", userID);
+                    myEdit.putBoolean("localData", true);
+                    myEdit.putBoolean("loggedIn", true);
+                    myEdit.commit();
+
                     Intent i = new Intent(profileSetUp.this, addProfilePicture.class); //For Testing only
                     startActivity(i);
+                    finish();
                 }
             }
         });

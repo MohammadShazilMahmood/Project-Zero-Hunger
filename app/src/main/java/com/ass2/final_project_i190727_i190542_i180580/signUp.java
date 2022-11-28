@@ -111,6 +111,8 @@ public class signUp extends AppCompatActivity {
                                     Toast.makeText(signUp.this, "Successful Sign Up "+userID, Toast.LENGTH_SHORT).show();
 
                                     Intent i = new Intent(signUp.this, profileSetUp.class); //For Testing only
+                                    i.putExtra("email", email.getText().toString());
+                                    i.putExtra("number",number.getText().toString());
                                     startActivity(i);
                                     finish();
                                 }
