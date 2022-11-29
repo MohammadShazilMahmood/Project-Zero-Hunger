@@ -13,6 +13,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,6 +36,7 @@ public class NGO_Home extends AppCompatActivity {
     CircleImageView profilePicture;
     String profilePictureURL="";
     TextView name, profile, settings, donationHistory, aboutUs, ourTeam, tutorial, signOut;
+    ImageView donationRequest, acceptedRequest, moneyReceived;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     private boolean isNetworkAvailable() {
@@ -58,6 +60,10 @@ public class NGO_Home extends AppCompatActivity {
         ourTeam=findViewById(R.id.OurTeam);
         tutorial=findViewById(R.id.Tutorial);
 
+        donationRequest=findViewById(R.id.FoodDonationRequest);
+        acceptedRequest=findViewById(R.id.AcceptedRequest);
+        moneyReceived=findViewById(R.id.MoneyReceived);
+
         mAuth= FirebaseAuth.getInstance();
         mDatabase= FirebaseDatabase.getInstance().getReference();
 
@@ -74,6 +80,15 @@ public class NGO_Home extends AppCompatActivity {
             String nameVal = sharedPreferences.getString("name", "");
             name.setText(nameVal);
         }
+
+        donationRequest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(NGO_Home.this, pendingRequestNGO.class);
+                startActivity(i);
+                finish();
+            }
+        });
 
         settings.setOnClickListener(new View.OnClickListener() {
             @Override

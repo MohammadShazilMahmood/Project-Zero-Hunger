@@ -230,6 +230,7 @@ public class profileSetUp extends AppCompatActivity {
                     mDatabase.child("users").child(userID).child("profile_information").setValue(profile);
                     mDatabase.child("users").child(userID).child("app_settings").child("notifications").setValue("True");
                     mDatabase.child("donations").child("donor").child(userID).child("Donation_Count").setValue("0");
+
                     Toast.makeText(profileSetUp.this, "Profile Info Added", Toast.LENGTH_SHORT).show();
 
                     SharedPreferences sharedPreferences = getSharedPreferences("MySharedPref",MODE_PRIVATE);

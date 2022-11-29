@@ -210,6 +210,11 @@ public class loginScreen extends AppCompatActivity {
                                             Log.e("firebase", "Error getting data", task.getException());
                                         } else {
                                             String donationCount = "" + String.valueOf(task.getResult().getValue());
+                                            if (donationCount==null)
+                                            {
+                                                donationCount="0";
+                                            }
+
                                             myEdit.putInt("donationCount", Integer.valueOf(donationCount));
                                             myEdit.commit();
                                         }

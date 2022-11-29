@@ -82,6 +82,7 @@ public class detailedPendingRequestHall extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 mDatabase.child("donations").child("donor").child(userID).child("pending_request").child(req.getDonationID()).removeValue();
+                mDatabase.child("donations").child("donor").child("all_Pending_Request").child(req.getDonationID()).removeValue();
                 Intent i = new Intent(detailedPendingRequestHall.this, pendingRequestHall.class);
 //                i.putExtra("canceledID", req.getDonationID());
                 startActivity(i);

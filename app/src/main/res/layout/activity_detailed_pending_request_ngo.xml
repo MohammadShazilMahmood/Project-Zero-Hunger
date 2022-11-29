@@ -7,7 +7,7 @@
     android:background="@color/themeBackground"
     android:orientation="vertical"
     android:weightSum="1.0"
-    tools:context=".detailedPendingRequestHall">
+    tools:context=".detailedPendingRequestNGO">
 
     <View
         android:layout_width="match_parent"
@@ -226,7 +226,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="80dp">
                 <ImageView
-                    android:id="@+id/cancelDonation"
+                    android:id="@+id/acceptDonation"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_centerHorizontal="true"
@@ -239,7 +239,7 @@
                     android:layout_height="match_parent"
                     android:fontFamily="serif"
                     android:gravity="center"
-                    android:text="Cancel Donation Request"
+                    android:text="Accept Donation Request"
                     android:textColor="@color/themeText"
                     android:textSize="20dp" />
             </RelativeLayout>
