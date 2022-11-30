@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    android:id="@+id/roww">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/donationID"
+        android:fontFamily="serif"
+        android:textColor="@color/themeText"
+        android:textSize="12dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:layout_marginBottom="3dp"
+        android:text="Accepted By"
+        android:fontFamily="serif"
+        android:textStyle="bold"
+        android:textColor="@color/themeText"
+        android:textSize="12dp"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/NGOName"
+        android:fontFamily="serif"
+        android:textStyle="bold"
+        android:textColor="@color/themeText"
+        android:textSize="14dp"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/NGOAddress"
+        android:fontFamily="serif"
+        android:textColor="@color/themeText"
+        android:textSize="12dp"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/NGOCity"
+        android:fontFamily="serif"
+        android:textColor="@color/themeText"
+        android:textSize="12dp"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/acceptTime"
+        android:fontFamily="serif"
+        android:textColor="@color/themeText"
+        android:textSize="12dp"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="@color/themeText"
+        android:layout_marginTop="5dp"/>
+</LinearLayout>

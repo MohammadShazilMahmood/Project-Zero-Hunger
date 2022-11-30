@@ -90,6 +90,15 @@ public class NGO_Home extends AppCompatActivity {
             }
         });
 
+        acceptedRequest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(NGO_Home.this, acceptedRequestNGO.class);
+                startActivity(i);
+                finish();
+            }
+        });
+
         settings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
