@@ -100,6 +100,15 @@ public class NGO_Home extends AppCompatActivity {
             }
         });
 
+        moneyReceived.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(NGO_Home.this, moneyReceived.class);
+                startActivity(i);
+                finish();
+            }
+        });
+
         acceptedRequest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
