@@ -199,7 +199,7 @@ public class detailedPendingRequestNGO extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (isNetworkAvailable()) {
-                    mDatabase.child("donations").child("donor").child(req.donorID).child("pending_request").child(req.getDonationID()).removeValue();
+                    mDatabase.child("donations").child("donor").child(req.getDonorID()).child("pending_request").child(req.getDonationID()).removeValue();
                     mDatabase.child("donations").child("donor").child("all_Pending_Request").child(req.getDonationID()).removeValue();
 
                     SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy, HH:mm:ss");
@@ -217,7 +217,7 @@ public class detailedPendingRequestNGO extends AppCompatActivity {
                             NGO_Email
                     );
 
-                    mDatabase.child("donations").child("donor").child(req.donorID).child("accepted_request").child(req.getDonationID()).setValue(accept);
+                    mDatabase.child("donations").child("donor").child(req.getDonorID()).child("accepted_request").child(req.getDonationID()).setValue(accept);
                     mDatabase.child("donations").child("NGO").child(userID).child("accepted_request").child(req.getDonationID()).setValue(accept);
 
                     Intent i = new Intent(detailedPendingRequestNGO.this, pendingRequestNGO.class);

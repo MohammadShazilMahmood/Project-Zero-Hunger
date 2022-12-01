@@ -105,6 +105,7 @@ public class Hall_Individual_Home extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(Hall_Individual_Home.this, donationHistoryHall.class); //For Testing only
+                i.putExtra("profileType", "Hall");
                 startActivity(i);
                 finish();
             }

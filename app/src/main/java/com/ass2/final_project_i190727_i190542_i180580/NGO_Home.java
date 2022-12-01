@@ -90,6 +90,16 @@ public class NGO_Home extends AppCompatActivity {
             }
         });
 
+        donationHistory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(NGO_Home.this, donationHistoryHall.class);
+                i.putExtra("profileType", "NGO");
+                startActivity(i);
+                finish();
+            }
+        });
+
         acceptedRequest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

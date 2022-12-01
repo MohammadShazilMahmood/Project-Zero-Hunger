@@ -22,6 +22,7 @@
         <entry key="..\:/Users/LENOVO/AndroidStudioProjects/Final_Project_i190727_i190542_i180580/app/src/main/res/layout/activity_detailed_accepted_request_ngo.xml" value="0.14666666666666667" />
         <entry key="..\:/Users/LENOVO/AndroidStudioProjects/Final_Project_i190727_i190542_i180580/app/src/main/res/layout/activity_detailed_complete_request.xml" value="0.1796875" />
         <entry key="..\:/Users/LENOVO/AndroidStudioProjects/Final_Project_i190727_i190542_i180580/app/src/main/res/layout/activity_detailed_complete_request_ngo.xml" value="0.1796875" />
+        <entry key="..\:/Users/LENOVO/AndroidStudioProjects/Final_Project_i190727_i190542_i180580/app/src/main/res/layout/activity_detailed_completed_request.xml" value="0.1" />
         <entry key="..\:/Users/LENOVO/AndroidStudioProjects/Final_Project_i190727_i190542_i180580/app/src/main/res/layout/activity_detailed_pending_request_hall.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/LENOVO/AndroidStudioProjects/Final_Project_i190727_i190542_i180580/app/src/main/res/layout/activity_detailed_pending_request_ngo.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/LENOVO/AndroidStudioProjects/Final_Project_i190727_i190542_i180580/app/src/main/res/layout/activity_donate_food.xml" value="0.10666666666666667" />
@@ -40,6 +41,8 @@
         <entry key="..\:/Users/LENOVO/AndroidStudioProjects/Final_Project_i190727_i190542_i180580/app/src/main/res/layout/activity_update_contact_information.xml" value="0.1796875" />
         <entry key="..\:/Users/LENOVO/AndroidStudioProjects/Final_Project_i190727_i190542_i180580/app/src/main/res/layout/activity_view_profile.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/LENOVO/AndroidStudioProjects/Final_Project_i190727_i190542_i180580/app/src/main/res/layout/activity_view_profile_picture.xml" value="0.165625" />
+        <entry key="..\:/Users/LENOVO/AndroidStudioProjects/Final_Project_i190727_i190542_i180580/app/src/main/res/layout/completed_request_row.xml" value="0.1796875" />
+        <entry key="..\:/Users/LENOVO/AndroidStudioProjects/Final_Project_i190727_i190542_i180580/app/src/main/res/layout/completed_request_row_hall.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/LENOVO/AndroidStudioProjects/Final_Project_i190727_i190542_i180580/app/src/main/res/layout/pendingRequestRow_Hall.xml" value="0.1796875" />
         <entry key="..\:/Users/LENOVO/AndroidStudioProjects/Final_Project_i190727_i190542_i180580/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1" />
       </map>

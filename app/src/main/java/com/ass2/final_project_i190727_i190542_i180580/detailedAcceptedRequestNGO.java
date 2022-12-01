@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -21,6 +22,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class detailedAcceptedRequestNGO extends AppCompatActivity {
     ImageView back, foodPic, collectDonation;
@@ -78,6 +82,36 @@ public class detailedAcceptedRequestNGO extends AppCompatActivity {
 //                i.putExtra("canceledID", "");
                 startActivity(i);
                 finish();
+            }
+        });
+
+        collectDonation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (isNetworkAvailable()) {
+                    mDatabase.child("donations").child("donor").child(req.getRequest().getDonorID()).child("accepted_request").child(req.getRequest().getDonationID()).removeValue();
+                    mDatabase.child("donations").child("NGO").child(req.getNGO_ID()).child("accepted_request").child(req.getRequest().getDonationID()).removeValue();
+
+                    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy, HH:mm:ss");
+                    Date date = new Date();
+                    String currentDate = formatter.format(date);
+
+                    completedRequest complete_request = new completedRequest(
+                            req,
+                            currentDate
+                    );
+
+                    mDatabase.child("donations").child("donor").child(req.getRequest().getDonorID()).child("completed_request").child(req.getRequest().getDonationID()).setValue(complete_request);
+                    mDatabase.child("donations").child("NGO").child(req.getNGO_ID()).child("completed_request").child(req.getRequest().getDonationID()).setValue(complete_request);
+
+                    Intent i = new Intent(detailedAcceptedRequestNGO.this, acceptedRequestNGO.class);
+                    startActivity(i);
+                    finish();
+                }
+                else
+                {
+                    Toast.makeText(detailedAcceptedRequestNGO.this, "No Internet Access", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 

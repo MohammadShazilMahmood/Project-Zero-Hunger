@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    android:id="@+id/roww">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/donorName"
+        android:fontFamily="serif"
+        android:text="Donor Name: "
+        android:textColor="@color/themeText"
+        android:textSize="14dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/NGOName"
+        android:fontFamily="serif"
+        android:text="Collected By: "
+        android:textColor="@color/themeText"
+        android:textSize="14dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/donationID"
+        android:fontFamily="serif"
+        android:text="Donation ID: "
+        android:textColor="@color/themeText"
+        android:textSize="13dp"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/collectTime"
+        android:text="Collection Date and Time: "
+        android:fontFamily="serif"
+        android:textColor="@color/themeText"
+        android:textSize="13dp"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="@color/themeText"
+        android:layout_marginTop="5dp"/>
+</LinearLayout>
