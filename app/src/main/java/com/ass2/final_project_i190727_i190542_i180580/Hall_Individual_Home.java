@@ -35,7 +35,7 @@ public class Hall_Individual_Home extends AppCompatActivity {
     ImageView donateMoney, donateFood, pendingRequest, acceptedRequest;
     CircleImageView profilePicture;
     String profilePictureURL="";
-    TextView name, profile, settings, donationHistory, aboutUs, ourTeam, tutorial, signOut;
+    TextView name, profile, settings, donationHistory, aboutUs, ourTeam, ContactUS, signOut;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     private boolean isNetworkAvailable() {
@@ -59,7 +59,7 @@ public class Hall_Individual_Home extends AppCompatActivity {
         donationHistory=findViewById(R.id.DonationHistory);
         aboutUs=findViewById(R.id.About_PZH);
         ourTeam=findViewById(R.id.OurTeam);
-        tutorial=findViewById(R.id.Tutorial);
+        ContactUS=findViewById(R.id.ContactUS);
         donateMoney=findViewById(R.id.DonateMoney);
         donateFood=findViewById(R.id.DonateFood);
         pendingRequest=findViewById(R.id.PendingRequest);
@@ -111,10 +111,10 @@ public class Hall_Individual_Home extends AppCompatActivity {
             }
         });
 
-        tutorial.setOnClickListener(new View.OnClickListener() {
+        ContactUS.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(Hall_Individual_Home.this, tutorial.class); //For Testing only
+                Intent i = new Intent(Hall_Individual_Home.this, contact_us.class); //For Testing only
                 startActivity(i);
                 finish();
             }

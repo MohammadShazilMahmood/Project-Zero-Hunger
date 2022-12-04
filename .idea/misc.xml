@@ -18,6 +18,7 @@
         <entry key="..\:/Users/LENOVO/AndroidStudioProjects/Final_Project_i190727_i190542_i180580/app/src/main/res/layout/activity_accepted_request_ngo.xml" value="0.1109375" />
         <entry key="..\:/Users/LENOVO/AndroidStudioProjects/Final_Project_i190727_i190542_i180580/app/src/main/res/layout/activity_add_profile_picture.xml" value="0.1796875" />
         <entry key="..\:/Users/LENOVO/AndroidStudioProjects/Final_Project_i190727_i190542_i180580/app/src/main/res/layout/activity_app_settings.xml" value="0.14666666666666667" />
+        <entry key="..\:/Users/LENOVO/AndroidStudioProjects/Final_Project_i190727_i190542_i180580/app/src/main/res/layout/activity_contact_us.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/LENOVO/AndroidStudioProjects/Final_Project_i190727_i190542_i180580/app/src/main/res/layout/activity_detailed_accepted_request_hall.xml" value="0.17481884057971014" />
         <entry key="..\:/Users/LENOVO/AndroidStudioProjects/Final_Project_i190727_i190542_i180580/app/src/main/res/layout/activity_detailed_accepted_request_ngo.xml" value="0.14666666666666667" />
         <entry key="..\:/Users/LENOVO/AndroidStudioProjects/Final_Project_i190727_i190542_i180580/app/src/main/res/layout/activity_detailed_complete_request.xml" value="0.1796875" />
@@ -45,6 +46,7 @@
         <entry key="..\:/Users/LENOVO/AndroidStudioProjects/Final_Project_i190727_i190542_i180580/app/src/main/res/layout/completed_request_row.xml" value="0.1796875" />
         <entry key="..\:/Users/LENOVO/AndroidStudioProjects/Final_Project_i190727_i190542_i180580/app/src/main/res/layout/completed_request_row_hall.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/LENOVO/AndroidStudioProjects/Final_Project_i190727_i190542_i180580/app/src/main/res/layout/pendingRequestRow_Hall.xml" value="0.1796875" />
+        <entry key="..\:/Users/LENOVO/AndroidStudioProjects/Final_Project_i190727_i190542_i180580/app/src/main/res/layout/pending_request_row_hall.xml" value="0.1796875" />
         <entry key="..\:/Users/LENOVO/AndroidStudioProjects/Final_Project_i190727_i190542_i180580/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1" />
       </map>
     </option>

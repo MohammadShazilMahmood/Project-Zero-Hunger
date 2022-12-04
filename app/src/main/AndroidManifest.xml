@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.ass2.final_project_i190727_i190542_i180580">
+    package="com.ass2.final_project_i190727_i190542_i180580" >
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
@@ -14,7 +14,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Final_Project_i190727_i190542_i180580"
-        tools:targetApi="31">
+        tools:targetApi="31" >
+        <activity
+            android:name=".contact_us"
+            android:exported="false" />
         <activity
             android:name=".detailedCompletedRequest"
             android:exported="false" />
@@ -41,9 +44,6 @@
             android:exported="false" />
         <activity
             android:name=".donationHistoryHall"
-            android:exported="false" />
-        <activity
-            android:name=".tutorial"
             android:exported="false" />
         <activity
             android:name=".pendingRequestHall"
@@ -95,7 +95,7 @@
             android:exported="false" />
         <activity
             android:name=".MainActivity"
-            android:exported="true">
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -292,13 +292,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="0.085"
-                android:text="Tutorial"
+                android:text="Contact Us"
                 android:textSize="25dp"
                 android:textColor="@color/themeText"
                 android:gravity="center"
                 android:fontFamily="serif"
                 android:textStyle="bold"
-                android:id="@+id/Tutorial"/>
+                android:id="@+id/ContactUS"/>
 
             <View
                 android:layout_width="match_parent"

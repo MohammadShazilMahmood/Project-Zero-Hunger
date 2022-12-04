@@ -188,7 +188,6 @@ public class donateFood extends AppCompatActivity {
                     }
                 }
             });
-
         }
 
         selectPicture.setOnClickListener(new View.OnClickListener(){
