@@ -174,7 +174,14 @@ public class addProfilePicture extends AppCompatActivity {
             }
         });
 
+    }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent i = new Intent(addProfilePicture.this, profileSetUp.class); //For Testing only
+        startActivity(i);
+        finish();
     }
 
     @Override
@@ -193,6 +200,4 @@ public class addProfilePicture extends AppCompatActivity {
 //            songSelect.setText("Audio Selected");
 //        }
     }
-
-
 }
