@@ -28,6 +28,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.onesignal.OneSignal;
 
 public class loginScreen extends AppCompatActivity {
 
@@ -227,6 +228,8 @@ public class loginScreen extends AppCompatActivity {
                                 mDatabase.child("users").child(userID).child("logged_in").setValue("True");
                                 myEdit.commit();
 
+
+
                                 mDatabase.child("users").child(userID).child("profile_information").child("profileType").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
                                     @Override
                                     public void onComplete(@NonNull Task<DataSnapshot> task) {
@@ -236,6 +239,17 @@ public class loginScreen extends AppCompatActivity {
                                             profileType=""+String.valueOf(task.getResult().getValue());
                                             myEdit.putString("profileType", profileType);
                                             myEdit.commit();
+
+                                            String playerid= OneSignal.getDeviceState().getUserId().toString();
+                                            if (profileType.matches("NGO"))
+                                            {
+                                                mDatabase.child("player_id").child("NGO").child(userID).setValue(playerid);
+                                            }
+                                            else
+                                            {
+                                                mDatabase.child("player_id").child("Hall").child(userID).setValue(playerid);
+                                            }
+                                            myEdit.putString("player_id", playerid);
 
                                             Toast.makeText(loginScreen.this, "Sign In", Toast.LENGTH_SHORT).show();
                                             if (profileType.matches("NGO"))

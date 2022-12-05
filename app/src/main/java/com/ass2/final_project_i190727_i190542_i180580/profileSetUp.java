@@ -20,6 +20,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.onesignal.OneSignal;
 
 public class profileSetUp extends AppCompatActivity {
     ImageView NGO, Hall, Individual, next;
@@ -262,6 +263,18 @@ public class profileSetUp extends AppCompatActivity {
 
                     SharedPreferences sharedPreferences = getSharedPreferences("MySharedPref",MODE_PRIVATE);
                     SharedPreferences.Editor myEdit = sharedPreferences.edit();
+
+                    String playerid= OneSignal.getDeviceState().getUserId().toString();
+                    if (profile_type.matches("NGO"))
+                    {
+                        mDatabase.child("player_id").child("NGO").child(userID).setValue(playerid);
+                    }
+                    else
+                    {
+                        mDatabase.child("player_id").child("Hall").child(userID).setValue(playerid);
+                    }
+                    myEdit.putString("player_id", playerid);
+
 
                     myEdit.putString("city", city.getText().toString());
                     myEdit.putString("address", address.getText().toString());

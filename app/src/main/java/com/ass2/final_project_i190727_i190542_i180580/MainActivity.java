@@ -23,6 +23,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.onesignal.OneSignal;
 
 public class MainActivity extends AppCompatActivity {
 //    private FirebaseAuth mAuth;
@@ -91,6 +92,18 @@ public class MainActivity extends AppCompatActivity {
                                     Log.e("firebase", "Error getting data", task.getException());
                                 } else {
                                     profileType = "" + String.valueOf(task.getResult().getValue());
+
+                                    String playerid= OneSignal.getDeviceState().getUserId().toString();
+                                    if (profileType.matches("NGO"))
+                                    {
+                                        mDatabase.child("player_id").child("NGO").child(userID).setValue(playerid);
+                                    }
+                                    else
+                                    {
+                                        mDatabase.child("player_id").child("Hall").child(userID).setValue(playerid);
+                                    }
+                                    myEdit.putString("player_id", playerid);
+
                                     if (profileType.matches("NGO")) {
 //                                    Toast.makeText(MainActivity.this, "NGO NGO NGO", Toast.LENGTH_SHORT).show();
                                         i = new Intent(MainActivity.this, NGO_Home.class); //For Testing only
