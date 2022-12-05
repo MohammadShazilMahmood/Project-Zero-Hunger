@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
                                     }
                                     myEdit.putString("player_id", playerid);
                                     myEdit.commit();
-                                    Toast.makeText(MainActivity.this, playerid, Toast.LENGTH_SHORT).show();
+//                                    Toast.makeText(MainActivity.this, playerid, Toast.LENGTH_SHORT).show();
 
                                     if (profileType.matches("NGO")) {
 //                                    Toast.makeText(MainActivity.this, "NGO NGO NGO", Toast.LENGTH_SHORT).show();

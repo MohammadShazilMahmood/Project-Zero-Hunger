@@ -28,8 +28,10 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
@@ -40,7 +42,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class donateFood extends AppCompatActivity {
     ImageView selectPicture, foodPicture, addRequest, back;
@@ -52,7 +56,12 @@ public class donateFood extends AppCompatActivity {
     String finalAddress="";
     Integer donationCount=0;
     boolean imageSelected=false;
+    String notifications="", logged_in="";
     JSONObject json;
+    List<String> ngo_list;
+    List<String> selected_pid;
+    Integer i=0;
+    String current_uid="";
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     private boolean isNetworkAvailable() {
@@ -310,34 +319,100 @@ public class donateFood extends AppCompatActivity {
                                     progressDialog.dismiss();
                                     Toast.makeText(donateFood.this, "Donation Request Added", Toast.LENGTH_SHORT).show();
 
-                                    String message="New Donation Request Added at "+currentDate;
-                                    String heading="PZH";
-                                    String pid=sharedPreferences.getString("player_id","");
-                                    Toast.makeText(donateFood.this, pid, Toast.LENGTH_SHORT).show();
-                                    try {
-                                        json= new JSONObject("{ 'include_player_ids': [ '"+pid+"' ]," +
-                                                "'contents': { 'en' : '"+message+"' } ," +
-                                                " 'headings' :{'en':'"+heading+"'} }");
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
-                                    }
-
-                                    OneSignal.postNotification(json, new OneSignal.PostNotificationResponseHandler() {
+                                    mDatabase= FirebaseDatabase.getInstance().getReference().child("player_id").child("NGO");
+                                    ngo_list = new ArrayList<>();
+                                    selected_pid = new ArrayList<>();
+                                    mDatabase.addValueEventListener(new ValueEventListener() {
                                         @Override
-                                        public void onSuccess(JSONObject jsonObject) {
-                                            Toast.makeText(donateFood.this,"Notification sent",Toast.LENGTH_LONG).show();
+                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                            ngo_list.clear();
+                                            for (DataSnapshot datasnapshot : snapshot.getChildren())
+                                            {
+//                                                Toast.makeText(donateFood.this, "AAA", Toast.LENGTH_SHORT).show();
+                                                String uid = datasnapshot.getKey().toString();
+                                                ngo_list.add(uid);
+                                            }
+
+                                            mDatabase= FirebaseDatabase.getInstance().getReference();
+                                            for (i=0; i<ngo_list.size(); i++)
+                                            {
+                                                notifications="";
+                                                logged_in="";
+                                                current_uid=ngo_list.get(i);
+                                                mDatabase.child("users").child(current_uid).child("logged_in").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<DataSnapshot> task) {
+                                                        if (!task.isSuccessful()) {
+                                                            Log.e("firebase", "Error getting data", task.getException());
+                                                        } else {
+                                                            logged_in = "" + String.valueOf(task.getResult().getValue());
+//                                                            Toast.makeText(donateFood.this, logged_in, Toast.LENGTH_SHORT).show();
+
+                                                            if (logged_in.matches("True")) {
+                                                                mDatabase.child("users").child(current_uid).child("app_settings").child("notifications").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                                                                    @Override
+                                                                    public void onComplete(@NonNull Task<DataSnapshot> task) {
+                                                                        if (!task.isSuccessful()) {
+                                                                            Log.e("firebase", "Error getting data", task.getException());
+                                                                        } else {
+                                                                            notifications = "" + String.valueOf(task.getResult().getValue());
+
+                                                                            if (notifications.matches("True"))
+                                                                            {
+                                                                                mDatabase.child("player_id").child("NGO").child(current_uid).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                                                                                    @Override
+                                                                                    public void onComplete(@NonNull Task<DataSnapshot> task) {
+                                                                                        if (!task.isSuccessful()) {
+                                                                                            Log.e("firebase", "Error getting data", task.getException());
+                                                                                        } else {
+                                                                                            String pid = "" + String.valueOf(task.getResult().getValue());
+//                                                                                            selected_pid.add(pid);
+//                                                                                            Toast.makeText(donateFood.this, pid, Toast.LENGTH_SHORT).show();
+
+                                                                                            String message="Donation ID: "+donationID+"\nDonor: "+name+"\nCity: "+city+"\n"+currentDate;
+                                                                                            String heading="PZH New Donation Request";
+
+//                                                                                            Toast.makeText(donateFood.this, pid, Toast.LENGTH_SHORT).show();
+                                                                                            try {
+                                                                                                json= new JSONObject("{ 'include_player_ids': [ '"+pid+"' ]," +
+                                                                                                        "'contents': { 'en' : '"+message+"' } ," +
+                                                                                                        " 'headings' :{'en':'"+heading+"'} }");
+                                                                                            } catch (JSONException e) {
+                                                                                                e.printStackTrace();
+                                                                                            }
+
+                                                                                            OneSignal.postNotification(json, new OneSignal.PostNotificationResponseHandler() {
+                                                                                                @Override
+                                                                                                public void onSuccess(JSONObject jsonObject) {
+//                                                                                                    Toast.makeText(donateFood.this,"Notification sent",Toast.LENGTH_LONG).show();
+                                                                                                }
+
+                                                                                                @Override
+                                                                                                public void onFailure(JSONObject jsonObject) {
+//                                                                                                    Toast.makeText(donateFood.this,"Notification Not sent",Toast.LENGTH_LONG).show();
+                                                                                                }
+                                                                                            });
+
+
+                                                                                        }
+                                                                                    }
+                                                                                });
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                });
+                                                            }
+                                                        }
+                                                    }
+                                                });
+                                            }
                                         }
 
                                         @Override
-                                        public void onFailure(JSONObject jsonObject) {
-                                            Toast.makeText(donateFood.this,"Notification Not sent",Toast.LENGTH_LONG).show();
+                                        public void onCancelled(@NonNull DatabaseError error) {
 
                                         }
                                     });
-
-                                    String test= json.toString();
-                                    Toast.makeText(donateFood.this, test, Toast.LENGTH_SHORT).show();
-
 
                                     Intent i = new Intent(donateFood.this, Hall_Individual_Home.class); //For Testing only
                                     startActivity(i);
