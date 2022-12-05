@@ -78,10 +78,19 @@ public class detailedAcceptedRequestNGO extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(detailedAcceptedRequestNGO.this, acceptedRequestNGO.class);
+                if (isNetworkAvailable()) {
+                    Intent i = new Intent(detailedAcceptedRequestNGO.this, acceptedRequestNGO.class);
 //                i.putExtra("canceledID", "");
-                startActivity(i);
-                finish();
+                    startActivity(i);
+                    finish();
+                }
+                else
+                {
+                    Intent i = new Intent(detailedAcceptedRequestNGO.this, NGO_Home.class);
+//                i.putExtra("canceledID", "");
+                    startActivity(i);
+                    finish();
+                }
             }
         });
 
@@ -144,5 +153,23 @@ public class detailedAcceptedRequestNGO extends AppCompatActivity {
         foodDetails.setText("Donation Details: "+req.getRequest().getFoodDetails());
         time.setText("Date & Time: "+req.getRequest().getTime());
         donationID.setText("Donation ID: "+req.getRequest().getDonationID());
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        if (isNetworkAvailable()) {
+            Intent i = new Intent(detailedAcceptedRequestNGO.this, acceptedRequestNGO.class);
+//                i.putExtra("canceledID", "");
+            startActivity(i);
+            finish();
+        }
+        else
+        {
+            Intent i = new Intent(detailedAcceptedRequestNGO.this, NGO_Home.class);
+//                i.putExtra("canceledID", "");
+            startActivity(i);
+            finish();
+        }
     }
 }

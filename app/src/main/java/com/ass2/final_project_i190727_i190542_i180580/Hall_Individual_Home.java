@@ -3,6 +3,7 @@ package com.ass2.final_project_i190727_i190542_i180580;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Context;
 import android.content.Intent;
@@ -31,8 +32,9 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class Hall_Individual_Home extends AppCompatActivity {
     FirebaseAuth mAuth;
     DatabaseReference mDatabase;
+    DrawerLayout drawer;
 //    ImageView profilePicture;
-    ImageView donateMoney, donateFood, pendingRequest, acceptedRequest;
+    ImageView donateMoney, donateFood, pendingRequest, acceptedRequest, menu;
     CircleImageView profilePicture;
     String profilePictureURL="";
     TextView name, profile, settings, donationHistory, aboutUs, ourTeam, ContactUS, signOut;
@@ -64,6 +66,8 @@ public class Hall_Individual_Home extends AppCompatActivity {
         donateFood=findViewById(R.id.DonateFood);
         pendingRequest=findViewById(R.id.PendingRequest);
         acceptedRequest=findViewById(R.id.AcceptedRequest);
+        drawer=findViewById(R.id.drawer);
+        menu=findViewById(R.id.Menu);
 
         mAuth= FirebaseAuth.getInstance();
         mDatabase= FirebaseDatabase.getInstance().getReference();
@@ -82,6 +86,15 @@ public class Hall_Individual_Home extends AppCompatActivity {
             name.setText(nameVal);
         }
 
+        menu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(drawer.isOpen()==false)
+                {
+                    drawer.open();
+                }
+            }
+        });
 
         settings.setOnClickListener(new View.OnClickListener() {
             @Override

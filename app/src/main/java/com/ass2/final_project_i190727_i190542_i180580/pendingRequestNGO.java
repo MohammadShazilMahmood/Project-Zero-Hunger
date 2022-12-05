@@ -102,4 +102,12 @@ public class pendingRequestNGO extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent i = new Intent(pendingRequestNGO.this, NGO_Home.class); //For Testing only
+        startActivity(i);
+        finish();
+    }
 }

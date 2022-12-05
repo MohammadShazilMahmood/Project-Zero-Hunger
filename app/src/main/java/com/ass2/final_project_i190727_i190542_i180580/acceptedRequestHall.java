@@ -98,4 +98,12 @@ public class acceptedRequestHall extends AppCompatActivity {
         });
 
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent i = new Intent(acceptedRequestHall.this, Hall_Individual_Home.class); //For Testing only
+        startActivity(i);
+        finish();
+    }
 }

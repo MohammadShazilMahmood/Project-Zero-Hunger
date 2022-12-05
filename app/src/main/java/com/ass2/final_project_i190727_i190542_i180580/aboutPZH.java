@@ -92,4 +92,21 @@ public class aboutPZH extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        if (profileType.matches("NGO"))
+        {
+            Intent i = new Intent(aboutPZH.this, NGO_Home.class); //For Testing only
+            startActivity(i);
+            finish();
+        }
+        else
+        {
+            Intent i = new Intent(aboutPZH.this, Hall_Individual_Home.class); //For Testing only
+            startActivity(i);
+            finish();
+        }
+    }
 }

@@ -340,4 +340,12 @@ public class donateFood extends AppCompatActivity {
             imageSelected=true;
         }
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent i = new Intent(donateFood.this, Hall_Individual_Home.class); //For Testing only
+        startActivity(i);
+        finish();
+    }
 }

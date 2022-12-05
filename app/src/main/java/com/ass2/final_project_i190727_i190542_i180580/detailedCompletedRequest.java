@@ -166,4 +166,32 @@ public class detailedCompletedRequest extends AppCompatActivity {
         NGOEmail.setText("Email: "+req.getAccepted_request().getNGO_Email());
         collectTime.setText("Collection Date and Time: "+req.getCompletion_time());
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        if (isNetworkAvailable())
+        {
+            Intent i = new Intent(detailedCompletedRequest.this, donationHistoryHall.class);
+            i.putExtra("profileType", profileType);
+            startActivity(i);
+            finish();
+        }
+        else
+        {
+            if (profileType.matches("NGO"))
+            {
+                Intent i = new Intent(detailedCompletedRequest.this, NGO_Home.class);
+                startActivity(i);
+                finish();
+            }
+            else
+            {
+                Intent i = new Intent(detailedCompletedRequest.this, Hall_Individual_Home.class);
+                startActivity(i);
+                finish();
+            }
+        }
+
+    }
 }

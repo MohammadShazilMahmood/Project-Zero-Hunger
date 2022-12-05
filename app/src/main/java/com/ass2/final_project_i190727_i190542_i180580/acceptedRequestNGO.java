@@ -98,4 +98,12 @@ public class acceptedRequestNGO extends AppCompatActivity {
         });
 
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent i = new Intent(acceptedRequestNGO.this, NGO_Home.class); //For Testing only
+        startActivity(i);
+        finish();
+    }
 }

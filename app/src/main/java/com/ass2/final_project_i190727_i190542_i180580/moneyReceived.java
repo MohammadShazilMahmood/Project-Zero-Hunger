@@ -34,4 +34,12 @@ public class moneyReceived extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent i = new Intent(moneyReceived.this, NGO_Home.class); //For Testing only
+        startActivity(i);
+        finish();
+    }
 }

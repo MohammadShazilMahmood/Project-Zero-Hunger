@@ -235,4 +235,21 @@ public class viewProfile extends AppCompatActivity {
         }
 
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        if (profileTypeBack.matches("NGO"))
+        {
+            Intent i = new Intent(viewProfile.this, NGO_Home.class); //For Testing only
+            startActivity(i);
+            finish();
+        }
+        else
+        {
+            Intent i = new Intent(viewProfile.this, Hall_Individual_Home.class); //For Testing only
+            startActivity(i);
+            finish();
+        }
+    }
 }

@@ -245,4 +245,21 @@ public class viewProfilePicture extends AppCompatActivity {
             imageSelected=true;
         }
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        if (profileType.matches("NGO"))
+        {
+            Intent i = new Intent(viewProfilePicture.this, NGO_Home.class); //For Testing only
+            startActivity(i);
+            finish();
+        }
+        else
+        {
+            Intent i = new Intent(viewProfilePicture.this, Hall_Individual_Home.class); //For Testing only
+            startActivity(i);
+            finish();
+        }
+    }
 }

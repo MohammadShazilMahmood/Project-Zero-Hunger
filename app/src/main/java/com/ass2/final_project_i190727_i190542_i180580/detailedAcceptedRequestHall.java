@@ -73,10 +73,19 @@ public class detailedAcceptedRequestHall extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(detailedAcceptedRequestHall.this, acceptedRequestHall.class);
+                if (isNetworkAvailable()) {
+                    Intent i = new Intent(detailedAcceptedRequestHall.this, acceptedRequestHall.class);
 //                i.putExtra("canceledID", "");
-                startActivity(i);
-                finish();
+                    startActivity(i);
+                    finish();
+                }
+                else
+                {
+                    Intent i = new Intent(detailedAcceptedRequestHall.this, Hall_Individual_Home.class);
+//                i.putExtra("canceledID", "");
+                    startActivity(i);
+                    finish();
+                }
             }
         });
 
@@ -111,5 +120,23 @@ public class detailedAcceptedRequestHall extends AppCompatActivity {
         time.setText("Request Date and Time: "+req.getRequest().getTime());
         acceptTime.setText("Accepting Date and Time: "+req.acceptedTime);
         donationID.setText("Donation ID: "+req.getRequest().getDonationID());
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        if (isNetworkAvailable()) {
+            Intent i = new Intent(detailedAcceptedRequestHall.this, acceptedRequestHall.class);
+//                i.putExtra("canceledID", "");
+            startActivity(i);
+            finish();
+        }
+        else
+        {
+            Intent i = new Intent(detailedAcceptedRequestHall.this, Hall_Individual_Home.class);
+//                i.putExtra("canceledID", "");
+            startActivity(i);
+            finish();
+        }
     }
 }

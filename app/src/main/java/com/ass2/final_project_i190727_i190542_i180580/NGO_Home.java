@@ -3,6 +3,7 @@ package com.ass2.final_project_i190727_i190542_i180580;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Context;
 import android.content.Intent;
@@ -32,11 +33,12 @@ public class NGO_Home extends AppCompatActivity {
 
     FirebaseAuth mAuth;
     DatabaseReference mDatabase;
+    DrawerLayout drawer;
     //    ImageView profilePicture;
     CircleImageView profilePicture;
     String profilePictureURL="";
     TextView name, profile, settings, donationHistory, aboutUs, ourTeam, ContactUS, signOut;
-    ImageView donationRequest, acceptedRequest, moneyReceived;
+    ImageView donationRequest, acceptedRequest, moneyReceived, menu;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     private boolean isNetworkAvailable() {
@@ -59,6 +61,8 @@ public class NGO_Home extends AppCompatActivity {
         aboutUs=findViewById(R.id.About_PZH);
         ourTeam=findViewById(R.id.OurTeam);
         ContactUS=findViewById(R.id.ContactUS);
+        drawer=findViewById(R.id.drawer);
+        menu=findViewById(R.id.Menu);
 
         donationRequest=findViewById(R.id.FoodDonationRequest);
         acceptedRequest=findViewById(R.id.AcceptedRequest);
@@ -104,6 +108,16 @@ public class NGO_Home extends AppCompatActivity {
                 Intent i = new Intent(NGO_Home.this, contact_us.class);
                 startActivity(i);
                 finish();
+            }
+        });
+
+        menu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(drawer.isOpen()==false)
+                {
+                    drawer.open();
+                }
             }
         });
 

@@ -156,4 +156,21 @@ public class appSettings extends AppCompatActivity {
         });
 
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        if (profileType.matches("NGO"))
+        {
+            Intent i = new Intent(appSettings.this, NGO_Home.class); //For Testing only
+            startActivity(i);
+            finish();
+        }
+        else
+        {
+            Intent i = new Intent(appSettings.this, Hall_Individual_Home.class); //For Testing only
+            startActivity(i);
+            finish();
+        }
+    }
 }

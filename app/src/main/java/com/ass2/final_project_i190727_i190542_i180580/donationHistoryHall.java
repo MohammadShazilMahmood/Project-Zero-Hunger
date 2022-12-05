@@ -125,4 +125,21 @@ public class donationHistoryHall extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        if (profileType.matches("NGO"))
+        {
+            Intent i = new Intent(donationHistoryHall.this, NGO_Home.class); //For Testing only
+            startActivity(i);
+            finish();
+        }
+        else
+        {
+            Intent i = new Intent(donationHistoryHall.this, Hall_Individual_Home.class); //For Testing only
+            startActivity(i);
+            finish();
+        }
+    }
 }
