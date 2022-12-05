@@ -238,6 +238,7 @@ public class NGO_Home extends AppCompatActivity {
                     mAuth.signOut();
                     myEdit.putBoolean("localData", false);
                     myEdit.putBoolean("loggedIn", false);
+                    myEdit.commit();
                     Intent i = new Intent(NGO_Home.this, loginScreen.class); //For Testing only
                     startActivity(i);
                     finish();

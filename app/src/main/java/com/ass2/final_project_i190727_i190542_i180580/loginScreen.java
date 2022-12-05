@@ -36,7 +36,7 @@ public class loginScreen extends AppCompatActivity {
     EditText email, password;
     FirebaseAuth mAuth;
     DatabaseReference mDatabase;
-    String profileType="", name="", identityNumber="", emailFetched, contactNum="", addressFetched="", cityFetched="" ;
+    String profileType="", name="", identityNumber="", emailFetched, contactNum="", addressFetched="", cityFetched="", notify="" ;
     boolean profileWait=false, nameWait=false, idWait=false, emailWait=false, contactWait=false, addressWait=false, cityWait=false;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -129,6 +129,20 @@ public class loginScreen extends AppCompatActivity {
                                         } else {
                                             name = "" + String.valueOf(task.getResult().getValue());
                                             myEdit.putString("name", name);
+                                            myEdit.commit();
+                                        }
+                                    }
+                                });
+
+                                //Load Notification Settings
+                                mDatabase.child("users").child(userID).child("app_settings").child("notifications").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<DataSnapshot> task) {
+                                        if (!task.isSuccessful()) {
+                                            Log.e("firebase", "Error getting data", task.getException());
+                                        } else {
+                                            notify = "" + String.valueOf(task.getResult().getValue());
+                                            myEdit.putString("notifications", notify);
                                             myEdit.commit();
                                         }
                                     }
@@ -250,6 +264,7 @@ public class loginScreen extends AppCompatActivity {
                                                 mDatabase.child("player_id").child("Hall").child(userID).setValue(playerid);
                                             }
                                             myEdit.putString("player_id", playerid);
+                                            myEdit.commit();
 
                                             Toast.makeText(loginScreen.this, "Sign In", Toast.LENGTH_SHORT).show();
                                             if (profileType.matches("NGO"))

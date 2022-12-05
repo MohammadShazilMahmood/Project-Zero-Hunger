@@ -34,6 +34,10 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.onesignal.OneSignal;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -48,6 +52,7 @@ public class donateFood extends AppCompatActivity {
     String finalAddress="";
     Integer donationCount=0;
     boolean imageSelected=false;
+    JSONObject json;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     private boolean isNetworkAvailable() {
@@ -304,6 +309,35 @@ public class donateFood extends AppCompatActivity {
                                     myEdit.commit();
                                     progressDialog.dismiss();
                                     Toast.makeText(donateFood.this, "Donation Request Added", Toast.LENGTH_SHORT).show();
+
+                                    String message="New Donation Request Added at "+currentDate;
+                                    String heading="PZH";
+                                    String pid=sharedPreferences.getString("player_id","");
+                                    Toast.makeText(donateFood.this, pid, Toast.LENGTH_SHORT).show();
+                                    try {
+                                        json= new JSONObject("{ 'include_player_ids': [ '"+pid+"' ]," +
+                                                "'contents': { 'en' : '"+message+"' } ," +
+                                                " 'headings' :{'en':'"+heading+"'} }");
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+
+                                    OneSignal.postNotification(json, new OneSignal.PostNotificationResponseHandler() {
+                                        @Override
+                                        public void onSuccess(JSONObject jsonObject) {
+                                            Toast.makeText(donateFood.this,"Notification sent",Toast.LENGTH_LONG).show();
+                                        }
+
+                                        @Override
+                                        public void onFailure(JSONObject jsonObject) {
+                                            Toast.makeText(donateFood.this,"Notification Not sent",Toast.LENGTH_LONG).show();
+
+                                        }
+                                    });
+
+                                    String test= json.toString();
+                                    Toast.makeText(donateFood.this, test, Toast.LENGTH_SHORT).show();
+
 
                                     Intent i = new Intent(donateFood.this, Hall_Individual_Home.class); //For Testing only
                                     startActivity(i);

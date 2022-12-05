@@ -103,6 +103,8 @@ public class MainActivity extends AppCompatActivity {
                                         mDatabase.child("player_id").child("Hall").child(userID).setValue(playerid);
                                     }
                                     myEdit.putString("player_id", playerid);
+                                    myEdit.commit();
+                                    Toast.makeText(MainActivity.this, playerid, Toast.LENGTH_SHORT).show();
 
                                     if (profileType.matches("NGO")) {
 //                                    Toast.makeText(MainActivity.this, "NGO NGO NGO", Toast.LENGTH_SHORT).show();

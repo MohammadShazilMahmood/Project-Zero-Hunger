@@ -64,15 +64,16 @@ public class appSettings extends AppCompatActivity {
         if (localData)
         {
             profileType = sharedPreferences.getString("profileType", "");
-//            current_state=sharedPreferences.getString("notifications","True");
-//            if (current_state.matches("True"))
-//            {
-//                notifications.setChecked(true);
-//            }
-//            else
-//            {
-//                notifications.setChecked(false);
-//            }
+            current_state = sharedPreferences.getString("notifications","True");
+
+            if (current_state.matches("True"))
+            {
+                notifications.setChecked(true);
+            }
+            else
+            {
+                notifications.setChecked(false);
+            }
         }
 
         if (isNetworkAvailable() && (localData==false))
@@ -87,29 +88,31 @@ public class appSettings extends AppCompatActivity {
                     }
                 }
             });
-        }
 
-        //Load Previous State
-        mDatabase.child("users").child(userID).child("app_settings").child("notifications").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if (!task.isSuccessful()) {
-                    Log.e("firebase", "Error getting data", task.getException());
-                }
-                else
-                {
-                    current_state=""+String.valueOf(task.getResult().getValue());
-                    if (current_state.matches("True"))
-                    {
-                        notifications.setChecked(true);
+            //Load Previous State
+            mDatabase.child("users").child(userID).child("app_settings").child("notifications").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DataSnapshot> task) {
+                    if (!task.isSuccessful()) {
+                        Log.e("firebase", "Error getting data", task.getException());
                     }
                     else
                     {
-                        notifications.setChecked(false);
+                        current_state=""+String.valueOf(task.getResult().getValue());
+                        if (current_state.matches("True"))
+                        {
+                            notifications.setChecked(true);
+                        }
+                        else
+                        {
+                            notifications.setChecked(false);
+                        }
                     }
                 }
-            }
-        });
+            });
+        }
+
+
 
 
         back.setOnClickListener(new View.OnClickListener() {
@@ -140,11 +143,13 @@ public class appSettings extends AppCompatActivity {
                     if (notifications.isChecked()) {
                         mDatabase.child("users").child(userID).child("app_settings").child("notifications").setValue("True");
                         current_state = "True";
-//                    myEdit.putString("notifications", "True");
+                    myEdit.putString("notifications", "True");
+                    myEdit.commit();
                     } else {
                         mDatabase.child("users").child(userID).child("app_settings").child("notifications").setValue("False");
                         current_state = "False";
-//                    myEdit.putString("notifications", "False");
+                    myEdit.putString("notifications", "False");
+                    myEdit.commit();
                     }
                     Toast.makeText(appSettings.this, "Settings Saved", Toast.LENGTH_SHORT).show();
                 }
