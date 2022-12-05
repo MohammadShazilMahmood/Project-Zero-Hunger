@@ -2,11 +2,16 @@ package com.ass2.final_project_i190727_i190542_i180580;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -34,6 +39,15 @@ public class addProfilePicture extends AppCompatActivity {
     DatabaseReference mDatabase;
     boolean imageSelected=false;
     String profileType;
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager != null ? connectivityManager.getActiveNetworkInfo() : null;
+        return activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,10 +91,30 @@ public class addProfilePicture extends AppCompatActivity {
             public void onClick(View view) {
                 boolean valid=true;
 
+                String error_msg="";
+
                 if (imageSelected==false)
                 {
-                    Toast.makeText(addProfilePicture.this, "Image not selected", Toast.LENGTH_SHORT).show();
+                    error_msg=error_msg+"Image not selected";
                     valid=false;
+                }
+
+                if(isNetworkAvailable()==false)
+                {
+                    valid=false;
+                    if(error_msg.matches(""))
+                    {
+                        error_msg=error_msg+"No Internet Available";
+                    }
+                    else
+                    {
+                        error_msg=error_msg+"\nNo Internet Available";
+                    }
+                }
+
+                if (valid==false)
+                {
+                    Toast.makeText(addProfilePicture.this, error_msg, Toast.LENGTH_SHORT).show();
                 }
 
                 if (valid)

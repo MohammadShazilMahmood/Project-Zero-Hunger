@@ -1,10 +1,15 @@
 package com.ass2.final_project_i190727_i190542_i180580;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -26,6 +31,16 @@ public class MainActivity extends AppCompatActivity {
     ImageView logo;
     String profileType;
     Intent i;
+    boolean logged_in;
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager != null ? connectivityManager.getActiveNetworkInfo() : null;
+        return activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,43 +60,80 @@ public class MainActivity extends AppCompatActivity {
             editor.putBoolean("FIRST_RUN", true);
             editor.commit();
         }
+
+        SharedPreferences sharedPreferences = getSharedPreferences("MySharedPref", MODE_PRIVATE);
+        SharedPreferences.Editor myEdit = sharedPreferences.edit();
+
+        boolean localData= sharedPreferences.getBoolean("localData",false);
+
+        if (localData)
+        {
+            profileType = sharedPreferences.getString("profileType", "");
+            logged_in = sharedPreferences.getBoolean("loggedIn", false);
+        }
+
                 
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                FirebaseUser user = mAuth.getCurrentUser();
+                if (isNetworkAvailable()) {
 
-                if (user != null) {
-                    String userID = user.getUid().toString();
+                    FirebaseUser user = mAuth.getCurrentUser();
 
-                    //Load Profile Type
-                    mDatabase.child("users").child(userID).child("profile_information").child("profileType").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<DataSnapshot> task) {
-                            if (!task.isSuccessful()) {
-                                Log.e("firebase", "Error getting data", task.getException());
-                            }
-                            else
-                            {
-                                profileType=""+String.valueOf(task.getResult().getValue());
-                                if (profileType.matches("NGO"))
-                                {
+                    if (user != null) {
+                        String userID = user.getUid().toString();
+
+                        //Load Profile Type
+                        mDatabase.child("users").child(userID).child("profile_information").child("profileType").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                                if (!task.isSuccessful()) {
+                                    Log.e("firebase", "Error getting data", task.getException());
+                                } else {
+                                    profileType = "" + String.valueOf(task.getResult().getValue());
+                                    if (profileType.matches("NGO")) {
 //                                    Toast.makeText(MainActivity.this, "NGO NGO NGO", Toast.LENGTH_SHORT).show();
-                                    i = new Intent(MainActivity.this, NGO_Home.class); //For Testing only
+                                        i = new Intent(MainActivity.this, NGO_Home.class); //For Testing only
+                                    } else {
+                                        i = new Intent(MainActivity.this, Hall_Individual_Home.class); //For Testing only
+                                    }
+                                    startActivity(i);
+                                    finish();
                                 }
-                                else
-                                {
-                                    i = new Intent(MainActivity.this, Hall_Individual_Home.class); //For Testing only
-                                }
-                                startActivity(i);
-                                finish();
                             }
+                        });
+                    } else {
+                        i = new Intent(MainActivity.this, loginScreen.class);
+                        startActivity(i);
+                        finish();
+                    }
+                }
+
+                if (isNetworkAvailable()==false )
+                {
+                    if (localData) {
+//                        Toast.makeText(MainActivity.this, "A", Toast.LENGTH_SHORT).show();
+                        if (logged_in) {
+                            if (profileType.matches("NGO")) {
+//                                    Toast.makeText(MainActivity.this, "NGO NGO NGO", Toast.LENGTH_SHORT).show();
+                                i = new Intent(MainActivity.this, NGO_Home.class); //For Testing only
+                            } else {
+                                i = new Intent(MainActivity.this, Hall_Individual_Home.class); //For Testing only
+                            }
+                            startActivity(i);
+                            finish();
+                        } else {
+                            i = new Intent(MainActivity.this, loginScreen.class);
+                            startActivity(i);
+                            finish();
                         }
-                    });
-                } else {
-                    i = new Intent(MainActivity.this, loginScreen.class);
-                    startActivity(i);
-                    finish();
+                    }
+                    else
+                    {
+                        i = new Intent(MainActivity.this, loginScreen.class);
+                        startActivity(i);
+                        finish();
+                    }
                 }
             }
         },2000);

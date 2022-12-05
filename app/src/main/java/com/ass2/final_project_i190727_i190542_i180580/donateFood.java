@@ -297,13 +297,14 @@ public class donateFood extends AppCompatActivity {
 
                                     mDatabase.child("donations").child("donor").child(userID).child("pending_request").child(donationID).setValue(donation);
                                     mDatabase.child("donations").child("donor").child("all_Pending_Request").child(donationID).setValue(donation);
-                                    Toast.makeText(donateFood.this, "NEW", Toast.LENGTH_SHORT).show();
+
                                     donationCount=donationCount+1;
                                     mDatabase.child("donations").child("donor").child(userID).child("Donation_Count").setValue(String.valueOf(donationCount));
                                     myEdit.putInt("donationCount", donationCount);
                                     myEdit.commit();
-
+                                    progressDialog.dismiss();
                                     Toast.makeText(donateFood.this, "Donation Request Added", Toast.LENGTH_SHORT).show();
+
                                     Intent i = new Intent(donateFood.this, Hall_Individual_Home.class); //For Testing only
                                     startActivity(i);
                                     finish();

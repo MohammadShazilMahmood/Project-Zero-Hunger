@@ -224,6 +224,7 @@ public class loginScreen extends AppCompatActivity {
                                 myEdit.putString("userID", userID);
                                 myEdit.putBoolean("localData", true);
                                 myEdit.putBoolean("loggedIn", true);
+                                mDatabase.child("users").child(userID).child("logged_in").setValue("True");
                                 myEdit.commit();
 
                                 mDatabase.child("users").child(userID).child("profile_information").child("profileType").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
@@ -239,7 +240,7 @@ public class loginScreen extends AppCompatActivity {
                                             Toast.makeText(loginScreen.this, "Sign In", Toast.LENGTH_SHORT).show();
                                             if (profileType.matches("NGO"))
                                             {
-                                                Toast.makeText(loginScreen.this, "NGO NGO NGO", Toast.LENGTH_SHORT).show();
+//                                                Toast.makeText(loginScreen.this, "NGO NGO NGO", Toast.LENGTH_SHORT).show();
                                                 Intent i = new Intent(loginScreen.this, NGO_Home.class); //For Testing only
                                                 startActivity(i);
                                                 finish();

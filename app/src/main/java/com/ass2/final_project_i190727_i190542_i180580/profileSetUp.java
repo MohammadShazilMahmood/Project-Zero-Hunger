@@ -1,9 +1,14 @@
 package com.ass2.final_project_i190727_i190542_i180580;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -26,6 +31,14 @@ public class profileSetUp extends AppCompatActivity {
     String email, number;
 //    String indentity_number_type;
 //    RadioButton cnic, ntn;
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager != null ? connectivityManager.getActiveNetworkInfo() : null;
+        return activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -157,6 +170,19 @@ public class profileSetUp extends AppCompatActivity {
                     }
                 }
 
+                if(isNetworkAvailable()==false)
+                {
+                    valid=false;
+                    if(error_msg.matches(""))
+                    {
+                        error_msg=error_msg+"No Internet Available";
+                    }
+                    else
+                    {
+                        error_msg=error_msg+"\nNo Internet Available";
+                    }
+                }
+
 //                if (ntn.isChecked())
 //                {
 //                    identity_number_type="NTN";
@@ -229,6 +255,7 @@ public class profileSetUp extends AppCompatActivity {
                     String userID = user.getUid().toString();
                     mDatabase.child("users").child(userID).child("profile_information").setValue(profile);
                     mDatabase.child("users").child(userID).child("app_settings").child("notifications").setValue("True");
+                    mDatabase.child("users").child(userID).child("logged_in").setValue("True");
                     mDatabase.child("donations").child("donor").child(userID).child("Donation_Count").setValue("0");
 
                     Toast.makeText(profileSetUp.this, "Profile Info Added", Toast.LENGTH_SHORT).show();

@@ -84,9 +84,17 @@ public class NGO_Home extends AppCompatActivity {
         donationRequest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(NGO_Home.this, pendingRequestNGO.class);
-                startActivity(i);
-                finish();
+                if (isNetworkAvailable())
+                {
+                    Intent i = new Intent(NGO_Home.this, pendingRequestNGO.class);
+                    startActivity(i);
+                    finish();
+                }
+                else
+                {
+                    Toast.makeText(NGO_Home.this, "No Internet Available", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
 
@@ -102,10 +110,16 @@ public class NGO_Home extends AppCompatActivity {
         donationHistory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(NGO_Home.this, donationHistoryHall.class);
-                i.putExtra("profileType", "NGO");
-                startActivity(i);
-                finish();
+                if (isNetworkAvailable()) {
+                    Intent i = new Intent(NGO_Home.this, donationHistoryHall.class);
+                    i.putExtra("profileType", "NGO");
+                    startActivity(i);
+                    finish();
+                }
+                else
+                {
+                    Toast.makeText(NGO_Home.this, "No Internet Available", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -121,9 +135,15 @@ public class NGO_Home extends AppCompatActivity {
         acceptedRequest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(NGO_Home.this, acceptedRequestNGO.class);
-                startActivity(i);
-                finish();
+                if (isNetworkAvailable()) {
+                    Intent i = new Intent(NGO_Home.this, acceptedRequestNGO.class);
+                    startActivity(i);
+                    finish();
+                }
+                else
+                {
+                    Toast.makeText(NGO_Home.this, "No Internet Available", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -200,18 +220,25 @@ public class NGO_Home extends AppCompatActivity {
         signOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mAuth.signOut();
-                myEdit.putBoolean("localData", false);
-                myEdit.putBoolean("loggedIn", false);
-                Intent i = new Intent(NGO_Home.this, loginScreen.class); //For Testing only
-                startActivity(i);
-                finish();
+                if (isNetworkAvailable()) {
+                    mAuth.signOut();
+                    myEdit.putBoolean("localData", false);
+                    myEdit.putBoolean("loggedIn", false);
+                    Intent i = new Intent(NGO_Home.this, loginScreen.class); //For Testing only
+                    startActivity(i);
+                    finish();
+                }
+                else
+                {
+                    Toast.makeText(NGO_Home.this, "No Internet Available", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                mDatabase.child("users").child(userID).child("logged_in").setValue("False");
                 Intent i = new Intent(NGO_Home.this, viewProfile.class); //For Testing only
                 startActivity(i);
                 finish();

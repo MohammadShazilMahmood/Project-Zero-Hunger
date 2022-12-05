@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -122,16 +123,36 @@ public class detailedCompletedRequest extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(detailedCompletedRequest.this, donationHistoryHall.class);
-                i.putExtra("profileType", profileType);
-                startActivity(i);
-                finish();
+                if (isNetworkAvailable())
+                {
+                    Intent i = new Intent(detailedCompletedRequest.this, donationHistoryHall.class);
+                    i.putExtra("profileType", profileType);
+                    startActivity(i);
+                    finish();
+                }
+                else
+                {
+                    if (profileType.matches("NGO"))
+                    {
+                        Intent i = new Intent(detailedCompletedRequest.this, NGO_Home.class);
+                        startActivity(i);
+                        finish();
+                    }
+                    else
+                    {
+                        Intent i = new Intent(detailedCompletedRequest.this, Hall_Individual_Home.class);
+                        startActivity(i);
+                        finish();
+                    }
+                }
+
+
             }
         });
 
         foodDetails.setText("Description: "+req.getAccepted_request().getRequest().getFoodDetails());
         donationTime.setText("Request Date and Time: "+req.getAccepted_request().getRequest().getTime());
-        donationID.setText("Donation ID: "+req.getAccepted_request().getRequest().getDonorName());
+        donationID.setText("Donation ID: "+req.getAccepted_request().getRequest().getDonationID());
         donorName.setText("Name: "+req.getAccepted_request().getRequest().getDonorName());
         donorAddress.setText("Address: "+req.getAccepted_request().getRequest().getDonorAddress());
         donorCity.setText("City: "+req.getAccepted_request().getRequest().getDonorCity());

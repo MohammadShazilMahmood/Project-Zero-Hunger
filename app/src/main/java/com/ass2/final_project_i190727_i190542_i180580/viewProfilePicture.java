@@ -17,6 +17,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -32,6 +33,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 public class viewProfilePicture extends AppCompatActivity {
@@ -43,6 +45,7 @@ public class viewProfilePicture extends AppCompatActivity {
     boolean imageSelected=false;
     Uri image;
     String profileType="";
+    ProgressBar loadingImage;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     private boolean isNetworkAvailable() {
@@ -61,6 +64,7 @@ public class viewProfilePicture extends AppCompatActivity {
         upload=findViewById(R.id.upload_profile_pic);
         selectPicture=findViewById(R.id.select_profile_pic);
         back=findViewById(R.id.back);
+        loadingImage=findViewById(R.id.loadingImage);
 
         mAuth= FirebaseAuth.getInstance();
         mDatabase= FirebaseDatabase.getInstance().getReference();
@@ -119,7 +123,25 @@ public class viewProfilePicture extends AppCompatActivity {
                 else
                 {
                     profilePictureURL=String.valueOf(task.getResult().getValue());
-                    Picasso.get().load(profilePictureURL).into(profilePicture);
+                    if (isNetworkAvailable()) {
+                        loadingImage.setVisibility(View.VISIBLE);
+                        loadingImage.bringToFront();
+                        loadingImage.invalidate();
+                        Picasso.get().load(profilePictureURL).into(profilePicture, new Callback() {
+                            @Override
+                            public void onSuccess() {
+                                loadingImage.setVisibility(View.GONE);
+                                loadingImage.bringToFront();
+                                loadingImage.invalidate();
+                            }
+
+                            @Override
+                            public void onError(Exception e) {
+
+                            }
+                        });
+                    }
+
 //                    Toast.makeText(Hall_Individual_Home.this, profilePictureURL, Toast.LENGTH_SHORT).show();
                 }
             }
@@ -139,11 +161,30 @@ public class viewProfilePicture extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 boolean valid=true;
+                String error_msg="";
 
                 if (imageSelected==false)
                 {
-                    Toast.makeText(viewProfilePicture.this, "New Profile Picture Not Selected", Toast.LENGTH_SHORT).show();
+                    error_msg=error_msg+"New Profile Picture Not Selected";
                     valid=false;
+                }
+
+                if(isNetworkAvailable()==false)
+                {
+                    valid=false;
+                    if(error_msg.matches(""))
+                    {
+                        error_msg=error_msg+"No Internet Available";
+                    }
+                    else
+                    {
+                        error_msg=error_msg+"\nNo Internet Available";
+                    }
+                }
+
+                if (valid==false)
+                {
+                    Toast.makeText(viewProfilePicture.this, error_msg, Toast.LENGTH_SHORT).show();
                 }
 
                 if (valid)
@@ -167,6 +208,7 @@ public class viewProfilePicture extends AppCompatActivity {
 
                                     Toast.makeText(viewProfilePicture.this, "Profile Picture Updated", Toast.LENGTH_SHORT).show();
                                     imageSelected=false;
+                                    progressDialog.dismiss();
                                 }
                             });
                         }
@@ -174,6 +216,7 @@ public class viewProfilePicture extends AppCompatActivity {
                         @Override
                         public void onFailure(@NonNull Exception e) {
                             Toast.makeText(viewProfilePicture.this, "Failed to upload", Toast.LENGTH_SHORT).show();
+                            progressDialog.dismiss();
                         }
                     }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
                         @Override

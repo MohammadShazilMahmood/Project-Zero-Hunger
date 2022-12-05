@@ -135,19 +135,23 @@ public class appSettings extends AppCompatActivity {
         saveSettings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (notifications.isChecked())
-                {
-                    mDatabase.child("users").child(userID).child("app_settings").child("notifications").setValue("True");
-                    current_state="True";
+                if (isNetworkAvailable()) {
+
+                    if (notifications.isChecked()) {
+                        mDatabase.child("users").child(userID).child("app_settings").child("notifications").setValue("True");
+                        current_state = "True";
 //                    myEdit.putString("notifications", "True");
+                    } else {
+                        mDatabase.child("users").child(userID).child("app_settings").child("notifications").setValue("False");
+                        current_state = "False";
+//                    myEdit.putString("notifications", "False");
+                    }
+                    Toast.makeText(appSettings.this, "Settings Saved", Toast.LENGTH_SHORT).show();
                 }
                 else
                 {
-                    mDatabase.child("users").child(userID).child("app_settings").child("notifications").setValue("False");
-                    current_state="False";
-//                    myEdit.putString("notifications", "False");
+                    Toast.makeText(appSettings.this, "No Internet Available", Toast.LENGTH_SHORT).show();
                 }
-                Toast.makeText(appSettings.this, "Settings Saved", Toast.LENGTH_SHORT).show();
             }
         });
 

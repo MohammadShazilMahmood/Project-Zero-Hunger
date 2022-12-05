@@ -1,9 +1,14 @@
 package com.ass2.final_project_i190727_i190542_i180580;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -23,6 +28,14 @@ public class signUp extends AppCompatActivity {
     EditText email, number, password;
     FirebaseAuth mAuth;
     DatabaseReference mDatabase;
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager != null ? connectivityManager.getActiveNetworkInfo() : null;
+        return activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +99,19 @@ public class signUp extends AppCompatActivity {
                         error_msg=error_msg+"\nEmpty Password";
                     }
                     valid=false;
+                }
+
+                if(isNetworkAvailable()==false)
+                {
+                    valid=false;
+                    if(error_msg.matches(""))
+                    {
+                        error_msg=error_msg+"No Internet Available";
+                    }
+                    else
+                    {
+                        error_msg=error_msg+"\nNo Internet Available";
+                    }
                 }
 
                 if(valid==false){
