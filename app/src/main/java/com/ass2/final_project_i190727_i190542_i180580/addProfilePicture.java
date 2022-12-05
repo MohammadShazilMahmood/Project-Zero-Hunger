@@ -132,8 +132,6 @@ public class addProfilePicture extends AppCompatActivity {
                             task.addOnSuccessListener(new OnSuccessListener<Uri>() {
                                 @Override
                                 public void onSuccess(Uri uri) {
-//                                    FirebaseUser user = mAuth.getCurrentUser();
-//                                    String userID = user.getUid().toString();
                                     progressDialog.dismiss();
                                     mDatabase.child("users").child(userID).child("profile_picture").setValue(uri.toString());
 
@@ -167,9 +165,6 @@ public class addProfilePicture extends AppCompatActivity {
                             progressDialog.setMessage("Uploaded "+currentProgress+"%");
                         }
                     });
-//                    mDatabase.child("users").child(userID).child("profile_information").setValue(profile);
-
-//                    Toast.makeText(addProfilePicture.this, "Profile Picture Uploaded", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -193,11 +188,5 @@ public class addProfilePicture extends AppCompatActivity {
             profilePicture.setImageURI(image);
             imageSelected=true;
         }
-
-//        if (requestCode==24 & resultCode==RESULT_OK)
-//        {
-//            song=data.getData();
-//            songSelect.setText("Audio Selected");
-//        }
     }
 }

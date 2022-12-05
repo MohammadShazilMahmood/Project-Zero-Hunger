@@ -141,8 +141,6 @@ public class viewProfilePicture extends AppCompatActivity {
                             }
                         });
                     }
-
-//                    Toast.makeText(Hall_Individual_Home.this, profilePictureURL, Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -202,8 +200,6 @@ public class viewProfilePicture extends AppCompatActivity {
                             task.addOnSuccessListener(new OnSuccessListener<Uri>() {
                                 @Override
                                 public void onSuccess(Uri uri) {
-//                                    FirebaseUser user = mAuth.getCurrentUser();
-//                                    String userID = user.getUid().toString();
                                     mDatabase.child("users").child(userID).child("profile_picture").setValue(uri.toString());
 
                                     Toast.makeText(viewProfilePicture.this, "Profile Picture Updated", Toast.LENGTH_SHORT).show();
@@ -226,9 +222,6 @@ public class viewProfilePicture extends AppCompatActivity {
                             progressDialog.setMessage("Uploaded "+currentProgress+"%");
                         }
                     });
-//                    mDatabase.child("users").child(userID).child("profile_information").setValue(profile);
-
-//                    Toast.makeText(addProfilePicture.this, "Profile Picture Uploaded", Toast.LENGTH_SHORT).show();
                 }
             }
         });

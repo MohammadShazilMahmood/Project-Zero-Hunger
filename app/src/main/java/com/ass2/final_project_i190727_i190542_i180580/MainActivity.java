@@ -48,7 +48,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         mAuth = FirebaseAuth.getInstance();
         mDatabase= FirebaseDatabase.getInstance().getReference();
-//        mAuth.signOut();  //For Testing only
 
         boolean mboolean = false;
         SharedPreferences settings = getSharedPreferences("PREFS_NAME", 0);
@@ -104,10 +103,8 @@ public class MainActivity extends AppCompatActivity {
                                     }
                                     myEdit.putString("player_id", playerid);
                                     myEdit.commit();
-//                                    Toast.makeText(MainActivity.this, playerid, Toast.LENGTH_SHORT).show();
 
                                     if (profileType.matches("NGO")) {
-//                                    Toast.makeText(MainActivity.this, "NGO NGO NGO", Toast.LENGTH_SHORT).show();
                                         i = new Intent(MainActivity.this, NGO_Home.class); //For Testing only
                                     } else {
                                         i = new Intent(MainActivity.this, Hall_Individual_Home.class); //For Testing only
@@ -127,10 +124,8 @@ public class MainActivity extends AppCompatActivity {
                 if (isNetworkAvailable()==false )
                 {
                     if (localData) {
-//                        Toast.makeText(MainActivity.this, "A", Toast.LENGTH_SHORT).show();
                         if (logged_in) {
                             if (profileType.matches("NGO")) {
-//                                    Toast.makeText(MainActivity.this, "NGO NGO NGO", Toast.LENGTH_SHORT).show();
                                 i = new Intent(MainActivity.this, NGO_Home.class); //For Testing only
                             } else {
                                 i = new Intent(MainActivity.this, Hall_Individual_Home.class); //For Testing only

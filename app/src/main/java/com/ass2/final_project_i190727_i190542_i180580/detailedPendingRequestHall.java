@@ -73,14 +73,12 @@ public class detailedPendingRequestHall extends AppCompatActivity {
             public void onClick(View view) {
                 if(isNetworkAvailable()) {
                     Intent i = new Intent(detailedPendingRequestHall.this, pendingRequestHall.class);
-//                i.putExtra("canceledID", "");
                     startActivity(i);
                     finish();
                 }
                 else
                 {
                     Intent i = new Intent(detailedPendingRequestHall.this, Hall_Individual_Home.class);
-//                i.putExtra("canceledID", "");
                     startActivity(i);
                     finish();
                 }
@@ -93,7 +91,6 @@ public class detailedPendingRequestHall extends AppCompatActivity {
                 mDatabase.child("donations").child("donor").child(userID).child("pending_request").child(req.getDonationID()).removeValue();
                 mDatabase.child("donations").child("donor").child("all_Pending_Request").child(req.getDonationID()).removeValue();
                 Intent i = new Intent(detailedPendingRequestHall.this, pendingRequestHall.class);
-//                i.putExtra("canceledID", req.getDonationID());
                 startActivity(i);
                 finish();
             }
@@ -138,14 +135,12 @@ public class detailedPendingRequestHall extends AppCompatActivity {
         super.onBackPressed();
         if(isNetworkAvailable()) {
             Intent i = new Intent(detailedPendingRequestHall.this, pendingRequestHall.class);
-//                i.putExtra("canceledID", "");
             startActivity(i);
             finish();
         }
         else
         {
             Intent i = new Intent(detailedPendingRequestHall.this, Hall_Individual_Home.class);
-//                i.putExtra("canceledID", "");
             startActivity(i);
             finish();
         }

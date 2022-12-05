@@ -33,7 +33,7 @@ public class Hall_Individual_Home extends AppCompatActivity {
     FirebaseAuth mAuth;
     DatabaseReference mDatabase;
     DrawerLayout drawer;
-//    ImageView profilePicture;
+
     ImageView donateMoney, donateFood, pendingRequest, acceptedRequest, menu;
     CircleImageView profilePicture;
     String profilePictureURL="";
@@ -81,7 +81,6 @@ public class Hall_Individual_Home extends AppCompatActivity {
         boolean localData= sharedPreferences.getBoolean("localData",false);
         if (localData)
         {
-//            Toast.makeText(Hall_Individual_Home.this, "Local Data", Toast.LENGTH_SHORT).show();
             String nameVal = sharedPreferences.getString("name", "");
             name.setText(nameVal);
         }
@@ -242,7 +241,6 @@ public class Hall_Individual_Home extends AppCompatActivity {
                 {
                     profilePictureURL=String.valueOf(task.getResult().getValue());
                     Picasso.get().load(profilePictureURL).into(profilePicture);
-//                    Toast.makeText(Hall_Individual_Home.this, profilePictureURL, Toast.LENGTH_SHORT).show();
                 }
             }
         });

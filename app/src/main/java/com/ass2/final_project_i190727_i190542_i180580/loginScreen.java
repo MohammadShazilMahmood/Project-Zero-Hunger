@@ -269,7 +269,6 @@ public class loginScreen extends AppCompatActivity {
                                             Toast.makeText(loginScreen.this, "Sign In", Toast.LENGTH_SHORT).show();
                                             if (profileType.matches("NGO"))
                                             {
-//                                                Toast.makeText(loginScreen.this, "NGO NGO NGO", Toast.LENGTH_SHORT).show();
                                                 Intent i = new Intent(loginScreen.this, NGO_Home.class); //For Testing only
                                                 startActivity(i);
                                                 finish();
@@ -283,53 +282,8 @@ public class loginScreen extends AppCompatActivity {
                                         }
                                     }
                                 });
-
-//                                Toast.makeText(loginScreen.this, "Sign In", Toast.LENGTH_SHORT).show();
-//                                if (profileType.matches("NGO"))
-//                                {
-//                                    Toast.makeText(loginScreen.this, "NGO NGO NGO", Toast.LENGTH_SHORT).show();
-//                                    Intent i = new Intent(loginScreen.this, NGO_Home.class); //For Testing only
-//                                    startActivity(i);
-//                                    finish();
-//                                }
-//                                else
-//                                {
-//                                    Intent i = new Intent(loginScreen.this, Hall_Individual_Home.class); //For Testing only
-//                                    startActivity(i);
-//                                    finish();
-//                                }
                             }
 
-
-
-//                            //Load Profile Type
-//                            mDatabase.child("users").child(userID).child("profile_information").child("profileType").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-//                                @Override
-//                                public void onComplete(@NonNull Task<DataSnapshot> task) {
-//                                    if (!task.isSuccessful()) {
-//                                        Log.e("firebase", "Error getting data", task.getException());
-//                                    }
-//                                    else
-//                                    {
-//                                        profileType=""+String.valueOf(task.getResult().getValue());
-//                                    }
-//                                }
-//                            });
-
-//                            Toast.makeText(loginScreen.this, "Sign In", Toast.LENGTH_SHORT).show();
-//                            if (profileType.matches("NGO"))
-//                            {
-//                                Toast.makeText(loginScreen.this, "NGO NGO NGO", Toast.LENGTH_SHORT).show();
-//                                Intent i = new Intent(loginScreen.this, NGO_Home.class); //For Testing only
-//                                startActivity(i);
-//                                finish();
-//                            }
-//                            else
-//                            {
-//                                Intent i = new Intent(loginScreen.this, Hall_Individual_Home.class); //For Testing only
-//                                startActivity(i);
-//                                finish();
-//                            }
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override

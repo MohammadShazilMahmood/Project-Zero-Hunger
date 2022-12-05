@@ -66,7 +66,6 @@ public class signUp extends AppCompatActivity {
                 String error_msg="";
                 if(email.getText().toString().matches(""))
                 {
-//                    Toast.makeText(signUp.this, "Empty Email", Toast.LENGTH_SHORT).show();
                     error_msg=error_msg+"Empty Email";
                     valid=false;
                 }
@@ -74,7 +73,6 @@ public class signUp extends AppCompatActivity {
 
                 if(number.getText().toString().matches(""))
                 {
-//                    Toast.makeText(signUp.this, "Empty Number\nEmpty Number\nEmpty", Toast.LENGTH_SHORT).show();
                     if(error_msg.matches(""))
                     {
                         error_msg=error_msg+"Empty Number";
@@ -89,7 +87,6 @@ public class signUp extends AppCompatActivity {
 
                 if(password.getText().toString().matches(""))
                 {
-//                    Toast.makeText(signUp.this, "Empty Password", Toast.LENGTH_SHORT).show();
                     if(error_msg.matches(""))
                     {
                         error_msg=error_msg+"Empty Password";

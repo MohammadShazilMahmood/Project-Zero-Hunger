@@ -174,17 +174,14 @@ public class contact_us extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Toast.makeText(ourTeam.this, profileType, Toast.LENGTH_SHORT).show();
                 if (profileType.matches("NGO"))
                 {
-//                    Toast.makeText(ourTeam.this, "NGO", Toast.LENGTH_SHORT).show();
                     Intent i = new Intent(contact_us.this, NGO_Home.class); //For Testing only
                     startActivity(i);
                     finish();
                 }
                 else
                 {
-//                    Toast.makeText(ourTeam.this, "H_I", Toast.LENGTH_SHORT).show();
                     Intent i = new Intent(contact_us.this, Hall_Individual_Home.class); //For Testing only
                     startActivity(i);
                     finish();
@@ -248,14 +245,12 @@ public class contact_us extends AppCompatActivity {
 
                     if (profileType.matches("NGO"))
                     {
-//                    Toast.makeText(ourTeam.this, "NGO", Toast.LENGTH_SHORT).show();
                         Intent i = new Intent(contact_us.this, NGO_Home.class); //For Testing only
                         startActivity(i);
                         finish();
                     }
                     else
                     {
-//                    Toast.makeText(ourTeam.this, "H_I", Toast.LENGTH_SHORT).show();
                         Intent i = new Intent(contact_us.this, Hall_Individual_Home.class); //For Testing only
                         startActivity(i);
                         finish();
@@ -274,14 +269,12 @@ public class contact_us extends AppCompatActivity {
         super.onBackPressed();
         if (profileType.matches("NGO"))
         {
-//                    Toast.makeText(ourTeam.this, "NGO", Toast.LENGTH_SHORT).show();
             Intent i = new Intent(contact_us.this, NGO_Home.class); //For Testing only
             startActivity(i);
             finish();
         }
         else
         {
-//                    Toast.makeText(ourTeam.this, "H_I", Toast.LENGTH_SHORT).show();
             Intent i = new Intent(contact_us.this, Hall_Individual_Home.class); //For Testing only
             startActivity(i);
             finish();

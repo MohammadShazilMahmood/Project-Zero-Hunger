@@ -42,7 +42,6 @@ public class CompleteRequestAdapter extends RecyclerView.Adapter<CompleteRequest
             public void onClick(View view) {
                 Intent i = new Intent(c, detailedCompletedRequest.class);
                 Integer pos=holder.getAdapterPosition();
-//                donationRequest req = ls.get(pos);
 
                 i.putExtra("completedDonationRequest",ls.get(pos));
                 c.startActivity(i);

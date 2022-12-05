@@ -34,7 +34,7 @@ public class NGO_Home extends AppCompatActivity {
     FirebaseAuth mAuth;
     DatabaseReference mDatabase;
     DrawerLayout drawer;
-    //    ImageView profilePicture;
+
     CircleImageView profilePicture;
     String profilePictureURL="";
     TextView name, profile, settings, donationHistory, aboutUs, ourTeam, ContactUS, signOut;
@@ -80,7 +80,6 @@ public class NGO_Home extends AppCompatActivity {
         boolean localData= sharedPreferences.getBoolean("localData",false);
         if (localData)
         {
-//            Toast.makeText(NGO_Home.this, "Local Data", Toast.LENGTH_SHORT).show();
             String nameVal = sharedPreferences.getString("name", "");
             name.setText(nameVal);
         }
@@ -225,7 +224,6 @@ public class NGO_Home extends AppCompatActivity {
                 {
                     profilePictureURL=String.valueOf(task.getResult().getValue());
                     Picasso.get().load(profilePictureURL).into(profilePicture);
-//                    Toast.makeText(Hall_Individual_Home.this, profilePictureURL, Toast.LENGTH_SHORT).show();
                 }
             }
         });

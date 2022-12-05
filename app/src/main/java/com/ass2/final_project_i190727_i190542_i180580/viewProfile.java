@@ -67,7 +67,6 @@ public class viewProfile extends AppCompatActivity {
 
         if (localData)
         {
-//            Toast.makeText(viewProfile.this, "Local Data", Toast.LENGTH_SHORT).show();
             profileTypeBack = sharedPreferences.getString("profileType", "");
 
             nameVal = sharedPreferences.getString("name", "");

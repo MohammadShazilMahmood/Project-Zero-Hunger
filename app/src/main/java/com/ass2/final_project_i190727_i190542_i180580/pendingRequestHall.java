@@ -80,8 +80,6 @@ public class pendingRequestHall extends AppCompatActivity {
                 {
                     donationRequest request = datasnapshot.getValue(donationRequest.class);
                     ls.add(request);
-//                    Toast.makeText(pendingRequestHall.this, request.getDonorName(), Toast.LENGTH_SHORT).show();
-//                    Toast.makeText(pendingRequestHall.this, request.getDonationID(), Toast.LENGTH_SHORT).show();
                 }
                 adapter = new PendingRequestHallAdapter(ls, pendingRequestHall.this);
                 rv.setAdapter(adapter);

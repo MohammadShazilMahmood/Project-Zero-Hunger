@@ -328,7 +328,6 @@ public class donateFood extends AppCompatActivity {
                                             ngo_list.clear();
                                             for (DataSnapshot datasnapshot : snapshot.getChildren())
                                             {
-//                                                Toast.makeText(donateFood.this, "AAA", Toast.LENGTH_SHORT).show();
                                                 String uid = datasnapshot.getKey().toString();
                                                 ngo_list.add(uid);
                                             }
@@ -346,7 +345,6 @@ public class donateFood extends AppCompatActivity {
                                                             Log.e("firebase", "Error getting data", task.getException());
                                                         } else {
                                                             logged_in = "" + String.valueOf(task.getResult().getValue());
-//                                                            Toast.makeText(donateFood.this, logged_in, Toast.LENGTH_SHORT).show();
 
                                                             if (logged_in.matches("True")) {
                                                                 mDatabase.child("users").child(current_uid).child("app_settings").child("notifications").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
@@ -366,13 +364,10 @@ public class donateFood extends AppCompatActivity {
                                                                                             Log.e("firebase", "Error getting data", task.getException());
                                                                                         } else {
                                                                                             String pid = "" + String.valueOf(task.getResult().getValue());
-//                                                                                            selected_pid.add(pid);
-//                                                                                            Toast.makeText(donateFood.this, pid, Toast.LENGTH_SHORT).show();
 
                                                                                             String message="Donation ID: "+donationID+"\nDonor: "+name+"\nCity: "+city+"\n"+currentDate;
                                                                                             String heading="PZH New Donation Request";
 
-//                                                                                            Toast.makeText(donateFood.this, pid, Toast.LENGTH_SHORT).show();
                                                                                             try {
                                                                                                 json= new JSONObject("{ 'include_player_ids': [ '"+pid+"' ]," +
                                                                                                         "'contents': { 'en' : '"+message+"' } ," +
@@ -384,12 +379,11 @@ public class donateFood extends AppCompatActivity {
                                                                                             OneSignal.postNotification(json, new OneSignal.PostNotificationResponseHandler() {
                                                                                                 @Override
                                                                                                 public void onSuccess(JSONObject jsonObject) {
-//                                                                                                    Toast.makeText(donateFood.this,"Notification sent",Toast.LENGTH_LONG).show();
                                                                                                 }
 
                                                                                                 @Override
                                                                                                 public void onFailure(JSONObject jsonObject) {
-//                                                                                                    Toast.makeText(donateFood.this,"Notification Not sent",Toast.LENGTH_LONG).show();
+
                                                                                                 }
                                                                                             });
 

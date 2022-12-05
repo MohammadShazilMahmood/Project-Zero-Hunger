@@ -75,14 +75,12 @@ public class detailedAcceptedRequestHall extends AppCompatActivity {
             public void onClick(View view) {
                 if (isNetworkAvailable()) {
                     Intent i = new Intent(detailedAcceptedRequestHall.this, acceptedRequestHall.class);
-//                i.putExtra("canceledID", "");
                     startActivity(i);
                     finish();
                 }
                 else
                 {
                     Intent i = new Intent(detailedAcceptedRequestHall.this, Hall_Individual_Home.class);
-//                i.putExtra("canceledID", "");
                     startActivity(i);
                     finish();
                 }
@@ -127,14 +125,12 @@ public class detailedAcceptedRequestHall extends AppCompatActivity {
         super.onBackPressed();
         if (isNetworkAvailable()) {
             Intent i = new Intent(detailedAcceptedRequestHall.this, acceptedRequestHall.class);
-//                i.putExtra("canceledID", "");
             startActivity(i);
             finish();
         }
         else
         {
             Intent i = new Intent(detailedAcceptedRequestHall.this, Hall_Individual_Home.class);
-//                i.putExtra("canceledID", "");
             startActivity(i);
             finish();
         }

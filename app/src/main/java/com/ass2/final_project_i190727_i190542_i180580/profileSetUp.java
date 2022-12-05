@@ -30,8 +30,6 @@ public class profileSetUp extends AppCompatActivity {
     FirebaseAuth mAuth;
     DatabaseReference mDatabase;
     String email, number;
-//    String indentity_number_type;
-//    RadioButton cnic, ntn;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     private boolean isNetworkAvailable() {
@@ -56,11 +54,6 @@ public class profileSetUp extends AppCompatActivity {
         mAuth= FirebaseAuth.getInstance();
         mDatabase= FirebaseDatabase.getInstance().getReference();
 
-//        cnic=findViewById(R.id.radio_NIC);
-//        ntn=findViewById(R.id.radio_NIC);
-
-//        i.putExtra("email", email.getText().toString());
-//        i.putExtra("number",number.getText().toString());
         Intent temp = getIntent();
         email = temp.getStringExtra("email");
         number = temp.getStringExtra("number");
@@ -184,49 +177,11 @@ public class profileSetUp extends AppCompatActivity {
                     }
                 }
 
-//                if (ntn.isChecked())
-//                {
-//                    identity_number_type="NTN";
-//                }
-//                else if (cnic.isChecked())
-//                {
-//                    identity_number_type="CNIC";
-//                }
-//                else
-//                {
-//                    identity_number_type="";
-//                }
-//
-//                if(identity_number_type.matches(""))
-//                {
-//                    valid=false;
-//                    if(error_msg.matches(""))
-//                    {
-//                        error_msg=error_msg+"Identity Type Not Selected";
-//                    }
-//                    else
-//                    {
-//                        error_msg=error_msg+"\nIdentity Type Not Selected";
-//                    }
-//                }
-
                 if (valid==false)
                 {
                     Toast.makeText(profileSetUp.this, error_msg, Toast.LENGTH_SHORT).show();
                 }
 
-//                if(profile_type.matches("Individual") && (!(identity_number_type.matches("CNIC"))))
-//                {
-//                    Toast.makeText(profileSetUp.this, "Invalid ID Type for Individuals", Toast.LENGTH_SHORT).show();
-//                    valid=false;
-//                }
-//
-//                if((profile_type.matches("NGO") || profile_type.matches("Hall")) && (identity_number_type.matches("CNIC")))
-//                {
-//                    Toast.makeText(profileSetUp.this, "Invalid ID Type for Organisations", Toast.LENGTH_SHORT).show();
-//                    valid=false;
-//                }
-//
                 if (valid)
                 {
                     if(profile_type.matches("Individual") && (identity_number.length()!=13))

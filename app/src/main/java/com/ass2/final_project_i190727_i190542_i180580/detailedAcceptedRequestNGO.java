@@ -1,5 +1,6 @@
 package com.ass2.final_project_i190727_i190542_i180580;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,18 +11,26 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.onesignal.OneSignal;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -33,6 +42,11 @@ public class detailedAcceptedRequestNGO extends AppCompatActivity {
     ProgressBar loadingImage;
 
     String NGO_Name, NGO_Address, NGO_City, NGO_Number, NGO_Email;
+
+    String notifications="";
+    String logged_in="";
+
+    JSONObject json;
 
     FirebaseAuth mAuth;
     DatabaseReference mDatabase;
@@ -80,14 +94,12 @@ public class detailedAcceptedRequestNGO extends AppCompatActivity {
             public void onClick(View view) {
                 if (isNetworkAvailable()) {
                     Intent i = new Intent(detailedAcceptedRequestNGO.this, acceptedRequestNGO.class);
-//                i.putExtra("canceledID", "");
                     startActivity(i);
                     finish();
                 }
                 else
                 {
                     Intent i = new Intent(detailedAcceptedRequestNGO.this, NGO_Home.class);
-//                i.putExtra("canceledID", "");
                     startActivity(i);
                     finish();
                 }
@@ -112,6 +124,71 @@ public class detailedAcceptedRequestNGO extends AppCompatActivity {
 
                     mDatabase.child("donations").child("donor").child(req.getRequest().getDonorID()).child("completed_request").child(req.getRequest().getDonationID()).setValue(complete_request);
                     mDatabase.child("donations").child("NGO").child(req.getNGO_ID()).child("completed_request").child(req.getRequest().getDonationID()).setValue(complete_request);
+
+                    mDatabase.child("users").child(req.getRequest().getDonorID()).child("logged_in").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DataSnapshot> task) {
+                            if (!task.isSuccessful()) {
+                                Log.e("firebase", "Error getting data", task.getException());
+                            } else
+                            {
+                                logged_in = "" + String.valueOf(task.getResult().getValue());
+                                if (logged_in.matches("True"))
+                                {
+                                    mDatabase.child("users").child(req.getRequest().getDonorID()).child("app_settings").child("notifications").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<DataSnapshot> task) {
+                                            if (!task.isSuccessful()) {
+                                                Log.e("firebase", "Error getting data", task.getException());
+                                            } else
+                                            {
+                                                notifications = "" + String.valueOf(task.getResult().getValue());
+
+                                                if (notifications.matches("True"))
+                                                {
+                                                    mDatabase.child("player_id").child("Hall").child(req.getRequest().getDonorID()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                                                        @Override
+                                                        public void onComplete(@NonNull Task<DataSnapshot> task) {
+                                                            if (!task.isSuccessful()) {
+                                                                Log.e("firebase", "Error getting data", task.getException());
+                                                            } else
+                                                            {
+                                                                String pid = "" + String.valueOf(task.getResult().getValue());
+
+                                                                String message="Donation ID: "+req.getRequest().getDonationID()+"\nCollected By: "+req.getNGO_Name()+"\n"+currentDate;
+                                                                String heading="PZH Donation Collected";
+
+                                                                try {
+                                                                    json= new JSONObject("{ 'include_player_ids': [ '"+pid+"' ]," +
+                                                                            "'contents': { 'en' : '"+message+"' } ," +
+                                                                            " 'headings' :{'en':'"+heading+"'} }");
+                                                                } catch (JSONException e) {
+                                                                    e.printStackTrace();
+                                                                }
+
+                                                                OneSignal.postNotification(json, new OneSignal.PostNotificationResponseHandler() {
+                                                                    @Override
+                                                                    public void onSuccess(JSONObject jsonObject) {
+
+                                                                    }
+
+                                                                    @Override
+                                                                    public void onFailure(JSONObject jsonObject) {
+
+                                                                    }
+                                                                });
+                                                            }
+                                                        }
+                                                    });
+                                                }
+                                            }
+                                        }
+                                    });
+                                }
+                            }
+                        }
+                    });
+
 
                     Intent i = new Intent(detailedAcceptedRequestNGO.this, acceptedRequestNGO.class);
                     startActivity(i);
@@ -160,14 +237,12 @@ public class detailedAcceptedRequestNGO extends AppCompatActivity {
         super.onBackPressed();
         if (isNetworkAvailable()) {
             Intent i = new Intent(detailedAcceptedRequestNGO.this, acceptedRequestNGO.class);
-//                i.putExtra("canceledID", "");
             startActivity(i);
             finish();
         }
         else
         {
             Intent i = new Intent(detailedAcceptedRequestNGO.this, NGO_Home.class);
-//                i.putExtra("canceledID", "");
             startActivity(i);
             finish();
         }
