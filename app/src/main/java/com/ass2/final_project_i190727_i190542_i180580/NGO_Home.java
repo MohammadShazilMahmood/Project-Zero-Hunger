@@ -237,6 +237,7 @@ public class NGO_Home extends AppCompatActivity {
                     myEdit.putBoolean("localData", false);
                     myEdit.putBoolean("loggedIn", false);
                     myEdit.commit();
+                    mDatabase.child("player_id").child("NGO").child(userID).child("loggedIN").setValue("False");
                     mDatabase.child("users").child(userID).child("logged_in").setValue("False");
                     Intent i = new Intent(NGO_Home.this, loginScreen.class); //For Testing only
                     startActivity(i);

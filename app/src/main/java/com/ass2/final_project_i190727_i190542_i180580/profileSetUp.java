@@ -219,14 +219,22 @@ public class profileSetUp extends AppCompatActivity {
                     SharedPreferences sharedPreferences = getSharedPreferences("MySharedPref",MODE_PRIVATE);
                     SharedPreferences.Editor myEdit = sharedPreferences.edit();
 
+
                     String playerid= OneSignal.getDeviceState().getUserId().toString();
+
+                    notifications notificationSetting = new notifications(
+                            playerid,
+                            "True",
+                            "True"
+                    );
+
                     if (profile_type.matches("NGO"))
                     {
-                        mDatabase.child("player_id").child("NGO").child(userID).setValue(playerid);
+                        mDatabase.child("player_id").child("NGO").child(userID).setValue(notificationSetting);
                     }
                     else
                     {
-                        mDatabase.child("player_id").child("Hall").child(userID).setValue(playerid);
+                        mDatabase.child("player_id").child("Hall").child(userID).setValue(notificationSetting);
                     }
                     myEdit.putString("player_id", playerid);
 
@@ -245,7 +253,7 @@ public class profileSetUp extends AppCompatActivity {
                     myEdit.putString("notifications", "True");
                     myEdit.commit();
 
-                    Intent i = new Intent(profileSetUp.this, addProfilePicture.class); //For Testing only
+                    Intent i = new Intent(profileSetUp.this, addProfilePicture.class);
                     startActivity(i);
                     finish();
                 }

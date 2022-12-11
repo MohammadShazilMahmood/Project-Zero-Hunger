@@ -254,6 +254,7 @@ public class Hall_Individual_Home extends AppCompatActivity {
                     myEdit.putBoolean("localData", false);
                     myEdit.putBoolean("loggedIn", false);
                     myEdit.commit();
+                    mDatabase.child("player_id").child("Hall").child(userID).child("loggedIN").setValue("False");
                     mDatabase.child("users").child(userID).child("logged_in").setValue("False");
                     Intent i = new Intent(Hall_Individual_Home.this, loginScreen.class); //For Testing only
                     startActivity(i);

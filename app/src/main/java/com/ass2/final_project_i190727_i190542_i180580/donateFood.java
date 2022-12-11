@@ -320,85 +320,39 @@ public class donateFood extends AppCompatActivity {
                                     Toast.makeText(donateFood.this, "Donation Request Added", Toast.LENGTH_SHORT).show();
 
                                     mDatabase= FirebaseDatabase.getInstance().getReference().child("player_id").child("NGO");
-                                    ngo_list = new ArrayList<>();
-                                    selected_pid = new ArrayList<>();
                                     mDatabase.addValueEventListener(new ValueEventListener() {
                                         @Override
                                         public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                            ngo_list.clear();
                                             for (DataSnapshot datasnapshot : snapshot.getChildren())
                                             {
-                                                String uid = datasnapshot.getKey().toString();
-                                                ngo_list.add(uid);
-                                            }
 
-                                            mDatabase= FirebaseDatabase.getInstance().getReference();
-                                            for (i=0; i<ngo_list.size(); i++)
-                                            {
-                                                notifications="";
-                                                logged_in="";
-                                                current_uid=ngo_list.get(i);
-                                                mDatabase.child("users").child(current_uid).child("logged_in").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-                                                    @Override
-                                                    public void onComplete(@NonNull Task<DataSnapshot> task) {
-                                                        if (!task.isSuccessful()) {
-                                                            Log.e("firebase", "Error getting data", task.getException());
-                                                        } else {
-                                                            logged_in = "" + String.valueOf(task.getResult().getValue());
+                                                notifications notify = datasnapshot.getValue(notifications.class);
+                                                if (notify.getLoggedIN().toString().matches("True") && notify.getNotificationSettings().toString().matches("True"))
+                                                {
+                                                    String pid = notify.getPlayerID().toString();
 
-                                                            if (logged_in.matches("True")) {
-                                                                mDatabase.child("users").child(current_uid).child("app_settings").child("notifications").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-                                                                    @Override
-                                                                    public void onComplete(@NonNull Task<DataSnapshot> task) {
-                                                                        if (!task.isSuccessful()) {
-                                                                            Log.e("firebase", "Error getting data", task.getException());
-                                                                        } else {
-                                                                            notifications = "" + String.valueOf(task.getResult().getValue());
+                                                    String message="Donation ID: "+donationID+"\nDonor: "+name+"\nCity: "+city+"\n"+currentDate;
+                                                    String heading="PZH New Donation Request";
 
-                                                                            if (notifications.matches("True"))
-                                                                            {
-                                                                                mDatabase.child("player_id").child("NGO").child(current_uid).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-                                                                                    @Override
-                                                                                    public void onComplete(@NonNull Task<DataSnapshot> task) {
-                                                                                        if (!task.isSuccessful()) {
-                                                                                            Log.e("firebase", "Error getting data", task.getException());
-                                                                                        } else {
-                                                                                            String pid = "" + String.valueOf(task.getResult().getValue());
-
-                                                                                            String message="Donation ID: "+donationID+"\nDonor: "+name+"\nCity: "+city+"\n"+currentDate;
-                                                                                            String heading="PZH New Donation Request";
-
-                                                                                            try {
-                                                                                                json= new JSONObject("{ 'include_player_ids': [ '"+pid+"' ]," +
-                                                                                                        "'contents': { 'en' : '"+message+"' } ," +
-                                                                                                        " 'headings' :{'en':'"+heading+"'} }");
-                                                                                            } catch (JSONException e) {
-                                                                                                e.printStackTrace();
-                                                                                            }
-
-                                                                                            OneSignal.postNotification(json, new OneSignal.PostNotificationResponseHandler() {
-                                                                                                @Override
-                                                                                                public void onSuccess(JSONObject jsonObject) {
-                                                                                                }
-
-                                                                                                @Override
-                                                                                                public void onFailure(JSONObject jsonObject) {
-
-                                                                                                }
-                                                                                            });
-
-
-                                                                                        }
-                                                                                    }
-                                                                                });
-                                                                            }
-                                                                        }
-                                                                    }
-                                                                });
-                                                            }
-                                                        }
+                                                    try {
+                                                        json= new JSONObject("{ 'include_player_ids': [ '"+pid+"' ]," +
+                                                                "'contents': { 'en' : '"+message+"' } ," +
+                                                                " 'headings' :{'en':'"+heading+"'} }");
+                                                    } catch (JSONException e) {
+                                                        e.printStackTrace();
                                                     }
-                                                });
+
+                                                    OneSignal.postNotification(json, new OneSignal.PostNotificationResponseHandler() {
+                                                        @Override
+                                                        public void onSuccess(JSONObject jsonObject) {
+                                                        }
+
+                                                        @Override
+                                                        public void onFailure(JSONObject jsonObject) {
+
+                                                        }
+                                                    });
+                                                }
                                             }
                                         }
 

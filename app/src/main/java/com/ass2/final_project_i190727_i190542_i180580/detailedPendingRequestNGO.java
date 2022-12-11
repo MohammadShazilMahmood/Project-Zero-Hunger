@@ -235,63 +235,56 @@ public class detailedPendingRequestNGO extends AppCompatActivity {
                     mDatabase.child("donations").child("donor").child(req.getDonorID()).child("accepted_request").child(req.getDonationID()).setValue(accept);
                     mDatabase.child("donations").child("NGO").child(userID).child("accepted_request").child(req.getDonationID()).setValue(accept);
 
-                    mDatabase.child("users").child(req.getDonorID()).child("logged_in").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                    mDatabase.child("player_id").child("Hall").child(req.getDonorID()).child("loggedIN").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<DataSnapshot> task) {
                             if (!task.isSuccessful()) {
                                 Log.e("firebase", "Error getting data", task.getException());
-                            } else
-                            {
+                            } else {
                                 logged_in = "" + String.valueOf(task.getResult().getValue());
-                                if (logged_in.matches("True"))
-                                {
-                                    mDatabase.child("users").child(req.getDonorID()).child("app_settings").child("notifications").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                            }
+                        }
+                    });
+
+                    mDatabase.child("player_id").child("Hall").child(req.getDonorID()).child("notificationSettings").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DataSnapshot> task) {
+                            if (!task.isSuccessful()) {
+                                Log.e("firebase", "Error getting data", task.getException());
+                            } else {
+                                notifications = "" + String.valueOf(task.getResult().getValue());
+                            }
+                        }
+                    });
+
+                    mDatabase.child("player_id").child("Hall").child(req.getDonorID()).child("playerID").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DataSnapshot> task) {
+                            if (!task.isSuccessful()) {
+                                Log.e("firebase", "Error getting data", task.getException());
+                            } else {
+                                String pid = "" + String.valueOf(task.getResult().getValue());
+                                if (logged_in.toString().matches("True") && notifications.toString().matches("True")) {
+                                    String message="Donation ID: "+req.getDonationID()+"\nAccepted By: "+NGO_Name+"\n"+currentDate;
+                                    String heading="PZH Donation Request Accepted";
+
+                                    try {
+                                        json= new JSONObject("{ 'include_player_ids': [ '"+pid+"' ]," +
+                                                "'contents': { 'en' : '"+message+"' } ," +
+                                                " 'headings' :{'en':'"+heading+"'} }");
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+
+                                    OneSignal.postNotification(json, new OneSignal.PostNotificationResponseHandler() {
                                         @Override
-                                        public void onComplete(@NonNull Task<DataSnapshot> task) {
-                                            if (!task.isSuccessful()) {
-                                                Log.e("firebase", "Error getting data", task.getException());
-                                            } else
-                                            {
-                                                notifications = "" + String.valueOf(task.getResult().getValue());
+                                        public void onSuccess(JSONObject jsonObject) {
 
-                                                if (notifications.matches("True"))
-                                                {
-                                                    mDatabase.child("player_id").child("Hall").child(req.getDonorID()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-                                                        @Override
-                                                        public void onComplete(@NonNull Task<DataSnapshot> task) {
-                                                            if (!task.isSuccessful()) {
-                                                                Log.e("firebase", "Error getting data", task.getException());
-                                                            } else
-                                                            {
-                                                                String pid = "" + String.valueOf(task.getResult().getValue());
+                                        }
 
-                                                                String message="Donation ID: "+req.getDonationID()+"\nAccepted By: "+NGO_Name+"\n"+currentDate;
-                                                                String heading="PZH Donation Request Accepted";
+                                        @Override
+                                        public void onFailure(JSONObject jsonObject) {
 
-                                                                try {
-                                                                    json= new JSONObject("{ 'include_player_ids': [ '"+pid+"' ]," +
-                                                                            "'contents': { 'en' : '"+message+"' } ," +
-                                                                            " 'headings' :{'en':'"+heading+"'} }");
-                                                                } catch (JSONException e) {
-                                                                    e.printStackTrace();
-                                                                }
-
-                                                                OneSignal.postNotification(json, new OneSignal.PostNotificationResponseHandler() {
-                                                                    @Override
-                                                                    public void onSuccess(JSONObject jsonObject) {
-
-                                                                    }
-
-                                                                    @Override
-                                                                    public void onFailure(JSONObject jsonObject) {
-
-                                                                    }
-                                                                });
-                                                            }
-                                                        }
-                                                    });
-                                                }
-                                            }
                                         }
                                     });
                                 }

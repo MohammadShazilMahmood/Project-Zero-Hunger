@@ -90,6 +90,8 @@ public class viewProfilePicture extends AppCompatActivity {
                         Log.e("firebase", "Error getting data", task.getException());
                     } else {
                         profileType = "" + String.valueOf(task.getResult().getValue());
+                        myEdit.putString("profileType", profileType);
+                        myEdit.commit();
                     }
                 }
             });

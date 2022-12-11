@@ -255,13 +255,20 @@ public class loginScreen extends AppCompatActivity {
                                             myEdit.commit();
 
                                             String playerid= OneSignal.getDeviceState().getUserId().toString();
+
+                                            notifications notificationSetting = new notifications(
+                                                    playerid,
+                                                    "True",
+                                                    notify
+                                            );
+
                                             if (profileType.matches("NGO"))
                                             {
-                                                mDatabase.child("player_id").child("NGO").child(userID).setValue(playerid);
+                                                mDatabase.child("player_id").child("NGO").child(userID).setValue(notificationSetting);
                                             }
                                             else
                                             {
-                                                mDatabase.child("player_id").child("Hall").child(userID).setValue(playerid);
+                                                mDatabase.child("player_id").child("Hall").child(userID).setValue(notificationSetting);
                                             }
                                             myEdit.putString("player_id", playerid);
                                             myEdit.commit();

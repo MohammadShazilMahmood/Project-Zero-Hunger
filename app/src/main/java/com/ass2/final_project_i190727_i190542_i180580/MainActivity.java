@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
     FirebaseAuth mAuth;
     DatabaseReference mDatabase;
     ImageView logo;
-    String profileType;
+    String profileType, notify;
     Intent i;
     boolean logged_in;
 
@@ -91,26 +91,51 @@ public class MainActivity extends AppCompatActivity {
                                     Log.e("firebase", "Error getting data", task.getException());
                                 } else {
                                     profileType = "" + String.valueOf(task.getResult().getValue());
-
-                                    String playerid= OneSignal.getDeviceState().getUserId().toString();
-                                    if (profileType.matches("NGO"))
-                                    {
-                                        mDatabase.child("player_id").child("NGO").child(userID).setValue(playerid);
-                                    }
-                                    else
-                                    {
-                                        mDatabase.child("player_id").child("Hall").child(userID).setValue(playerid);
-                                    }
-                                    myEdit.putString("player_id", playerid);
+                                    myEdit.putString("profileType", profileType);
                                     myEdit.commit();
 
-                                    if (profileType.matches("NGO")) {
-                                        i = new Intent(MainActivity.this, NGO_Home.class); //For Testing only
-                                    } else {
-                                        i = new Intent(MainActivity.this, Hall_Individual_Home.class); //For Testing only
-                                    }
-                                    startActivity(i);
-                                    finish();
+                                    //Load Notification Settings
+                                    mDatabase.child("users").child(userID).child("app_settings").child("notifications").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<DataSnapshot> task) {
+                                            if (!task.isSuccessful()) {
+                                                Log.e("firebase", "Error getting data", task.getException());
+                                            } else {
+                                                notify = "" + String.valueOf(task.getResult().getValue());
+                                                myEdit.putString("notifications", notify);
+                                                myEdit.commit();
+
+                                                String playerid= OneSignal.getDeviceState().getUserId().toString();
+                                                notifications notificationSetting = new notifications(
+                                                        playerid,
+                                                        "True",
+                                                        notify
+                                                );
+
+                                                if (profileType.matches("NGO"))
+                                                {
+                                                    mDatabase.child("player_id").child("NGO").child(userID).setValue(notificationSetting);
+                                                }
+                                                else
+                                                {
+                                                    mDatabase.child("player_id").child("Hall").child(userID).setValue(notificationSetting);
+                                                }
+
+                                                myEdit.putString("player_id", playerid);
+                                                myEdit.commit();
+
+                                                if (profileType.matches("NGO")) {
+                                                    i = new Intent(MainActivity.this, NGO_Home.class); //For Testing only
+                                                } else {
+                                                    i = new Intent(MainActivity.this, Hall_Individual_Home.class); //For Testing only
+                                                }
+                                                startActivity(i);
+                                                finish();
+                                            }
+                                        }
+                                    });
+
+
                                 }
                             }
                         });

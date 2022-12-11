@@ -85,6 +85,8 @@ public class appSettings extends AppCompatActivity {
                         Log.e("firebase", "Error getting data", task.getException());
                     } else {
                         profileType = "" + String.valueOf(task.getResult().getValue());
+                        myEdit.putString("profileType", profileType);
+                        myEdit.commit();
                     }
                 }
             });
@@ -140,16 +142,35 @@ public class appSettings extends AppCompatActivity {
             public void onClick(View view) {
                 if (isNetworkAvailable()) {
 
-                    if (notifications.isChecked()) {
+                    if (notifications.isChecked())
+                    {
                         mDatabase.child("users").child(userID).child("app_settings").child("notifications").setValue("True");
                         current_state = "True";
-                    myEdit.putString("notifications", "True");
-                    myEdit.commit();
-                    } else {
+                        myEdit.putString("notifications", "True");
+                        myEdit.commit();
+                        if (profileType.matches("NGO"))
+                        {
+                            mDatabase.child("player_id").child("NGO").child(userID).child("notificationSettings").setValue("True");
+                        }
+                        else
+                        {
+                            mDatabase.child("player_id").child("Hall").child(userID).child("notificationSettings").setValue("True");
+                        }
+                    }
+                    else
+                    {
                         mDatabase.child("users").child(userID).child("app_settings").child("notifications").setValue("False");
                         current_state = "False";
-                    myEdit.putString("notifications", "False");
-                    myEdit.commit();
+                        myEdit.putString("notifications", "False");
+                        myEdit.commit();
+                        if (profileType.matches("NGO"))
+                        {
+                            mDatabase.child("player_id").child("NGO").child(userID).child("notificationSettings").setValue("False");
+                        }
+                        else
+                        {
+                            mDatabase.child("player_id").child("Hall").child(userID).child("notificationSettings").setValue("False");
+                        }
                     }
                     Toast.makeText(appSettings.this, "Settings Saved", Toast.LENGTH_SHORT).show();
                 }
