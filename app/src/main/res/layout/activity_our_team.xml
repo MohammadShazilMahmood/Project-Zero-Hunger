@@ -67,6 +67,35 @@
 
             <de.hdodenhof.circleimageview.CircleImageView
                 xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/Shazil"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:src="@drawable/emptyprofile"
+                android:layout_marginBottom="5dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Mohammad Shazil Mahmood"
+                android:textSize="20dp"
+                android:fontFamily="serif"
+                android:textStyle="bold"
+                android:textColor="@color/themeText"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Developer"
+                android:textSize="17dp"
+                android:fontFamily="serif"
+                android:textColor="@color/themeText"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="20dp"/>
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/Talal"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
@@ -125,34 +154,7 @@
                 android:layout_height="20dp"/>
 
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/Shazil"
-                android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:src="@drawable/emptyprofile"
-                android:layout_marginBottom="5dp"/>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="Mohammad Shazil Mahmood"
-                android:textSize="20dp"
-                android:fontFamily="serif"
-                android:textStyle="bold"
-                android:textColor="@color/themeText"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="Developer"
-                android:textSize="17dp"
-                android:fontFamily="serif"
-                android:textColor="@color/themeText"/>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="20dp"/>
 
         </LinearLayout>
     </ScrollView>
